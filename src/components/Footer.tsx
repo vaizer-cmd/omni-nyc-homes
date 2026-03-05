@@ -21,7 +21,7 @@ const Footer = () => {
               Quick Links
             </h4>
             <div className="space-y-2">
-              {["About", "Properties", "Services", "Contact"].map((item) => (
+              {["About", "Services", "Contact"].map((item) => (
                 <Link
                   key={item}
                   to={`/${item.toLowerCase()}`}
