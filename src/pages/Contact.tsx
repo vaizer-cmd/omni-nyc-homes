@@ -1,0 +1,150 @@
+import { useState } from "react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import Layout from "@/components/Layout";
+import { useToast } from "@/hooks/use-toast";
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent",
+      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+    });
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+  };
+
+  return (
+    <Layout>
+      {/* Hero */}
+      <section className="relative py-24 bg-navy">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gold" />
+            <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Get in Touch</span>
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-2xl">
+            Contact Us
+          </h1>
+        </div>
+      </section>
+
+      <section className="py-20 bg-cream">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Contact Info */}
+            <div className="lg:col-span-1 space-y-8">
+              <div>
+                <h2 className="font-display text-2xl font-bold text-foreground mb-6">
+                  Let's Start a Conversation
+                </h2>
+                <p className="font-body text-muted-foreground leading-relaxed">
+                  Whether you're a property owner seeking management services or a tenant with an inquiry, we're here to help.
+                </p>
+              </div>
+
+              <div className="space-y-5">
+                {[
+                  { icon: MapPin, label: "Address", value: "New York, NY" },
+                  { icon: Phone, label: "Phone", value: "(212) 555-0100" },
+                  { icon: Mail, label: "Email", value: "info@omniproperty.com" },
+                  { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-navy flex items-center justify-center shrink-0">
+                      <item.icon size={18} className="text-gold" />
+                    </div>
+                    <div>
+                      <div className="font-body text-xs text-muted-foreground uppercase tracking-wider">{item.label}</div>
+                      <div className="font-body text-foreground font-medium">{item.value}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="lg:col-span-2">
+              <form onSubmit={handleSubmit} className="bg-card border border-border p-8 shadow-card space-y-6">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block font-body text-sm font-medium text-foreground mb-2">Full Name *</label>
+                    <input
+                      required
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-4 py-3 border border-border bg-background font-body text-sm focus:outline-none focus:border-gold transition-colors"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-body text-sm font-medium text-foreground mb-2">Email *</label>
+                    <input
+                      required
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 border border-border bg-background font-body text-sm focus:outline-none focus:border-gold transition-colors"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block font-body text-sm font-medium text-foreground mb-2">Phone</label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-4 py-3 border border-border bg-background font-body text-sm focus:outline-none focus:border-gold transition-colors"
+                      placeholder="(212) 555-0000"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-body text-sm font-medium text-foreground mb-2">Subject *</label>
+                    <input
+                      required
+                      type="text"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full px-4 py-3 border border-border bg-background font-body text-sm focus:outline-none focus:border-gold transition-colors"
+                      placeholder="Property Management Inquiry"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block font-body text-sm font-medium text-foreground mb-2">Message *</label>
+                  <textarea
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3 border border-border bg-background font-body text-sm focus:outline-none focus:border-gold transition-colors resize-none"
+                    placeholder="Tell us about your property management needs..."
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-navy text-cream py-4 font-body font-semibold text-sm tracking-wide hover:bg-navy-light transition-colors"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default Contact;
