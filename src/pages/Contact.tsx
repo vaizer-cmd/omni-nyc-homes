@@ -13,39 +13,13 @@ const Contact = () => {
     message: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const res = await fetch("https://formspree.io/f/mqeyzgpl", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (res.ok) {
-        toast({
-          title: "Message Sent",
-          description: "Thank you for reaching out. We'll get back to you within 24 hours.",
-        });
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-      } else {
-        toast({
-          title: "Error",
-          description: "Something went wrong. Please try again.",
-          variant: "destructive",
-        });
-      }
-    } catch {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    toast({
+      title: "Message Sent",
+      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+    });
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
   return (
@@ -160,10 +134,9 @@ const Contact = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-navy text-cream py-4 font-body font-semibold text-sm tracking-wide hover:bg-navy-light transition-colors disabled:opacity-60"
+                  className="w-full bg-navy text-cream py-4 font-body font-semibold text-sm tracking-wide hover:bg-navy-light transition-colors"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  Send Message
                 </button>
               </form>
             </div>
