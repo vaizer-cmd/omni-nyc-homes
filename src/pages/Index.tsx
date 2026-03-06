@@ -7,7 +7,6 @@ const stats = [
   { number: "200+", label: "Units Managed" },
   { number: "20+", label: "Years Experience" },
   { number: "5", label: "NYC Boroughs" },
-  { number: "98%", label: "Tenant Satisfaction" },
 ];
 
 const highlights = [
@@ -73,7 +72,7 @@ const Index = () => {
       {/* Stats bar */}
       <section className="bg-navy">
         <div className="container mx-auto px-6 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="font-display text-3xl md:text-4xl font-bold text-gold mb-1">
