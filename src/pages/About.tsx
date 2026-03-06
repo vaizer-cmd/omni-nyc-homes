@@ -46,7 +46,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                 <p>
-                  OMNI Property Management LLC was established by a group of highly experienced real estate professionals with decades of combined expertise in the New York City market. Our founders recognized a critical gap: the need for truly premium, detail-oriented property management that treats every building—and every tenant—with the highest level of care.
+                  OMNI Property Management LLC was established by a group of highly experienced real estate professionals with over 20 years of combined expertise in the New York City market. Our founders recognized a critical gap: the need for truly premium, detail-oriented property management that treats every building—and every tenant—with the highest level of care.
                 </p>
                 <p>
                   Our mission is clear: to deliver an exceptional living and working experience for every tenant in every building we manage. We specialize in the maintenance and operation of complex residential and commercial building systems, from state-of-the-art HVAC to intricate fire safety networks.
@@ -63,7 +63,7 @@ const About = () => {
                 className="w-full h-[500px] object-cover shadow-elevated"
               />
               <div className="absolute -bottom-6 -left-6 bg-gold px-8 py-5">
-                <div className="font-display text-3xl font-bold text-accent-foreground">30+</div>
+                <div className="font-display text-3xl font-bold text-accent-foreground">20+</div>
                 <div className="font-body text-sm text-accent-foreground/80">Years of Experience</div>
               </div>
             </div>

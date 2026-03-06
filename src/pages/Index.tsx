@@ -4,8 +4,8 @@ import Layout from "@/components/Layout";
 import heroImage from "@/assets/hero-nyc.jpg";
 
 const stats = [
-  { number: "500+", label: "Units Managed" },
-  { number: "30+", label: "Years Experience" },
+  { number: "200+", label: "Units Managed" },
+  { number: "20+", label: "Years Experience" },
   { number: "5", label: "NYC Boroughs" },
   { number: "98%", label: "Tenant Satisfaction" },
 ];
