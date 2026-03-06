@@ -62,10 +62,6 @@ const About = () => {
                 alt="Luxury building lobby managed by OMNI"
                 className="w-full h-[500px] object-cover shadow-elevated"
               />
-              <div className="absolute -bottom-6 -left-6 bg-gold px-8 py-5">
-                <div className="font-display text-3xl font-bold text-accent-foreground">20+</div>
-                <div className="font-body text-sm text-accent-foreground/80">Years of Experience</div>
-              </div>
             </div>
           </div>
         </div>
