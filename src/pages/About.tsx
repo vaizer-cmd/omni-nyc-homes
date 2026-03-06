@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import aboutImage from "@/assets/about-building.jpg";
 
 const values = [
-  { title: "Integrity", desc: "Transparent operations and honest communication with every stakeholder." },
+  { title: "Dedicated to Professionalism", desc: "Our company is committed to the highest standards of professionalism and excellence." },
   { title: "Excellence", desc: "AAA-level service in every aspect of building management and maintenance." },
   { title: "Responsiveness", desc: "24/7 availability and rapid response to tenant and owner needs." },
   { title: "Innovation", desc: "Leveraging modern technology for efficient property operations." },
