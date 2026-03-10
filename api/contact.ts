@@ -57,17 +57,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "mail.privateemail.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
+      user: process.env.NAMECHEAP_EMAIL,
+      pass: process.env.NAMECHEAP_EMAIL_PASSWORD,
     },
   });
 
   try {
     await transporter.sendMail({
-      from: `"OMNI Website" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_RECIPIENT,
+      from: `"OMNI Website" <${process.env.NAMECHEAP_EMAIL}>`,
+      to: process.env.NAMECHEAP_EMAIL,
       replyTo: email,
       subject: `[OMNI Contact] ${escapeHtml(subject)}`,
       html: `
