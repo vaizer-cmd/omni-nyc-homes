@@ -27,7 +27,7 @@ const Contact = () => {
       if (res.ok) {
         toast({
           title: "Message Sent",
-          description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+          description: "Thank you for reaching out. We'll get back to you within 1-2 business days.",
         });
         setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       } else {
