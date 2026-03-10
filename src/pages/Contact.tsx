@@ -81,7 +81,7 @@ const Contact = () => {
                 {[
                   { icon: MapPin, label: "Address", value: "2260 Hendrickson St. Brooklyn, NY 11234" },
                   { icon: Phone, label: "Phone", value: "(212) 460-5000" },
-                  { icon: Mail, label: "Email", value: "info@omnipropm.com" },
+                  { icon: Mail, label: "Email", value: "info@omnipropm.com", href: "mailto:info@omnipropm.com" },
                   { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
@@ -90,7 +90,11 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="font-body text-xs text-muted-foreground uppercase tracking-wider">{item.label}</div>
-                      <div className="font-body text-foreground font-medium">{item.value}</div>
+                      {item.href ? (
+                        <a href={item.href} className="font-body text-foreground font-medium hover:text-gold transition-colors">{item.value}</a>
+                      ) : (
+                        <div className="font-body text-foreground font-medium">{item.value}</div>
+                      )}
                     </div>
                   </div>
                 ))}
