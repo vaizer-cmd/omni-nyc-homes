@@ -17,13 +17,18 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex flex-col">
-          <span className="font-display text-xl font-bold tracking-wider text-cream">
+          <span className="font-display text-3xl font-bold tracking-wider text-cream">
             OMNI
           </span>
-          <span className="text-[10px] tracking-[0.3em] text-gold uppercase font-body">
+          <span className="text-xs tracking-[0.3em] text-gold uppercase font-body">
             Property Management
           </span>
         </Link>
+
+        {/* Tagline */}
+        <span className="hidden md:block font-display text-sm italic tracking-wide text-gold">
+          Built on Trust, Driven by Excellence.
+        </span>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">

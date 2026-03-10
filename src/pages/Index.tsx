@@ -3,12 +3,6 @@ import { Building2, Shield, Users, ArrowRight, CheckCircle } from "lucide-react"
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/hero-nyc.jpg";
 
-const stats = [
-  { number: "200+", label: "Units Managed" },
-  { number: "20+", label: "Years Experience" },
-  { number: "5", label: "NYC Boroughs" },
-];
-
 const highlights = [
   {
     icon: Building2,
@@ -34,7 +28,7 @@ const Index = () => {
       <section className="relative h-[85vh] min-h-[600px] flex items-center">
         <div className="absolute inset-0">
           <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
         <div className="relative container mx-auto px-6">
           <div className="max-w-2xl animate-fade-in-up">
@@ -69,23 +63,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="bg-navy">
-        <div className="container mx-auto px-6 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="font-display text-3xl md:text-4xl font-bold text-gold mb-1">
-                  {stat.number}
-                </div>
-                <div className="font-body text-sm text-cream/60 tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Highlights */}
       <section className="bg-cream py-20">

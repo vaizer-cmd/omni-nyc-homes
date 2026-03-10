@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -64,7 +65,40 @@ const Contact = () => {
 
       <section className="py-20 bg-cream">
         <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Contact Info */}
+            <div className="lg:col-span-1 space-y-8">
+              <div>
+                <h2 className="font-display text-2xl font-bold text-foreground mb-6">
+                  Let's Start a Conversation
+                </h2>
+                <p className="font-body text-muted-foreground leading-relaxed">
+                  Whether you're a property owner seeking management services or a tenant with an inquiry, we're here to help.
+                </p>
+              </div>
+
+              <div className="space-y-5">
+                {[
+                  { icon: MapPin, label: "Address", value: "2260 Hendrickson St. Brooklyn, NY 11234" },
+                  { icon: Phone, label: "Phone", value: "(212) 460-5000" },
+                  { icon: Mail, label: "Email", value: "info@omnipropm.com" },
+                  { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-navy flex items-center justify-center shrink-0">
+                      <item.icon size={18} className="text-gold" />
+                    </div>
+                    <div>
+                      <div className="font-body text-xs text-muted-foreground uppercase tracking-wider">{item.label}</div>
+                      <div className="font-body text-foreground font-medium">{item.value}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="lg:col-span-2">
               <form onSubmit={handleSubmit} className="bg-card border border-border p-8 shadow-card space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
@@ -132,6 +166,7 @@ const Contact = () => {
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
+            </div>
           </div>
         </div>
       </section>
