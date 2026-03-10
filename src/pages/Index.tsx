@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, Shield, Users, ArrowRight, CheckCircle } from "lucide-react";
+import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/hero-nyc.jpg";
 

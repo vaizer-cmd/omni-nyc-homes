@@ -53,7 +53,7 @@ We reserve the right to update this Privacy Policy at any time. Updates will be 
 If you have any questions regarding this Privacy Policy, please contact us:
 
 OMNI Property Management LLC
-Email: info@omnipropmgmt.com`;
+Email: info@omnipropm.com`;
 
 const termsOfUse = `Terms of Use
 
@@ -90,7 +90,7 @@ These Terms shall be governed by and interpreted in accordance with the laws of 
 8. Contact Information
 
 OMNI Property Management LLC
-Email: info@omnipropmgmt.com`;
+Email: info@omnipropm.com`;
 
 const LegalModal = ({ title, content, onClose }: { title: string; content: string; onClose: () => void }) => (
   <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60" onClick={onClose}>
@@ -163,7 +163,7 @@ const Footer = () => {
 
           <div className="border-t border-cream/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-cream/40">
-              © {new Date().getFullYear()} Omni Property Management LLC. All rights reserved.
+              © {new Date().getFullYear()} OMNI Property Management LLC. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <button
