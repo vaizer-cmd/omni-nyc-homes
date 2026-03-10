@@ -25,8 +25,8 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Tagline */}
-        <span className="hidden md:block font-display text-sm italic tracking-wide text-gold">
+        {/* Tagline - desktop */}
+        <span className="hidden md:block font-display text-sm italic font-bold tracking-wide text-gold">
           Built on Trust, Driven by Excellence.
         </span>
 
@@ -54,6 +54,13 @@ const Navbar = () => {
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
+      </div>
+
+      {/* Mobile tagline */}
+      <div className="md:hidden border-t border-gold/20 px-6 py-2 text-center">
+        <span className="font-display text-xs italic font-bold tracking-wide text-gold">
+          Built on Trust, Driven by Excellence.
+        </span>
       </div>
 
       {/* Mobile menu */}

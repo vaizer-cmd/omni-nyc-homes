@@ -32,13 +32,7 @@ const Index = () => {
         </div>
         <div className="relative container mx-auto px-6">
           <div className="max-w-2xl animate-fade-in-up">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-gold" />
-              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">
-                New York City Property Management
-              </span>
-            </div>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6">
+<h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6">
               Elevating the Standard of{" "}
               <span className="text-gold">Property Management</span>
             </h1>
@@ -74,7 +68,7 @@ const Index = () => {
               <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              Built on Trust, Driven by Excellence
+              Built on Trust, Driven by Excellence.
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
