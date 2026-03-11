@@ -1,35 +1,42 @@
+import { useEffect } from "react";
 import { Building2, Wrench, Users, Shield, Clock, BarChart3 } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const services = [
   {
+    id: "property-management",
     icon: Building2,
     title: "Property Management",
     description: "End-to-end management of residential and commercial properties including tenant relations, lease administration, rent collection, and financial reporting.",
   },
   {
+    id: "building-maintenance",
     icon: Wrench,
     title: "Building Maintenance",
     description: "Comprehensive maintenance of complex building systems — HVAC, plumbing, electrical, elevators, fire safety, and structural components.",
   },
   {
+    id: "tenant-relations",
     icon: Users,
     title: "Tenant Relations",
     description: "Professional tenant communication, complaint resolution, move-in/move-out coordination, and community building programs.",
   },
   {
+    id: "compliance-safety",
     icon: Shield,
     title: "Compliance & Safety",
     description: "Full compliance with NYC building codes, DOB requirements, fire safety regulations, and Local Law inspections.",
   },
   {
+    id: "emergency-response",
     icon: Clock,
     title: "24/7 Emergency Response",
     description: "Round-the-clock emergency maintenance and response team available for all managed properties across the five boroughs.",
   },
   {
+    id: "financial-management",
     icon: BarChart3,
     title: "Financial Management",
     description: "Transparent financial reporting, budgeting, capital planning, and cost optimization to maximize property value.",
@@ -37,6 +44,17 @@ const services = [
 ];
 
 const Services = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    }
+  }, [hash]);
+
   return (
     <Layout>
       {/* Hero */}
@@ -62,7 +80,8 @@ const Services = () => {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="bg-card border border-border p-8 shadow-card hover:shadow-elevated transition-shadow duration-300 group"
+                id={service.id}
+                className="bg-card border border-border p-8 shadow-card hover:shadow-elevated transition-shadow duration-300 group scroll-mt-32"
               >
                 <div className="w-14 h-14 bg-navy flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
                   <service.icon size={24} className="text-cream" />
