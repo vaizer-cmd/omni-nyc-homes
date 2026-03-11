@@ -2,13 +2,14 @@ You are working on OMNI NYC Homes, a static React SPA for a NYC property managem
 
 Tech stack:
 - React 18 + TypeScript (non-strict)
-- Vite 5 (base path: /omni-nyc-homes/)
+- Vite 5
 - Tailwind CSS 3 with custom brand colors (navy, gold, cream)
 - shadcn/ui components (Radix UI primitives) in src/components/ui/
 - react-router-dom v6
 - React Query (configured, data is static)
 - lucide-react icons
 - Vitest + Testing Library
+- Vercel deployment with serverless API
 
 Key conventions:
 - Use Tailwind utility classes for styling, never CSS modules
@@ -17,12 +18,13 @@ Key conventions:
 - PascalCase for component files
 - Pages live in src/pages/, shared components in src/components/
 - Do not manually edit files in src/components/ui/ (shadcn/ui managed)
-- All data is hardcoded in components — no API or database
+- All page data is hardcoded in components — no database
+- Contact form sends email via /api/contact (Vercel serverless + nodemailer)
 - Brand fonts: Playfair Display (headings via font-display), Source Sans 3 (body via font-body)
 - Brand colors: navy (dark blue), gold (accent), cream (light backgrounds)
 
 Project structure:
-- src/pages/ — Route page components (Index, About, Properties, Services, Contact, NotFound)
+- src/pages/ — Route pages (Index, About, Services, Contact, NotFound)
 - src/components/ — Layout, Navbar, Footer, NavLink
 - src/components/ui/ — shadcn/ui primitives (do not edit)
 - src/hooks/ — use-toast, use-mobile
@@ -30,6 +32,7 @@ Project structure:
 - src/assets/ — Static images
 - src/index.css — Global styles, CSS variables, Google Fonts
 - src/App.tsx — Router + QueryClient provider
+- api/contact.ts — Vercel serverless endpoint (nodemailer, rate-limited)
 
 Commands:
 - npm run dev — dev server on port 8080

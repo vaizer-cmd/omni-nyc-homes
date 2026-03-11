@@ -2,7 +2,7 @@
 
 ## Project
 
-Static React SPA for a NYC property management company. Built with React 18, TypeScript, Vite 5, Tailwind CSS 3, and shadcn/ui.
+Static React SPA for a NYC property management company. Built with React 18, TypeScript, Vite 5, Tailwind CSS 3, and shadcn/ui. Deployed on Vercel.
 
 ## Stack & Patterns
 
@@ -12,6 +12,7 @@ Static React SPA for a NYC property management company. Built with React 18, Typ
 - **State**: Local `useState` for UI state. React Query (`@tanstack/react-query`) is configured but all data is currently static/hardcoded.
 - **Path alias**: `@/*` → `./src/*`
 - **Icons**: Import individually from `lucide-react`.
+- **Email**: Contact form submits to `/api/contact` (Vercel serverless function using nodemailer).
 
 ## Code Style
 
@@ -24,19 +25,18 @@ Static React SPA for a NYC property management company. Built with React 18, Typ
 
 | Route | File | Purpose |
 |-------|------|---------|
-| `/` | `src/pages/Index.tsx` | Home — hero, stats, highlights |
+| `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA |
 | `/about` | `src/pages/About.tsx` | Company story, values, expertise |
-| `/properties` | `src/pages/Properties.tsx` | Property portfolio cards |
-| `/services` | `src/pages/Services.tsx` | Service offerings |
+| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll |
 | `/contact` | `src/pages/Contact.tsx` | Contact form + info |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
 ## Testing
 
-Vitest + Testing Library. Tests in `src/test/`. Run with `npm run test`.
+Vitest + Testing Library. Config in `vitest.config.ts`, setup in `src/test/setup.ts`. Run with `npm run test`.
 
 ## Build & Deploy
 
 - `npm run build` outputs to `dist/`
-- Deployed to GitHub Pages with base path `/omni-nyc-homes/`
-- CI/CD via `.github/workflows/deploy.yml`
+- Deployed on Vercel with SPA rewrites (`vercel.json`)
+- API endpoint: `api/contact.ts` (serverless function)

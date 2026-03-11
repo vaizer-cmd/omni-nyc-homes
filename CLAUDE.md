@@ -11,24 +11,37 @@ Professional property management company website for OMNI NYC Homes. Static Reac
 - **Styling**: Tailwind CSS 3 + custom CSS variables (navy/gold/cream brand colors)
 - **UI Components**: shadcn/ui (49 components, Radix UI primitives)
 - **Routing**: react-router-dom v6 (BrowserRouter)
-- **State**: useState + React Query (no global store)
-- **Testing**: Vitest + Testing Library + jsdom
+- **State**: useState + React Query (configured but unused — all data is static)
+- **Testing**: Vitest + Testing Library + jsdom (configured, no tests written yet)
 - **Icons**: lucide-react
-- **Deployment**: GitHub Pages via GitHub Actions
+- **Email**: nodemailer via Vercel serverless function
+- **Deployment**: Vercel (SPA rewrites in vercel.json)
 
 ## Key Paths
 
 ```
 src/
-├── pages/          # Route pages (Index, About, Properties, Services, Contact, NotFound)
+├── pages/          # Route pages (Index, About, Services, Contact, NotFound)
 ├── components/     # Layout, Navbar, Footer, NavLink
 ├── components/ui/  # shadcn/ui primitives (do not edit manually)
 ├── hooks/          # use-toast, use-mobile
 ├── lib/utils.ts    # cn() utility
-├── assets/         # Static images (hero, properties, about)
+├── assets/         # Static images (hero, about, logos)
 ├── index.css       # Global styles, CSS variables, font imports
 └── App.tsx         # Router + QueryClient setup
+api/
+└── contact.ts      # Vercel serverless endpoint (nodemailer, rate-limited)
 ```
+
+## Routes
+
+| Route | File | Purpose |
+|-------|------|---------|
+| `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA |
+| `/about` | `src/pages/About.tsx` | Company story, values, expertise |
+| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
+| `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
+| `*` | `src/pages/NotFound.tsx` | 404 page |
 
 ## Commands
 
@@ -43,12 +56,14 @@ npm run test:watch   # Vitest (watch mode)
 
 ## Architecture Notes
 
-- **All data is static** — hardcoded in page components. No API or database.
-- **Contact form** shows a toast on submit but doesn't send data anywhere.
-- **Base path** is `/omni-nyc-homes/` for GitHub Pages deployment.
+- **All page data is static** — hardcoded in page components. No database.
+- **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via nodemailer (Namecheap email). Requires `NAMECHEAP_EMAIL` and `NAMECHEAP_EMAIL_PASSWORD` env vars.
+- **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
 - **Path alias**: `@/*` maps to `./src/*`.
-- **Brand fonts**: Playfair Display (headings), Source Sans 3 (body) — loaded from Google Fonts in index.css.
+- **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.
+- **Brand colors**: navy (dark blue), gold (accent), cream (light backgrounds) — defined as CSS variables.
 - **shadcn/ui components** are generated into `src/components/ui/` — modify via shadcn CLI, not by hand.
+- **Navbar** is fixed with `pt-[72px]` offset on main content. Mobile has a hamburger menu.
 
 ## Conventions
 
