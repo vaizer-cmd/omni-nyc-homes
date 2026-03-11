@@ -153,10 +153,12 @@ const Footer = () => {
               </Link>
               <div className="space-y-2 text-sm text-cream/60">
                 {[
-                  { label: "Residential Management", hash: "property-management" },
-                  { label: "Commercial Management", hash: "financial-management" },
+                  { label: "Property Management", hash: "property-management" },
                   { label: "Building Maintenance", hash: "building-maintenance" },
                   { label: "Tenant Relations", hash: "tenant-relations" },
+                  { label: "Compliance & Safety", hash: "compliance-safety" },
+                  { label: "24/7 Emergency Response", hash: "emergency-response" },
+                  { label: "Financial Management", hash: "financial-management" },
                 ].map((item) => (
                   <Link
                     key={item.hash}
