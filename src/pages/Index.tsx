@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/hero-nyc.jpg";
+import { useThemedPath } from "@/hooks/use-themed-path";
 
 const highlights = [
   {
@@ -22,6 +23,7 @@ const highlights = [
 ];
 
 const Index = () => {
+  const { themed } = useThemedPath();
   return (
     <Layout>
       {/* Hero */}
@@ -37,17 +39,17 @@ const Index = () => {
               <span className="text-gold">Property Management</span>
             </h1>
             <p className="font-body text-lg text-cream/80 leading-relaxed mb-8 max-w-xl">
-              OMNI Property Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
+              OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                to="/about"
+                to={themed("/about")}
                 className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
               >
                 Learn More <ArrowRight size={16} />
               </Link>
               <Link
-                to="/contact"
+                to={themed("/contact")}
                 className="inline-flex items-center gap-2 border border-cream/30 text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
               >
                 Contact Us
@@ -96,7 +98,7 @@ const Index = () => {
             Partner with a team that treats every property as if it were their own.
           </p>
           <Link
-            to="/contact"
+            to={themed("/contact")}
             className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
           >
             Get in Touch <ArrowRight size={16} />

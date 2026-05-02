@@ -46,7 +46,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                 <p>
-                  OMNI Property Management LLC was established by a group of highly experienced real estate professionals with over 20 years of combined expertise in the New York City market. Our founders recognized a critical gap: the need for truly premium, detail-oriented property management that treats every building—and every tenant—with the highest level of care.
+                  OMNI Management LLC was established by a group of highly experienced real estate professionals with over 20 years of combined expertise in the New York City market. Our founders recognized a critical gap: the need for truly premium, detail-oriented property management that treats every building—and every tenant—with the highest level of care.
                 </p>
                 <p>
                   Our mission is clear: to deliver an exceptional living and working experience for every tenant in every building we manage. We specialize in the maintenance and operation of complex residential and commercial building systems, from state-of-the-art HVAC to intricate fire safety networks.

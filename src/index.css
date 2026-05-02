@@ -87,6 +87,12 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  /* Staging theme — applied when route starts with /staging.
+     Override CSS variables here to preview alternate palettes. */
+  .staging {
+    /* placeholder: same as default; tweak values to preview new colors */
+  }
 }
 
 @layer base {
