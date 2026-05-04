@@ -33,10 +33,11 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
         <div className="relative container mx-auto px-6">
-          <div className="max-w-2xl animate-fade-in-up">
+          <div className="max-w-2xl md:max-w-4xl animate-fade-in-up">
 <h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6">
-              Elevating the Standard of{" "}
-              <span className="text-gold">Property Management</span>
+              Elevating the Standard
+              <br />
+              of <span className="text-gold whitespace-nowrap">Property Management</span>
             </h1>
             <p className="font-body text-lg text-cream/80 leading-relaxed mb-8 max-w-xl">
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
