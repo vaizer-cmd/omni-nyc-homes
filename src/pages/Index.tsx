@@ -24,12 +24,12 @@ const highlights = [
 ];
 
 const Index = () => {
-  const { themed, isStaging } = useThemedPath();
+  const { themed } = useThemedPath();
   const highlightsRef = useRef<HTMLDivElement>(null);
   const [highlightsInView, setHighlightsInView] = useState(false);
 
   useEffect(() => {
-    if (!isStaging || !highlightsRef.current || highlightsInView) return;
+    if (!highlightsRef.current || highlightsInView) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -41,46 +41,38 @@ const Index = () => {
     );
     observer.observe(highlightsRef.current);
     return () => observer.disconnect();
-  }, [isStaging, highlightsInView]);
+  }, [highlightsInView]);
 
   return (
     <Layout>
       {/* Hero */}
-      <section className={`relative h-[85vh] min-h-[600px] flex md:pt-24 overflow-hidden ${isStaging ? "pt-8 items-stretch md:items-start" : "pt-16 items-start"}`}>
+      <section className="relative h-[85vh] min-h-[600px] flex items-stretch md:items-start pt-8 md:pt-24 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="New York City skyline at dusk" className={`w-full h-full object-cover md:object-right lg:object-center ${isStaging ? "animate-slow-zoom" : ""}`} />
+          <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover md:object-right lg:object-center animate-slow-zoom" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
-        <div className={`relative container mx-auto px-6 ${isStaging ? "flex flex-col w-full md:block" : ""}`}>
-          <div className={`max-w-2xl md:max-w-4xl ${isStaging ? "flex flex-col flex-1 md:block" : "animate-fade-in-up"}`}>
-<h1 className={`font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-6 md:mt-10 mb-6 [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)] ${isStaging ? "text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms]" : ""}`}>
+        <div className="relative container mx-auto px-6 flex flex-col w-full md:block">
+          <div className="max-w-2xl md:max-w-4xl flex flex-col flex-1 md:block">
+            <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-6 md:mt-10 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
               Elevating the Standard
               <br />
               of <span className="text-gold md:whitespace-nowrap">Property Management</span>
             </h1>
-            <p className={`font-body text-base md:text-lg text-cream leading-relaxed mb-8 max-w-xl [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)] ${isStaging ? "text-center md:text-left mx-auto md:mx-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms]" : ""}`}>
+            <p className="font-body text-base md:text-lg text-cream leading-relaxed mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
-            <div className={`flex flex-wrap gap-4 ${isStaging ? "justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]" : ""}`}>
-              <Link
-                to={themed("/about")}
-                className={`inline-flex items-center gap-2 px-8 py-3 font-body font-semibold text-sm tracking-wide ${
-                  isStaging
-                    ? "order-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream hover:border-gold hover:text-gold transition-colors"
-                    : "bg-gold text-accent-foreground shadow-lg hover:opacity-90 transition-opacity"
-                }`}
-              >
-                Learn More <ArrowRight size={16} />
-              </Link>
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
               <Link
                 to={themed("/contact")}
-                className={`inline-flex items-center gap-2 px-8 py-3 font-body font-semibold text-sm tracking-wide ${
-                  isStaging
-                    ? "order-1 bg-gold text-accent-foreground shadow-lg hover:opacity-90 transition-opacity"
-                    : "border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream hover:border-gold hover:text-gold transition-colors"
-                }`}
+                className="order-1 inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity"
               >
-                Contact Us {isStaging && <ArrowRight size={16} />}
+                Contact Us <ArrowRight size={16} />
+              </Link>
+              <Link
+                to={themed("/about")}
+                className="order-2 inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
+              >
+                Learn More <ArrowRight size={16} />
               </Link>
             </div>
           </div>
@@ -89,9 +81,9 @@ const Index = () => {
 
 
       {/* Highlights */}
-      <section className={`bg-cream ${isStaging ? "py-14 md:py-20" : "py-20"}`}>
+      <section className="bg-cream py-14 md:py-20">
         <div className="container mx-auto px-6">
-          <div className={`text-center max-w-2xl mx-auto ${isStaging ? "mb-10 md:mb-16" : "mb-16"}`}>
+          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Why Choose Us</span>
@@ -101,20 +93,16 @@ const Index = () => {
               Built on Trust, Driven by Excellence.
             </h2>
           </div>
-          <div ref={highlightsRef} className={`grid gap-8 ${isStaging ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3"}`}>
+          <div ref={highlightsRef} className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {highlights.map((item, i) => (
               <div
                 key={item.title}
-                className={`bg-card p-8 shadow-card hover:shadow-elevated border border-border ${
-                  isStaging
-                    ? `transition-all duration-300 hover:-translate-y-1 ${
-                        highlightsInView
-                          ? "animate-fade-in-up [animation-fill-mode:backwards]"
-                          : "opacity-0"
-                      }`
-                    : "transition-shadow duration-300"
+                className={`bg-card p-8 shadow-card hover:shadow-elevated border border-border transition-all duration-300 hover:-translate-y-1 ${
+                  highlightsInView
+                    ? "animate-fade-in-up [animation-fill-mode:backwards]"
+                    : "opacity-0"
                 }`}
-                style={isStaging ? { animationDelay: `${i * 150}ms` } : undefined}
+                style={{ animationDelay: `${i * 150}ms` }}
               >
                 <item.icon size={36} className="text-gold mb-5" />
                 <h3 className="font-display text-xl font-semibold text-foreground mb-3">{item.title}</h3>
