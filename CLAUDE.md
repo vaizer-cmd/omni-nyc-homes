@@ -65,7 +65,7 @@ npm run test:watch   # Vitest (watch mode)
 - **Brand colors**: navy (dark blue), gold (accent), cream (light backgrounds) — defined as CSS variables.
 - **shadcn/ui components** are generated into `src/components/ui/` — modify via shadcn CLI, not by hand.
 - **Navbar** is fixed with `pt-[72px]` offset on main content. Mobile has a hamburger menu.
-- **Staging theme**: `/staging/*` routes render the same page components as the main routes. `ThemeProvider` (`src/components/ThemeProvider.tsx`) toggles a `staging` class on `<html>` and writes the active palette's CSS variables onto `document.documentElement` while on staging. Palettes live in `src/lib/staging-palettes.ts` (HSL "H S% L%" strings). The Navbar renders a `<select>` (in place of the tagline) on staging routes so the active palette can be switched at runtime; the choice persists in `localStorage` under `staging-palette-id`. Internal `Link`s use `useThemedPath()` (`src/hooks/use-themed-path.ts`) to stay within `/staging` while browsing. To add a new palette: append to the `palettes` array in `src/lib/staging-palettes.ts`.
+- **Staging routes**: `/staging/*` renders the same page components as the main routes, differentiated only by per-component branching on `useThemedPath()` (`src/hooks/use-themed-path.ts`) — primarily the Navbar (white bg, staging logo, larger nav links). Internal `Link`s use `themed()` from the same hook to stay within `/staging` while browsing.
 
 ## Staging-only changes
 
@@ -74,7 +74,7 @@ When the user says **"do on staging"**, **"only on staging"**, **"staging only"*
 Because staging routes share components with the main site, isolate changes with one of these patterns:
 - **Color/style tweaks** — override CSS variables inside the `.staging { ... }` block in `src/index.css`. Do not edit the `:root` block.
 - **Layout/markup/copy tweaks** — branch inside the affected component using `const { isStaging } = useThemedPath()` and render the alternate variant only when `isStaging` is true.
-- **Staging-only assets/components** — fine to add new files; gate their usage behind `isStaging`.
+- **Staging-only assets/components** — fine to add new files; gate their usage behind `isStaging` from `useThemedPath()`.
 
 Never duplicate a whole page just to differentiate staging — keep the single component, branch on `isStaging`.
 

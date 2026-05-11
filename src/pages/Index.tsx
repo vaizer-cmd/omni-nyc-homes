@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import heroImage from "@/assets/hero-nyc.jpg";
+import heroImage from "@/assets/hero-nyc.jpeg";
 import { useThemedPath } from "@/hooks/use-themed-path";
 
 const highlights = [
@@ -27,31 +27,31 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-center">
+      <section className="relative h-[85vh] min-h-[600px] flex items-start pt-16 md:pt-24">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover" />
+          <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover md:object-right lg:object-center" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
         <div className="relative container mx-auto px-6">
           <div className="max-w-2xl md:max-w-4xl animate-fade-in-up">
-<h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6">
+<h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6 [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
               Elevating the Standard
               <br />
               of <span className="text-gold whitespace-nowrap">Property Management</span>
             </h1>
-            <p className="font-body text-lg text-cream/80 leading-relaxed mb-8 max-w-xl">
+            <p className="font-body text-lg text-cream leading-relaxed mb-8 max-w-xl [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 to={themed("/about")}
-                className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity"
               >
                 Learn More <ArrowRight size={16} />
               </Link>
               <Link
                 to={themed("/contact")}
-                className="inline-flex items-center gap-2 border border-cream/30 text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
+                className="inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
               >
                 Contact Us
               </Link>

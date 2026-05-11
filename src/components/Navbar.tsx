@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useThemedPath } from "@/hooks/use-themed-path";
-import { useStagingTheme } from "@/components/ThemeProvider";
 import stagingLogo from "@/assets/logo-staging.png";
 
 const navLinks = [
@@ -12,33 +11,10 @@ const navLinks = [
   { label: "Contact", path: "/contact" },
 ];
 
-const PaletteSelect = ({ className = "" }: { className?: string }) => {
-  const { palettes, paletteId, setPaletteId } = useStagingTheme();
-  return (
-    <label className={`flex items-center gap-2 ${className}`}>
-      <span className="text-xs uppercase tracking-[0.2em] text-gold font-body">
-        Palette
-      </span>
-      <select
-        value={paletteId}
-        onChange={(e) => setPaletteId(e.target.value)}
-        className="bg-white text-navy border border-navy/30 rounded px-2 py-1 text-sm font-body focus:outline-none focus:border-gold"
-      >
-        {palettes.map((p) => (
-          <option key={p.id} value={p.id} className="bg-white text-navy">
-            {p.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-};
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { themed } = useThemedPath();
-  const { isStaging } = useStagingTheme();
+  const { themed, isStaging } = useThemedPath();
 
   const navBgClass = isStaging
     ? "bg-white/95 border-navy/10"
@@ -68,14 +44,10 @@ const Navbar = () => {
           )}
         </Link>
 
-        {/* Tagline / palette select - desktop */}
-        {isStaging ? (
-          <PaletteSelect className="hidden md:flex" />
-        ) : (
-          <span className="hidden md:block font-display text-sm italic font-bold tracking-wide text-gold">
-            Built on Trust, Driven by Excellence.
-          </span>
-        )}
+        {/* Tagline - desktop */}
+        <span className="hidden md:block font-display text-sm italic font-bold tracking-wide text-gold">
+          Built on Trust, Driven by Excellence.
+        </span>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
@@ -110,19 +82,15 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile tagline / palette select */}
+      {/* Mobile tagline */}
       <div
         className={`md:hidden border-t px-6 py-2 flex justify-center ${
           isStaging ? "border-navy/10" : "border-gold/20"
         }`}
       >
-        {isStaging ? (
-          <PaletteSelect />
-        ) : (
-          <span className="font-display text-xs italic font-bold tracking-wide text-gold">
-            Built on Trust, Driven by Excellence.
-          </span>
-        )}
+        <span className="font-display text-xs italic font-bold tracking-wide text-gold">
+          Built on Trust, Driven by Excellence.
+        </span>
       </div>
 
       {/* Mobile menu */}

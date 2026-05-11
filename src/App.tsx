@@ -8,7 +8,6 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import ThemeProvider from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
@@ -18,19 +17,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ThemeProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/staging" element={<Index />} />
-            <Route path="/staging/about" element={<About />} />
-            <Route path="/staging/services" element={<Services />} />
-            <Route path="/staging/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </ThemeProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/staging" element={<Index />} />
+          <Route path="/staging/about" element={<About />} />
+          <Route path="/staging/services" element={<Services />} />
+          <Route path="/staging/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
