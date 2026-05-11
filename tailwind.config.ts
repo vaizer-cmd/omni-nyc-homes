@@ -93,12 +93,17 @@ export default {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "slow-zoom": {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.08)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 0.8s ease-out forwards",
         "fade-in": "fade-in 1s ease-out forwards",
+        "slow-zoom": "slow-zoom 25s ease-out forwards",
       },
     },
   },

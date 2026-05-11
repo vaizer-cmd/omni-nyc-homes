@@ -23,37 +23,45 @@ const highlights = [
 ];
 
 const Index = () => {
-  const { themed } = useThemedPath();
+  const { themed, isStaging } = useThemedPath();
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-start pt-16 md:pt-24">
+      <section className={`relative h-[85vh] min-h-[600px] flex md:pt-24 overflow-hidden ${isStaging ? "pt-8 items-stretch md:items-start" : "pt-16 items-start"}`}>
         <div className="absolute inset-0">
-          <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover md:object-right lg:object-center" />
+          <img src={heroImage} alt="New York City skyline at dusk" className={`w-full h-full object-cover md:object-right lg:object-center ${isStaging ? "animate-slow-zoom" : ""}`} />
           <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
-        <div className="relative container mx-auto px-6">
-          <div className="max-w-2xl md:max-w-4xl animate-fade-in-up">
-<h1 className="font-display text-4xl md:text-6xl font-bold text-cream leading-tight mb-6 [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
+        <div className={`relative container mx-auto px-6 ${isStaging ? "flex flex-col w-full md:block" : ""}`}>
+          <div className={`max-w-2xl md:max-w-4xl ${isStaging ? "flex flex-col flex-1 md:block" : "animate-fade-in-up"}`}>
+<h1 className={`font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-6 md:mt-10 mb-6 [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)] ${isStaging ? "text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms]" : ""}`}>
               Elevating the Standard
               <br />
-              of <span className="text-gold whitespace-nowrap">Property Management</span>
+              of <span className="text-gold md:whitespace-nowrap">Property Management</span>
             </h1>
-            <p className="font-body text-lg text-cream leading-relaxed mb-8 max-w-xl [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+            <p className={`font-body text-base md:text-lg text-cream leading-relaxed mb-8 max-w-xl [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)] ${isStaging ? "text-center md:text-left mx-auto md:mx-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms]" : ""}`}>
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className={`flex flex-wrap gap-4 ${isStaging ? "justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]" : ""}`}>
               <Link
                 to={themed("/about")}
-                className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity"
+                className={`inline-flex items-center gap-2 px-8 py-3 font-body font-semibold text-sm tracking-wide ${
+                  isStaging
+                    ? "order-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream hover:border-gold hover:text-gold transition-colors"
+                    : "bg-gold text-accent-foreground shadow-lg hover:opacity-90 transition-opacity"
+                }`}
               >
                 Learn More <ArrowRight size={16} />
               </Link>
               <Link
                 to={themed("/contact")}
-                className="inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
+                className={`inline-flex items-center gap-2 px-8 py-3 font-body font-semibold text-sm tracking-wide ${
+                  isStaging
+                    ? "order-1 bg-gold text-accent-foreground shadow-lg hover:opacity-90 transition-opacity"
+                    : "border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream hover:border-gold hover:text-gold transition-colors"
+                }`}
               >
-                Contact Us
+                Contact Us {isStaging && <ArrowRight size={16} />}
               </Link>
             </div>
           </div>

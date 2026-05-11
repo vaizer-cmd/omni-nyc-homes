@@ -31,7 +31,7 @@ const Navbar = () => {
       >
         <Link to={themed("/")} className="flex flex-col">
           {isStaging ? (
-            <img src={stagingLogo} alt="OMNI" className="h-20 w-auto" />
+            <img src={stagingLogo} alt="OMNI" className="h-14 md:h-16 w-auto" />
           ) : (
             <>
               <span className="font-display text-3xl font-bold tracking-wider text-cream">
@@ -44,8 +44,14 @@ const Navbar = () => {
           )}
         </Link>
 
-        {/* Tagline - desktop */}
-        <span className="hidden md:block font-display text-sm italic font-bold tracking-wide text-gold">
+        {/* Tagline */}
+        <span
+          className={`font-display italic font-bold tracking-wide text-gold ${
+            isStaging
+              ? "block text-[11px] text-center px-2 md:text-sm md:px-0"
+              : "hidden md:block text-sm"
+          }`}
+        >
           Built on Trust, Driven by Excellence.
         </span>
 
@@ -53,18 +59,19 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const to = themed(link.path);
+            const isActive = location.pathname === to;
             return (
               <Link
                 key={link.path}
                 to={to}
                 className={`font-body font-medium tracking-wide transition-colors duration-200 ${
-                  isStaging ? "text-xl" : "text-sm"
-                } ${
-                  location.pathname === to
-                    ? "text-gold"
-                    : isStaging
-                      ? "text-navy/80 hover:text-gold"
-                      : "text-cream/80 hover:text-gold"
+                  isStaging
+                    ? `relative text-xl after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gold after:transition-all after:duration-300 ${
+                        isActive
+                          ? "text-gold after:w-full"
+                          : "text-navy/80 hover:text-gold after:w-0 hover:after:w-full"
+                      }`
+                    : `text-sm ${isActive ? "text-gold" : "text-cream/80 hover:text-gold"}`
                 }`}
               >
                 {link.label}
@@ -82,46 +89,60 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile tagline */}
-      <div
-        className={`md:hidden border-t px-6 py-2 flex justify-center ${
-          isStaging ? "border-navy/10" : "border-gold/20"
-        }`}
-      >
-        <span className="font-display text-xs italic font-bold tracking-wide text-gold">
-          Built on Trust, Driven by Excellence.
-        </span>
-      </div>
+      {/* Mobile tagline (default site only — staging shows it inline above) */}
+      {!isStaging && (
+        <div className="md:hidden border-t border-gold/20 px-6 py-2 flex justify-center">
+          <span className="font-display text-xs italic font-bold tracking-wide text-gold">
+            Built on Trust, Driven by Excellence.
+          </span>
+        </div>
+      )}
 
       {/* Mobile menu */}
-      {isOpen && (
+      {isStaging ? (
         <div
-          className={`md:hidden border-t px-6 py-4 space-y-3 ${
-            isStaging ? "bg-white border-navy/10" : "bg-navy border-gold/20"
+          className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+            isOpen ? "max-h-96" : "max-h-0"
           }`}
         >
-          {navLinks.map((link) => {
-            const to = themed(link.path);
-            return (
-              <Link
-                key={link.path}
-                to={to}
-                onClick={() => setIsOpen(false)}
-                className={`block font-body font-medium tracking-wide py-2 ${
-                  isStaging ? "text-xl" : "text-sm"
-                } ${
-                  location.pathname === to
-                    ? "text-gold"
-                    : isStaging
-                      ? "text-navy/80"
-                      : "text-cream/80"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          <div className="bg-white border-t border-navy/10 px-6 py-4 space-y-3">
+            {navLinks.map((link) => {
+              const to = themed(link.path);
+              return (
+                <Link
+                  key={link.path}
+                  to={to}
+                  onClick={() => setIsOpen(false)}
+                  className={`block font-body font-medium tracking-wide py-2 text-xl ${
+                    location.pathname === to ? "text-gold" : "text-navy/80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
+      ) : (
+        isOpen && (
+          <div className="md:hidden bg-navy border-t border-gold/20 px-6 py-4 space-y-3">
+            {navLinks.map((link) => {
+              const to = themed(link.path);
+              return (
+                <Link
+                  key={link.path}
+                  to={to}
+                  onClick={() => setIsOpen(false)}
+                  className={`block font-body font-medium tracking-wide py-2 text-sm ${
+                    location.pathname === to ? "text-gold" : "text-cream/80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+        )
       )}
     </nav>
   );
