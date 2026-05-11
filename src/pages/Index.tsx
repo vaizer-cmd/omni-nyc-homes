@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
@@ -24,6 +25,24 @@ const highlights = [
 
 const Index = () => {
   const { themed, isStaging } = useThemedPath();
+  const highlightsRef = useRef<HTMLDivElement>(null);
+  const [highlightsInView, setHighlightsInView] = useState(false);
+
+  useEffect(() => {
+    if (!isStaging || !highlightsRef.current || highlightsInView) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHighlightsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(highlightsRef.current);
+    return () => observer.disconnect();
+  }, [isStaging, highlightsInView]);
+
   return (
     <Layout>
       {/* Hero */}
@@ -70,9 +89,9 @@ const Index = () => {
 
 
       {/* Highlights */}
-      <section className="bg-cream py-20">
+      <section className={`bg-cream ${isStaging ? "py-14 md:py-20" : "py-20"}`}>
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className={`text-center max-w-2xl mx-auto ${isStaging ? "mb-10 md:mb-16" : "mb-16"}`}>
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-px w-12 bg-gold" />
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Why Choose Us</span>
@@ -82,11 +101,20 @@ const Index = () => {
               Built on Trust, Driven by Excellence.
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {highlights.map((item) => (
+          <div ref={highlightsRef} className={`grid gap-8 ${isStaging ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3"}`}>
+            {highlights.map((item, i) => (
               <div
                 key={item.title}
-                className="bg-card p-8 shadow-card hover:shadow-elevated transition-shadow duration-300 border border-border"
+                className={`bg-card p-8 shadow-card hover:shadow-elevated border border-border ${
+                  isStaging
+                    ? `transition-all duration-300 hover:-translate-y-1 ${
+                        highlightsInView
+                          ? "animate-fade-in-up [animation-fill-mode:backwards]"
+                          : "opacity-0"
+                      }`
+                    : "transition-shadow duration-300"
+                }`}
+                style={isStaging ? { animationDelay: `${i * 150}ms` } : undefined}
               >
                 <item.icon size={36} className="text-gold mb-5" />
                 <h3 className="font-display text-xl font-semibold text-foreground mb-3">{item.title}</h3>
