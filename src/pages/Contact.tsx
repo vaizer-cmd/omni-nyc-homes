@@ -79,7 +79,7 @@ const Contact = () => {
 
               <div className="space-y-5">
                 {[
-                  { icon: MapPin, label: "Address", value: "2260 Hendrickson St. Brooklyn, NY 11234" },
+                  { icon: MapPin, label: "Address", value: "224 W 35th St Ste 500\nNew York, NY 10001" },
                   { icon: Phone, label: "Phone", value: "(212) 460-5000" },
                   { icon: Mail, label: "Email", value: "info@omnipropm.com", href: "mailto:info@omnipropm.com" },
                   { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
@@ -93,7 +93,7 @@ const Contact = () => {
                       {item.href ? (
                         <a href={item.href} className="font-body text-foreground font-medium hover:text-gold transition-colors">{item.value}</a>
                       ) : (
-                        <div className="font-body text-foreground font-medium">{item.value}</div>
+                        <div className="font-body text-foreground font-medium whitespace-pre-line">{item.value}</div>
                       )}
                     </div>
                   </div>
