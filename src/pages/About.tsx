@@ -83,10 +83,12 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v) => (
               <div key={v.title} className="bg-card border border-border p-6 shadow-card">
-                <div className="w-10 h-10 bg-gold/10 flex items-center justify-center mb-4">
-                  <div className="w-2 h-2 bg-gold rounded-full" />
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-gold/10 flex items-center justify-center shrink-0">
+                    <div className="w-2 h-2 bg-gold rounded-full" />
+                  </div>
+                  <h3 className="font-display text-lg font-semibold text-foreground">{v.title}</h3>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">{v.title}</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
               </div>
             ))}

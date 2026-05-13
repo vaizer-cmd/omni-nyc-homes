@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import heroImage from "@/assets/hero-nyc.jpeg";
+import heroImage from "@/assets/omni_backgound.png";
 import { useThemedPath } from "@/hooks/use-themed-path";
 
 const highlights = [
@@ -53,12 +53,12 @@ const Index = () => {
         </div>
         <div className="relative container mx-auto px-6 flex flex-col w-full md:block">
           <div className="max-w-2xl md:max-w-4xl flex flex-col flex-1 md:block">
-            <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-6 md:mt-10 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
+            <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-36 md:mt-16 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
               Elevating the Standard
               <br />
               of <span className="text-gold md:whitespace-nowrap">Property Management</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-cream leading-relaxed mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
@@ -104,8 +104,10 @@ const Index = () => {
                 }`}
                 style={{ animationDelay: `${i * 150}ms` }}
               >
-                <item.icon size={36} className="text-gold mb-5" />
-                <h3 className="font-display text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                <div className="flex items-center gap-4 mb-3">
+                  <item.icon size={36} className="text-gold shrink-0" />
+                  <h3 className="font-display text-xl font-semibold text-foreground">{item.title}</h3>
+                </div>
                 <p className="font-body text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             ))}

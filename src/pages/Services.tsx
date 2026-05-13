@@ -85,10 +85,12 @@ const Services = () => {
                 id={service.id}
                 className="bg-card border border-border p-8 shadow-card hover:shadow-elevated transition-shadow duration-300 group scroll-mt-32"
               >
-                <div className="w-14 h-14 bg-navy flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
-                  <service.icon size={24} className="text-cream" />
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="w-14 h-14 bg-navy flex items-center justify-center shrink-0 group-hover:bg-gold transition-colors duration-300">
+                    <service.icon size={24} className="text-cream" />
+                  </div>
+                  <h3 className="font-display text-xl font-semibold text-foreground">{service.title}</h3>
                 </div>
-                <h3 className="font-display text-xl font-semibold text-foreground mb-3">{service.title}</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">{service.description}</p>
               </div>
             ))}

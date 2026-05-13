@@ -79,7 +79,7 @@ const Contact = () => {
 
               <div className="space-y-5">
                 {[
-                  { icon: MapPin, label: "Address", value: "224 W 35th St Ste 500\nNew York, NY 10001" },
+                  { icon: MapPin, label: "Address", value: "224 W 35th St Ste 500, New York, NY 10001" },
                   { icon: Phone, label: "Phone", value: "(212) 460-5000" },
                   { icon: Mail, label: "Email", value: "info@omnipropm.com", href: "mailto:info@omnipropm.com" },
                   { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
