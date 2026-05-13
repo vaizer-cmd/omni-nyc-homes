@@ -51,26 +51,27 @@ const Index = () => {
           <img src={heroImage} alt="New York City skyline at dusk" className="w-full h-full object-cover md:object-right lg:object-center animate-slow-zoom" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy/[0.40] via-navy/[0.40] to-navy/[0.40]" />
         </div>
-        <div className="relative container mx-auto px-6 flex flex-col w-full md:block">
+        <div className="relative container mx-auto px-4 md:px-6 flex flex-col w-full md:block">
           <div className="max-w-2xl md:max-w-4xl flex flex-col flex-1 md:block">
-            <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-36 md:mt-16 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
+            <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-28 md:mt-12 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
               Elevating the Standard
               <br />
-              of <span className="text-gold md:whitespace-nowrap">Property Management</span>
+              of <br className="md:hidden" />
+              <span className="text-gold md:whitespace-nowrap">Property Management</span>
             </h1>
             <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
               OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
+            <div className="flex flex-nowrap gap-3 md:gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
               <Link
                 to={themed("/contact")}
-                className="order-1 inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity"
+                className="order-1 inline-flex items-center gap-2 bg-gold text-accent-foreground px-5 md:px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 Contact Us <ArrowRight size={16} />
               </Link>
               <Link
                 to={themed("/about")}
-                className="order-2 inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors"
+                className="order-2 inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-5 md:px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors whitespace-nowrap"
               >
                 Learn More <ArrowRight size={16} />
               </Link>
