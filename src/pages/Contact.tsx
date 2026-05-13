@@ -51,7 +51,7 @@ const Contact = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative py-24 bg-navy">
+      <section className="relative py-12 md:py-24 bg-navy">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-12 bg-gold" />
@@ -63,7 +63,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-cream">
+      <section className="py-10 md:py-20 bg-cream">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
