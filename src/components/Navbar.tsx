@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useThemedPath } from "@/hooks/use-themed-path";
-import stagingLogo from "@/assets/logo-staging.png";
+import stagingLogo from "@/assets/omni_logo.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
