@@ -57,9 +57,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const transporter = nodemailer.createTransport({
-    host: "mail.privateemail.com",
-    port: 465,
-    secure: true,
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false, // STARTTLS — Microsoft 365 uses upgrade-to-TLS on 587, not implicit TLS
     auth: {
       user: process.env.NAMECHEAP_EMAIL,
       pass: process.env.NAMECHEAP_EMAIL_PASSWORD,
