@@ -69,7 +69,7 @@ const Services = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative py-12 md:py-24 bg-navy">
+      <section className="relative py-6 md:py-12 bg-navy">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-12 bg-gold" />
@@ -108,7 +108,7 @@ const Services = () => {
       </section>
 
       {/* Technical Expertise */}
-      <section className="py-20 bg-navy">
+      <section className="py-10 bg-navy">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
@@ -156,7 +156,7 @@ const Services = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-navy">
+      <section className="py-10 bg-navy">
         <div className="container mx-auto px-6 text-center">
           <h2 className="font-display text-3xl font-bold text-cream mb-4">
             Need a Custom Solution?

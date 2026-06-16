@@ -11,7 +11,7 @@ const About = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative py-12 md:py-24 bg-navy">
+      <section className="relative py-6 md:py-12 bg-navy">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-12 bg-gold" />
