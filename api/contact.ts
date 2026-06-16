@@ -82,8 +82,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: "Field length exceeded" });
   }
 
-  // The licensed Microsoft 365 mailbox that sends and receives the notification.
+  // The licensed Microsoft 365 mailbox that sends the notification (must be a
+  // real mailbox the app has Mail.Send permission for — cannot be arbitrary).
   const mailbox = process.env.NAMECHEAP_EMAIL;
+  // Who receives the notification. Defaults to the mailbox itself; override with
+  // CONTACT_RECIPIENT (e.g. a test inbox) for local development.
+  const recipient = process.env.CONTACT_RECIPIENT || mailbox;
 
   try {
     const token = await getGraphToken();
@@ -111,7 +115,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
               `,
             },
-            toRecipients: [{ emailAddress: { address: mailbox } }],
+            toRecipients: [{ emailAddress: { address: recipient } }],
             replyTo: [{ emailAddress: { address: email } }],
           },
           saveToSentItems: false,

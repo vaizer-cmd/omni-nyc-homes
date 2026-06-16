@@ -75,7 +75,10 @@ npm run test:watch   # Vitest (watch mode)
 ## Architecture Notes
 
 - **All page data is static** — hardcoded in page components. No database.
-- **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via the **Microsoft Graph API** (`/users/{mailbox}/sendMail`, app-only OAuth2 token from Entra ID). Requires `M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, and `NAMECHEAP_EMAIL` (the licensed mailbox, e.g. `info@omnipropm.com`) env vars. Rate-limited to 3 requests per IP per 60s (in-memory). Field caps: name/email 200, subject 500, message 5000.
+- **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via the **Microsoft Graph API** (`/users/{mailbox}/sendMail`, app-only OAuth2 token from Entra ID). Requires `M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, and `NAMECHEAP_EMAIL` (the licensed mailbox that sends, e.g. `info@omnipropm.com`) env vars. Optional `CONTACT_RECIPIENT` overrides the recipient (defaults to the mailbox itself) — used to redirect to a test inbox locally. Rate-limited to 3 requests per IP per 60s (in-memory). Field caps: name/email 200, subject 500, message 5000.
+- **Local API testing**: `npm run dev` (Vite, port 8080) does **not** serve `/api/*`. Use `vercel dev` (serves app + functions on port 3000). The Graph *sender* must be a real licensed M365 mailbox — only the recipient can be changed for testing via `CONTACT_RECIPIENT`.
+  - **Gotcha**: once the project is linked, `vercel dev` pulls the cloud *Development* env vars and **ignores `.env.local`**. Inject local secrets via the process env instead: `npx dotenv-cli -e .env.local -- vercel dev --listen 3000`. Verify with a temporary `api/*.ts` that echoes `process.env[...].length` (no underscore prefix — Vercel ignores `_`-prefixed api files).
+  - The SPA rewrite in `vercel.json` is `/((?!api/|@|.*\.).*)` so it doesn't swallow Vite dev modules (`/src/*`, `/@vite/*`) under `vercel dev`.
 - **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
 - **Path alias**: `@/*` maps to `./src/*`.
 - **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.
