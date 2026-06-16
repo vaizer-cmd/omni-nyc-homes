@@ -140,10 +140,7 @@ const Index = () => {
       {/* CTA */}
       <section className="bg-navy py-20">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-4">
-            Ready to Experience Premium Management?
-          </h2>
-          <p className="font-body text-cream/80 mb-4 max-w-2xl mx-auto">
+          <p className="font-body font-bold text-cream mb-4 max-w-2xl mx-auto">
             Whether you manage one building or twenty, OMNI takes the heavy lifting off your plate — and gives your tenants the responsiveness they expect.
           </p>
           <p className="font-body text-cream/70 mb-8 max-w-2xl mx-auto">
