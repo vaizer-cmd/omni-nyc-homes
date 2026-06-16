@@ -25,8 +25,9 @@ Professional property management company website for OMNI NYC Homes. Static Reac
 - **State**: useState + React Query (configured but unused — all data is static)
 - **Testing**: Vitest + Testing Library + jsdom (configured, no tests written yet)
 - **Icons**: lucide-react
-- **Email**: Microsoft Graph API (app-only OAuth2) via Vercel serverless function
-- **Deployment**: Vercel (SPA rewrites in vercel.json)
+- **Email**: Microsoft Graph API (app-only OAuth2) via Vercel serverless functions
+- **PDF**: `pdf-lib` + `@pdf-lib/fontkit` (jobs application is emailed as a generated PDF)
+- **Deployment**: Vercel (SPA rewrites in vercel.json; `jobs.` subdomain serves a static form)
 
 ## Key Paths
 
@@ -40,8 +41,11 @@ src/
 ├── assets/         # Static images (hero, about, logos)
 ├── index.css       # Global styles, CSS variables, font imports
 └── App.tsx         # Router + QueryClient setup
+public/
+└── jobs.html       # Standalone employment-application form (served on the jobs. subdomain & /jobs)
 api/
-└── contact.ts      # Vercel serverless endpoint (Graph API, rate-limited)
+├── contact.ts      # Vercel serverless endpoint — contact form (Graph API, rate-limited)
+└── apply.ts        # Vercel serverless endpoint — job application → PDF + email (Graph API, rate-limited)
 ```
 
 ### Components
@@ -61,6 +65,8 @@ api/
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
+**Jobs form** is **not** a React route — it's the standalone static page `public/jobs.html` (own styling, 5-language switcher EN/ES/RU/UK/KA, no navbar/footer). Served at the root of the `jobs.omnipropm.com` subdomain and at `/jobs` on the main site, via host/path rewrites in `vercel.json`. It posts to `/api/apply`.
+
 ## Commands
 
 ```bash
@@ -79,6 +85,8 @@ npm run test:watch   # Vitest (watch mode)
 - **Local API testing**: `npm run dev` (Vite, port 8080) does **not** serve `/api/*`. Use `vercel dev` (serves app + functions on port 3000). The Graph *sender* must be a real licensed M365 mailbox — only the recipient can be changed for testing via `CONTACT_RECIPIENT`.
   - **Gotcha**: once the project is linked, `vercel dev` pulls the cloud *Development* env vars and **ignores `.env.local`**. Inject local secrets via the process env instead: `npx dotenv-cli -e .env.local -- vercel dev --listen 3000`. Verify with a temporary `api/*.ts` that echoes `process.env[...].length` (no underscore prefix — Vercel ignores `_`-prefixed api files).
   - The SPA rewrite in `vercel.json` is `/((?!api/|@|.*\.).*)` so it doesn't swallow Vite dev modules (`/src/*`, `/@vite/*`) under `vercel dev`.
+- **Jobs application** (`public/jobs.html`) posts JSON to **`/api/apply`** (Vercel serverless function). The endpoint generates a PDF of the application with `pdf-lib` (Unicode font DejaVu Sans fetched once from jsDelivr and cached on the warm instance — covers Latin+Cyrillic; falls back to Helvetica with non-Latin chars stripped if the fetch fails) and emails it via the **Microsoft Graph API**, reusing the same env vars as `/api/contact` (`M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, `NAMECHEAP_EMAIL`). The applicant's optional uploaded resume is attached as a second file. Recipient resolves to `JOBS_RECIPIENT` → `CONTACT_RECIPIENT` → the mailbox itself. Rate-limited 3/IP/60s. Caps: applicant name 200, section title 200, field label 200, field value 5000; resume base64 ≤ 4.4M chars (~3MB raw, kept under Vercel's ~4.5MB body limit — client also enforces a 3MB cap).
+- **Subdomain routing** (`vercel.json`): a host rewrite serves `/jobs.html` at the root of `jobs.omnipropm.com`, and `/jobs` rewrites to it on any domain. Add `jobs.omnipropm.com` to this Vercel project + the DNS record in the dashboard; no separate project/deploy needed. The SPA catch-all rewrite stays last.
 - **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
 - **Path alias**: `@/*` maps to `./src/*`.
 - **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.

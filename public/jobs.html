@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Application – OMNI Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1D3A6E;
+    --navy-light: #2a4f8f;
+    --navy-pale: #eef2f9;
+    --gold: #C8922A;
+    --gold-light: #f5e9d4;
+    --dark: #111827;
+    --mid: #4B5563;
+    --light: #9CA3AF;
+    --border: #D1D5DB;
+    --bg: #F8F9FC;
+    --white: #ffffff;
+    --green: #16794a;
+    --red: #b42318;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--dark); min-height: 100vh; }
+
+  .page-header {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border: 40px solid rgba(200,146,42,0.12);
+    border-radius: 50%;
+  }
+  .header-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 44px 40px 36px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo-box {
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    width: 66px; height: 66px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .logo-box img { width: 50px; height: 50px; object-fit: contain; }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+  }
+  .header-text p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+  .gold-bar { height: 4px; background: linear-gradient(90deg, var(--gold), #e8b14a, var(--gold)); }
+
+  .form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 36px 40px 60px;
+  }
+
+  .section {
+    background: var(--white);
+    border-radius: 14px;
+    margin-bottom: 22px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid rgba(209,213,219,0.6);
+  }
+  .section-header {
+    padding: 16px 26px;
+    background: var(--navy-pale);
+    border-bottom: 1px solid rgba(29,58,110,0.12);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 26px; height: 26px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .section-body { padding: 26px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .col-span-2 { grid-column: span 2; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .field label .req { color: var(--gold); margin-left: 2px; }
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14.5px;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--dark);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(29,58,110,0.08);
+  }
+  .field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+  .radio-group, .check-group {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px;
+  }
+  .radio-pill, .check-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--mid);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-pill input, .check-pill input { display: none; }
+  .radio-pill:has(input:checked),
+  .check-pill:has(input:checked) {
+    border-color: var(--navy);
+    background: var(--navy-pale);
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .radio-pill:hover, .check-pill:hover {
+    border-color: var(--navy-light);
+    background: var(--navy-pale);
+  }
+
+  /* Previous employer card */
+  .employer-card {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    background: var(--bg);
+  }
+  .employer-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Notice */
+  .notice {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 13px 18px;
+    font-size: 13px;
+    color: #7a5217;
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+
+  /* Upload */
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .upload-area:hover { border-color: var(--navy); background: var(--navy-pale); }
+  .upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-area p { font-size: 14px; color: var(--mid); }
+  .upload-area span { font-size: 12px; color: var(--light); display: block; margin-top: 4px; }
+  .upload-area .filename { color: var(--navy); font-weight: 600; margin-top: 8px; font-size: 13px; }
+
+  .disclaimer {
+    background: var(--navy-pale);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-size: 12.5px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    border: 1px solid rgba(29,58,110,0.1);
+  }
+  .disclaimer strong { color: var(--navy); }
+
+  .eeo-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    font-size: 12.5px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+  .eeo-box strong { color: var(--navy); }
+
+  .submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .submit-note { font-size: 13px; color: var(--light); }
+  .btn-submit {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(29,58,110,0.3);
+  }
+  .btn-submit:hover {
+    background: var(--navy-light);
+    box-shadow: 0 6px 20px rgba(29,58,110,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* Status banner */
+  .status {
+    display: none;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .status.show { display: block; }
+  .status.ok { background: #e7f4ee; border: 1px solid var(--green); color: var(--green); }
+  .status.err { background: #fdecea; border: 1px solid var(--red); color: var(--red); }
+
+  .page-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 18px;
+    font-size: 12px;
+  }
+  .page-footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; align-items: flex-start; padding: 28px 20px 24px; }
+    .form-wrap { padding: 20px 16px 48px; }
+    .section-body { padding: 18px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .col-span-2 { grid-column: span 1; }
+    .submit-row { flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Language Switcher -->
+<div style="background:#111827; padding:10px 0; text-align:center; position:sticky; top:0; z-index:100; border-bottom:2px solid #C8922A; flex-wrap:wrap; display:flex; align-items:center; justify-content:center; gap:6px; padding-left:12px; padding-right:12px;">
+  <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:rgba(255,255,255,0.5); margin-right:8px;">Language:</span>
+  <button onclick="setLang('en')" id="btn-en" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 14px; border-radius:6px; border:1.5px solid #C8922A; background:#C8922A; color:white; cursor:pointer; transition:all 0.15s;">🇺🇸 English</button>
+  <button onclick="setLang('es')" id="btn-es" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.3); background:transparent; color:rgba(255,255,255,0.7); cursor:pointer; transition:all 0.15s;">🇪🇸 Español</button>
+  <button onclick="setLang('ru')" id="btn-ru" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.3); background:transparent; color:rgba(255,255,255,0.7); cursor:pointer; transition:all 0.15s;">🇷🇺 Русский</button>
+  <button onclick="setLang('uk')" id="btn-uk" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.3); background:transparent; color:rgba(255,255,255,0.7); cursor:pointer; transition:all 0.15s;">🇺🇦 Українська</button>
+  <button onclick="setLang('ka')" id="btn-ka" style="font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; padding:6px 14px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.3); background:transparent; color:rgba(255,255,255,0.7); cursor:pointer; transition:all 0.15s;">🇬🇪 ქართული</button>
+</div>
+
+<div class="page-header">
+  <div class="header-inner">
+    <div class="logo-box">
+      <img src="https://instasize.com/api/image/1153979b56eba5adc7c7f7b19026761dd85102d526713affa24228126f0df1b6.jpeg" alt="OMNI Management">
+    </div>
+    <div class="header-text">
+      <h1>Employment Application</h1>
+      <p>Cleaning Staff &amp; Maintenance · OMNI Management · New York, NY</p>
+    </div>
+  </div>
+  <div class="gold-bar"></div>
+</div>
+
+<div class="form-wrap">
+
+  <div class="notice">
+    📋 Please complete all sections as fully as possible. All information will be kept confidential and used for hiring purposes only.
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <form id="appForm" novalidate>
+
+    <!-- 1. Personal Information -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Personal Information</div>
+      </div>
+      <div class="section-body">
+        <div class="grid-2">
+          <div class="field">
+            <label data-key="fname">First Name <span class="req">*</span></label>
+            <input type="text" name="fname" placeholder="First name">
+          </div>
+          <div class="field">
+            <label data-key="lname">Last Name <span class="req">*</span></label>
+            <input type="text" name="lname" placeholder="Last name">
+          </div>
+          <div class="field">
+            <label data-key="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" name="phone" placeholder="(212) 000-0000">
+          </div>
+          <div class="field">
+            <label data-key="email">Email Address</label>
+            <input type="email" name="email" placeholder="your@email.com">
+          </div>
+          <div class="field col-span-2">
+            <label data-key="address">Home Address</label>
+            <input type="text" name="address" placeholder="Street address, Apt, City, State, ZIP">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Position -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Position Applied For</div>
+      </div>
+      <div class="section-body">
+        <div class="field" style="margin-bottom:18px">
+          <label data-key="applyFor">I am applying for <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-pill"><input type="radio" name="position" value="Porter"> <span data-key="porter">🧹 Porter</span></label>
+            <label class="radio-pill"><input type="radio" name="position" value="Maintenance Worker"> <span data-key="maintenance">🔧 Maintenance Worker</span></label>
+            <label class="radio-pill"><input type="radio" name="position" value="Both"> <span data-key="both">Both</span></label>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Employment Type <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-pill"><input type="radio" name="emptype" value="Full-Time"> Full-Time</label>
+              <label class="radio-pill"><input type="radio" name="emptype" value="Part-Time"> Part-Time</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Available to Start</label>
+            <input type="date" name="startdate">
+          </div>
+        </div>
+        <div class="field" style="margin-top:18px">
+          <label data-key="boroughLabel">Preferred Borough <span class="req">*</span></label>
+          <div class="check-group">
+            <label class="check-pill"><input type="checkbox" name="borough" value="Brooklyn"> <span data-key="brooklyn">Brooklyn</span></label>
+            <label class="check-pill"><input type="checkbox" name="borough" value="Bronx"> <span data-key="bronx">Bronx</span></label>
+            <label class="check-pill"><input type="checkbox" name="borough" value="Queens"> <span data-key="queens">Queens</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Work Authorization -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Work Authorization</div>
+      </div>
+      <div class="section-body">
+        <div class="field" style="margin-bottom:20px">
+          <label data-key="authQ">Are you legally authorized to work in the United States? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-pill"><input type="radio" name="workauth" value="Yes"> <span data-key="yes">Yes</span></label>
+            <label class="radio-pill"><input type="radio" name="workauth" value="No"> <span data-key="no">No</span></label>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:20px">
+          <label data-key="authStatus">Work Authorization Status <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-pill"><input type="radio" name="authtype" value="U.S. Citizen"> <span data-key="citizen">U.S. Citizen</span></label>
+            <label class="radio-pill"><input type="radio" name="authtype" value="Permanent Resident (Green Card)"> <span data-key="greencard">Permanent Resident (Green Card)</span></label>
+            <label class="radio-pill"><input type="radio" name="authtype" value="Work Visa"> <span data-key="visa">Work Visa</span></label>
+            <label class="radio-pill"><input type="radio" name="authtype" value="EAD / Work Permit"> <span data-key="ead">EAD / Work Permit</span></label>
+            <label class="radio-pill"><input type="radio" name="authtype" value="Other"> <span data-key="other">Other</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Previous Employment -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Previous Employment</div>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--light); margin-bottom:20px;"><span data-key="prevNote">List your two most recent employers, starting with the most recent.</span></p>
+
+        <div class="employer-card">
+          <div class="employer-card-title"><span data-key="recentEmp">Most Recent Employer</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Company / Building Name</label>
+              <input type="text" name="emp1_company" placeholder="e.g. ABC Building Services">
+            </div>
+            <div class="field">
+              <label>Your Job Title</label>
+              <input type="text" name="emp1_title" placeholder="e.g. Cleaner, Porter, Handyman">
+            </div>
+            <div class="field">
+              <label>Supervisor's Name</label>
+              <input type="text" name="emp1_supname" placeholder="Full name">
+            </div>
+            <div class="field">
+              <label>Supervisor's Phone</label>
+              <input type="tel" name="emp1_supphone" placeholder="(212) 000-0000">
+            </div>
+            <div class="field">
+              <label>Start Date</label>
+              <input type="month" name="emp1_start">
+            </div>
+            <div class="field">
+              <label>End Date</label>
+              <input type="month" name="emp1_end" placeholder="Or current">
+            </div>
+            <div class="field col-span-2">
+              <label>Reason for Leaving</label>
+              <input type="text" name="emp1_reason" placeholder="e.g. End of contract, seeking better opportunity...">
+            </div>
+            <div class="field col-span-2">
+              <label>Main Duties</label>
+              <textarea name="emp1_duties" placeholder="Briefly describe what you did in this job..."></textarea>
+            </div>
+            <div class="field">
+              <label>May We Contact This Employer?</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="emp1_contact" value="Yes"> Yes</label>
+                <label class="radio-pill"><input type="radio" name="emp1_contact" value="Not Yet"> Not Yet</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="employer-card">
+          <div class="employer-card-title"><span data-key="prevEmp">Previous Employer</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Company / Building Name</label>
+              <input type="text" name="emp2_company" placeholder="e.g. XYZ Properties">
+            </div>
+            <div class="field">
+              <label>Your Job Title</label>
+              <input type="text" name="emp2_title" placeholder="e.g. Maintenance, Super, Janitor">
+            </div>
+            <div class="field">
+              <label>Supervisor's Name</label>
+              <input type="text" name="emp2_supname" placeholder="Full name">
+            </div>
+            <div class="field">
+              <label>Supervisor's Phone</label>
+              <input type="tel" name="emp2_supphone" placeholder="(212) 000-0000">
+            </div>
+            <div class="field">
+              <label>Start Date</label>
+              <input type="month" name="emp2_start">
+            </div>
+            <div class="field">
+              <label>End Date</label>
+              <input type="month" name="emp2_end">
+            </div>
+            <div class="field col-span-2">
+              <label>Reason for Leaving</label>
+              <input type="text" name="emp2_reason" placeholder="e.g. End of contract, seeking better opportunity...">
+            </div>
+            <div class="field col-span-2">
+              <label>Main Duties</label>
+              <textarea name="emp2_duties" placeholder="Briefly describe what you did in this job..."></textarea>
+            </div>
+            <div class="field">
+              <label>May We Contact This Employer?</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="emp2_contact" value="Yes"> Yes</label>
+                <label class="radio-pill"><input type="radio" name="emp2_contact" value="Not Yet"> Not Yet</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 5. Skills -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Skills &amp; Experience</div>
+      </div>
+      <div class="section-body">
+        <div class="field" style="margin-bottom:18px">
+          <label data-key="cleanExp">Cleaning Experience</label>
+          <div class="check-group">
+            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Apartments / Units"> Apartments / Units</label>
+            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Common Areas / Hallways"> Common Areas / Hallways</label>
+            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Commercial / Office"> Commercial / Office</label>
+            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Laundry Rooms"> Laundry Rooms</label>
+            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Outdoor / Grounds"> Outdoor / Grounds</label>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:18px">
+          <label data-key="maintSkills">Maintenance Skills</label>
+          <div class="check-group">
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="Plumbing (basic)"> Plumbing (basic)</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="Electrical (basic)"> Electrical (basic)</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="Painting"> Painting</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="Carpentry"> Carpentry</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="HVAC"> HVAC</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="Appliance Repair"> Appliance Repair</label>
+            <label class="check-pill"><input type="checkbox" name="maintskills" value="General Repairs"> General Repairs</label>
+          </div>
+        </div>
+        <div class="field">
+          <label data-key="driverLic">Valid NYS Driver's License?</label>
+          <div class="radio-group">
+            <label class="radio-pill"><input type="radio" name="driver" value="Yes"> Yes</label>
+            <label class="radio-pill"><input type="radio" name="driver" value="No"> No</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 6. References -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">References</div>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--light); margin-bottom:20px;"><span data-key="refNote">Please provide two people who can speak to your work. Do not list family members.</span></p>
+
+        <div class="employer-card">
+          <div class="employer-card-title"><span data-key="ref1">Reference 1</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Full Name</label>
+              <input type="text" name="ref1_name" placeholder="Full name">
+            </div>
+            <div class="field">
+              <label>Relationship to You</label>
+              <input type="text" name="ref1_rel" placeholder="e.g. Former supervisor, coworker">
+            </div>
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" name="ref1_phone" placeholder="(212) 000-0000">
+            </div>
+            <div class="field">
+              <label>Email (optional)</label>
+              <input type="email" name="ref1_email" placeholder="email@example.com">
+            </div>
+          </div>
+        </div>
+
+        <div class="employer-card">
+          <div class="employer-card-title"><span data-key="ref2">Reference 2</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label>Full Name</label>
+              <input type="text" name="ref2_name" placeholder="Full name">
+            </div>
+            <div class="field">
+              <label>Relationship to You</label>
+              <input type="text" name="ref2_rel" placeholder="e.g. Former supervisor, coworker">
+            </div>
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" name="ref2_phone" placeholder="(212) 000-0000">
+            </div>
+            <div class="field">
+              <label>Email (optional)</label>
+              <input type="email" name="ref2_email" placeholder="email@example.com">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 6.5 Additional Information -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title" data-key="addInfoTitle">Additional Information</div>
+      </div>
+      <div class="section-body">
+        <div class="field" style="margin-bottom:18px">
+          <label data-key="whyUsLabel">Why do you want to work with OMNI Management?</label>
+          <textarea name="whyus" style="min-height:110px;" placeholder="Tell us why you're interested in this position and what makes you a great fit for our team..."></textarea>
+        </div>
+        <div class="field">
+          <label data-key="anythingElseLabel">Anything else you'd like us to know?</label>
+          <textarea name="anythingelse" style="min-height:90px;" placeholder="Share any additional information, skills, or experience you feel is relevant..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Upload -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">8</div>
+      </div>
+      <div class="section-body">
+        <div class="upload-area">
+          <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+          <div style="font-size:26px; margin-bottom:8px;">📎</div>
+          <p data-key="uploadText">Upload a resume or any relevant document</p>
+          <span>PDF, Word, or image · Max 3MB</span>
+          <div class="filename" id="resumeName"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer + Submit -->
+    <div class="disclaimer">
+      <strong>Applicant Statement:</strong> I certify that the information provided in this application is true and complete. I understand that false or misleading information may result in rejection of my application or termination of employment. I authorize OMNI Management to contact previous employers and references listed above.
+    </div>
+
+    <div class="eeo-box">
+      <span style="font-size:20px;">⊜</span>
+      <p><strong>Equal Opportunity Employer:</strong> OMNI Management does not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other protected characteristic. All qualified applicants will receive consideration for employment.</p>
+    </div>
+
+    <div class="submit-row">
+      <span class="submit-note">Fields marked <span style="color:var(--gold)">*</span> are required</span>
+      <button type="submit" class="btn-submit">Submit Application →</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="page-footer">
+  © 2025 OMNI Management · <a href="https://www.omnipropm.com">www.omnipropm.com</a> · 212 460 5000
+</div>
+
+<script>
+const translations = {
+  en: {
+    pageTitle: "Employment Application",
+    pageSubtitle: "Cleaning Staff & Maintenance · OMNI Management · New York, NY",
+    notice: "📋 Please complete all sections as fully as possible. All information will be kept confidential and used for hiring purposes only.",
+    s1title: "Personal Information", s2title: "Position Applied For", s3title: "Work Authorization",
+    s4title: "Previous Employment", s5title: "Skills & Experience", s6title: "References",
+    s7title: "Documents (Optional)",
+    fname: "First Name", lname: "Last Name", phone: "Phone Number", email: "Email Address", address: "Home Address",
+    applyFor: "I am applying for", porter: "🧹 Porter", maintenance: "🔧 Maintenance Worker", both: "Both",
+    empType: "Employment Type", fulltime: "Full-Time", parttime: "Part-Time", startDate: "Available to Start",
+    boroughLabel: "Preferred Borough", brooklyn: "Brooklyn", bronx: "Bronx", queens: "Queens",
+    authQ: "Are you legally authorized to work in the United States?",
+    authStatus: "Work Authorization Status",
+    citizen: "U.S. Citizen", greencard: "Permanent Resident (Green Card)", visa: "Work Visa", ead: "EAD / Work Permit", other: "Other",
+    prevNote: "List your two most recent employers, starting with the most recent.",
+    recentEmp: "Most Recent Employer", prevEmp: "Previous Employer",
+    companyName: "Company / Building Name", jobTitle: "Your Job Title", supName: "Supervisor's Name",
+    supPhone: "Supervisor's Phone", startD: "Start Date", endD: "End Date",
+    reasonLeave: "Reason for Leaving", duties: "Main Duties", contactEmp: "May We Contact This Employer?",
+    yes: "Yes", no: "No", notYet: "Not Yet",
+    cleanExp: "Cleaning Experience", maintSkills: "Maintenance Skills", languages: "Languages Spoken",
+    driverLic: "Valid NYS Driver's License?",
+    tradeLicQ: "Do you hold a NYC Trade License?",
+    licDetails: "License Details", licType: "License Type(s)", licNum: "License Number", licExp: "Expiration Date", licDetail: "Additional Details",
+    refNote: "Please provide two people who can speak to your work. Do not list family members.",
+    ref1: "Reference 1", ref2: "Reference 2", refName: "Full Name", relationship: "Relationship to You",
+    uploadText: "Upload a resume or any relevant document",
+    addInfoTitle: "Additional Information",
+    whyUsLabel: "Why do you want to work with OMNI Management?",
+    anythingElseLabel: "Anything else you'd like us to know?",
+    disclaimer: "<strong>Applicant Statement:</strong> I certify that the information provided in this application is true and complete. I understand that false or misleading information may result in rejection of my application or termination of employment. I authorize OMNI Management to contact previous employers and references listed above.",
+    eeo: "<strong>Equal Opportunity Employer:</strong> OMNI Management does not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other protected characteristic. All qualified applicants will receive consideration for employment.",
+    reqFields: "Fields marked",
+    reqFields2: "are required",
+    submit: "Submit Application →",
+    submitting: "Submitting…",
+    successMsg: "✅ Thank you! Your application has been submitted. We'll be in touch if there's a good fit.",
+    errorMsg: "⚠️ Something went wrong submitting your application. Please try again, or email info@omnipropm.com.",
+    missingMsg: "Please complete the required fields marked with *.",
+    fileTooBig: "That file is too large. Please upload a document under 3MB."
+  },
+  es: {
+    pageTitle: "Solicitud de Empleo",
+    pageSubtitle: "Personal de Limpieza y Mantenimiento · OMNI Management · New York, NY",
+    notice: "📋 Por favor complete todas las secciones lo más detalladamente posible. Toda la información será tratada de manera confidencial.",
+    s1title: "Información Personal", s2title: "Puesto Solicitado", s3title: "Autorización de Trabajo",
+    s4title: "Empleos Anteriores", s5title: "Habilidades y Experiencia", s6title: "Referencias",
+    s7title: "Documentos (Opcional)",
+    fname: "Nombre", lname: "Apellido", phone: "Teléfono", email: "Correo Electrónico", address: "Dirección",
+    applyFor: "Estoy solicitando el puesto de", porter: "🧹 Porter (Limpieza)", maintenance: "🔧 Mantenimiento", both: "Ambos",
+    empType: "Tipo de Empleo", fulltime: "Tiempo Completo", parttime: "Medio Tiempo", startDate: "Disponible para Empezar",
+    boroughLabel: "Zona Preferida", brooklyn: "Brooklyn", bronx: "Bronx", queens: "Queens",
+    authQ: "¿Está legalmente autorizado para trabajar en los Estados Unidos?",
+    authStatus: "Estado de Autorización de Trabajo",
+    citizen: "Ciudadano/a Americano/a", greencard: "Residente Permanente (Green Card)", visa: "Visa de Trabajo", ead: "EAD / Permiso de Trabajo", other: "Otro",
+    prevNote: "Indique sus dos empleos más recientes, comenzando con el más reciente.",
+    recentEmp: "Empleo Más Reciente", prevEmp: "Empleo Anterior",
+    companyName: "Empresa / Nombre del Edificio", jobTitle: "Su Puesto", supName: "Nombre del Supervisor",
+    supPhone: "Teléfono del Supervisor", startD: "Fecha de Inicio", endD: "Fecha de Fin",
+    reasonLeave: "Motivo de Salida", duties: "Principales Responsabilidades", contactEmp: "¿Podemos Contactar a Este Empleador?",
+    yes: "Sí", no: "No", notYet: "Aún No",
+    cleanExp: "Experiencia en Limpieza", maintSkills: "Habilidades de Mantenimiento", languages: "Idiomas que Habla",
+    driverLic: "¿Tiene Licencia de Conducir de NY?",
+    tradeLicQ: "¿Tiene una Licencia de Oficio de la Ciudad de Nueva York?",
+    licDetails: "Detalles de la Licencia", licType: "Tipo(s) de Licencia", licNum: "Número de Licencia", licExp: "Fecha de Vencimiento", licDetail: "Detalles Adicionales",
+    refNote: "Proporcione dos personas que puedan hablar sobre su trabajo. No incluya familiares.",
+    ref1: "Referencia 1", ref2: "Referencia 2", refName: "Nombre Completo", relationship: "Relación con Usted",
+    uploadText: "Suba un currículum u otro documento relevante",
+    addInfoTitle: "Información Adicional",
+    whyUsLabel: "¿Por qué desea trabajar con OMNI Management?",
+    anythingElseLabel: "¿Hay algo más que desee compartir con nosotros?",
+    disclaimer: "<strong>Declaración del Solicitante:</strong> Certifico que la información proporcionada en esta solicitud es verdadera y completa. Entiendo que información falsa puede resultar en el rechazo de mi solicitud o en la terminación de mi empleo. Autorizo a OMNI Management a contactar a los empleadores y referencias indicados.",
+    eeo: "<strong>Empleador de Igualdad de Oportunidades:</strong> OMNI Management no discrimina por motivos de raza, color, religión, sexo, origen nacional, edad, discapacidad u otras características protegidas por la ley.",
+    reqFields: "Los campos marcados con",
+    reqFields2: "son obligatorios",
+    submit: "Enviar Solicitud →",
+    submitting: "Enviando…",
+    successMsg: "✅ ¡Gracias! Su solicitud ha sido enviada. Nos pondremos en contacto si hay una buena oportunidad.",
+    errorMsg: "⚠️ Ocurrió un error al enviar su solicitud. Inténtelo de nuevo o escriba a info@omnipropm.com.",
+    missingMsg: "Por favor complete los campos obligatorios marcados con *.",
+    fileTooBig: "Ese archivo es demasiado grande. Suba un documento de menos de 3MB."
+  },
+  ru: {
+    pageTitle: "Заявление о приёме на работу",
+    pageSubtitle: "Уборщик / Обслуживающий персонал · OMNI Management · Нью-Йорк",
+    notice: "📋 Пожалуйста, заполните все разделы как можно полнее. Вся информация будет храниться конфиденциально.",
+    s1title: "Личные данные", s2title: "Желаемая должность", s3title: "Право на работу",
+    s4title: "Предыдущие места работы", s5title: "Навыки и опыт", s6title: "Рекомендации",
+    s7title: "Документы (необязательно)",
+    fname: "Имя", lname: "Фамилия", phone: "Номер телефона", email: "Электронная почта", address: "Адрес проживания",
+    applyFor: "Я претендую на должность", porter: "🧹 Портье / Уборщик", maintenance: "🔧 Специалист по обслуживанию", both: "Обе должности",
+    empType: "Тип занятости", fulltime: "Полная ставка", parttime: "Частичная занятость", startDate: "Готов приступить",
+    boroughLabel: "Предпочтительный район", brooklyn: "Бруклин", bronx: "Бронкс", queens: "Куинс",
+    authQ: "Имеете ли вы законное право работать в США?",
+    authStatus: "Статус права на работу",
+    citizen: "Гражданин США", greencard: "Постоянный житель (Green Card)", visa: "Рабочая виза", ead: "EAD / Разрешение на работу", other: "Другое",
+    prevNote: "Укажите два последних места работы, начиная с самого недавнего.",
+    recentEmp: "Последнее место работы", prevEmp: "Предыдущее место работы",
+    companyName: "Компания / Здание", jobTitle: "Ваша должность", supName: "Имя руководителя",
+    supPhone: "Телефон руководителя", startD: "Дата начала", endD: "Дата окончания",
+    reasonLeave: "Причина увольнения", duties: "Основные обязанности", contactEmp: "Можем ли мы связаться с этим работодателем?",
+    yes: "Да", no: "Нет", notYet: "Пока нет",
+    cleanExp: "Опыт уборки", maintSkills: "Технические навыки", languages: "Языки",
+    driverLic: "Действующие водительские права штата Нью-Йорк?",
+    refNote: "Укажите двух человек, которые могут охарактеризовать вашу работу. Родственники не принимаются.",
+    ref1: "Рекомендатель 1", ref2: "Рекомендатель 2", refName: "Полное имя", relationship: "Ваши отношения",
+    uploadText: "Загрузите резюме или любой другой документ",
+    addInfoTitle: "Дополнительная информация",
+    whyUsLabel: "Почему вы хотите работать в OMNI Management?",
+    anythingElseLabel: "Есть ли что-то ещё, что вы хотели бы нам сообщить?",
+    disclaimer: "<strong>Заявление соискателя:</strong> Я подтверждаю, что все сведения, указанные в данном заявлении, являются правдивыми и полными. Я понимаю, что ложная информация может привести к отказу или увольнению. Я разрешаю OMNI Management связаться с предыдущими работодателями и рекомендателями.",
+    eeo: "<strong>Работодатель равных возможностей:</strong> OMNI Management не допускает дискриминации по признаку расы, цвета кожи, религии, пола, национального происхождения, возраста, инвалидности или иных охраняемых законом характеристик.",
+    reqFields: "Поля, отмеченные",
+    reqFields2: "обязательны для заполнения",
+    submit: "Отправить заявку →",
+    submitting: "Отправка…",
+    successMsg: "✅ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами при наличии подходящей вакансии.",
+    errorMsg: "⚠️ При отправке заявки произошла ошибка. Повторите попытку или напишите на info@omnipropm.com.",
+    missingMsg: "Пожалуйста, заполните обязательные поля, отмеченные *.",
+    fileTooBig: "Файл слишком большой. Загрузите документ размером менее 3 МБ."
+  },
+  uk: {
+    pageTitle: "Заява про прийом на роботу",
+    pageSubtitle: "Прибиральник / Технічний персонал · OMNI Management · Нью-Йорк",
+    notice: "📋 Будь ласка, заповніть усі розділи якомога повніше. Уся інформація зберігатиметься конфіденційно.",
+    s1title: "Особисті дані", s2title: "Бажана посада", s3title: "Право на працевлаштування",
+    s4title: "Попередні місця роботи", s5title: "Навички та досвід", s6title: "Рекомендації",
+    s7title: "Документи (необов'язково)",
+    fname: "Ім'я", lname: "Прізвище", phone: "Номер телефону", email: "Електронна пошта", address: "Адреса проживання",
+    applyFor: "Я претендую на посаду", porter: "🧹 Портьє / Прибиральник", maintenance: "🔧 Технічний спеціаліст", both: "Обидві посади",
+    empType: "Тип зайнятості", fulltime: "Повна ставка", parttime: "Часткова зайнятість", startDate: "Готовий розпочати",
+    boroughLabel: "Бажаний район", brooklyn: "Бруклін", bronx: "Бронкс", queens: "Квінс",
+    authQ: "Чи маєте ви законне право працювати в США?",
+    authStatus: "Статус права на роботу",
+    citizen: "Громадянин США", greencard: "Постійний резидент (Green Card)", visa: "Робоча віза", ead: "EAD / Дозвіл на роботу", other: "Інше",
+    prevNote: "Вкажіть два останніх місця роботи, починаючи з найновішого.",
+    recentEmp: "Останнє місце роботи", prevEmp: "Попереднє місце роботи",
+    companyName: "Компанія / Будівля", jobTitle: "Ваша посада", supName: "Ім'я керівника",
+    supPhone: "Телефон керівника", startD: "Дата початку", endD: "Дата закінчення",
+    reasonLeave: "Причина звільнення", duties: "Основні обов'язки", contactEmp: "Чи можемо ми зв'язатися з цим роботодавцем?",
+    yes: "Так", no: "Ні", notYet: "Ще ні",
+    cleanExp: "Досвід прибирання", maintSkills: "Технічні навички", languages: "Мови",
+    driverLic: "Дійсне водійське посвідчення штату Нью-Йорк?",
+    refNote: "Вкажіть двох осіб, які можуть охарактеризувати вашу роботу. Родичі не приймаються.",
+    ref1: "Рекомендатор 1", ref2: "Рекомендатор 2", refName: "Повне ім'я", relationship: "Ваші стосунки",
+    uploadText: "Завантажте резюме або будь-який інший документ",
+    addInfoTitle: "Додаткова інформація",
+    whyUsLabel: "Чому ви хочете працювати в OMNI Management?",
+    anythingElseLabel: "Чи є щось інше, що ви хотіли б нам повідомити?",
+    disclaimer: "<strong>Заява претендента:</strong> Я підтверджую, що всі відомості, зазначені в цій заяві, є правдивими та повними. Я розумію, що неправдива інформація може призвести до відмови або звільнення. Я дозволяю OMNI Management зв'язатися з попередніми роботодавцями та рекомендаторами.",
+    eeo: "<strong>Роботодавець рівних можливостей:</strong> OMNI Management не допускає дискримінації за ознакою раси, кольору шкіри, релігії, статі, національного походження, віку, інвалідності чи інших захищених законом характеристик.",
+    reqFields: "Поля, позначені",
+    reqFields2: "є обов'язковими",
+    submit: "Надіслати заявку →",
+    submitting: "Надсилання…",
+    successMsg: "✅ Дякуємо! Вашу заявку надіслано. Ми зв'яжемося з вами за наявності підходящої вакансії.",
+    errorMsg: "⚠️ Під час надсилання заявки сталася помилка. Спробуйте ще раз або напишіть на info@omnipropm.com.",
+    missingMsg: "Будь ласка, заповніть обов'язкові поля, позначені *.",
+    fileTooBig: "Файл завеликий. Завантажте документ розміром менше 3 МБ."
+  },
+  ka: {
+    pageTitle: "სამუშაოს განაცხადი",
+    pageSubtitle: "დამლაგებელი / ტექნიკური პერსონალი · OMNI Management · ნიუ-იორკი",
+    notice: "📋 გთხოვთ, შეავსოთ ყველა განყოფილება რაც შეიძლება სრულად. ყველა ინფორმაცია კონფიდენციალური იქნება.",
+    s1title: "პირადი ინფორმაცია", s2title: "სასურველი პოზიცია", s3title: "სამუშაო ნებართვა",
+    s4title: "წინა სამუშაო გამოცდილება", s5title: "უნარები და გამოცდილება", s6title: "რეკომენდაციები",
+    s7title: "დოკუმენტები (არასავალდებულო)",
+    fname: "სახელი", lname: "გვარი", phone: "ტელეფონის ნომერი", email: "ელ. ფოსტა", address: "საცხოვრებელი მისამართი",
+    applyFor: "მე ვაცხადებ პოზიციაზე", porter: "🧹 პორტიე / დამლაგებელი", maintenance: "🔧 ტექნიკური სპეციალისტი", both: "ორივე პოზიცია",
+    empType: "დასაქმების ტიპი", fulltime: "სრული განაკვეთი", parttime: "ნახევარი განაკვეთი", startDate: "შემიძლია დავიწყო",
+    boroughLabel: "სასურველი რაიონი", brooklyn: "ბრუკლინი", bronx: "ბრონქსი", queens: "კვინსი",
+    authQ: "გაქვთ კანონიერი უფლება იმუშაოთ აშშ-ში?",
+    authStatus: "სამუშაო ნებართვის სტატუსი",
+    citizen: "აშშ-ის მოქალაქე", greencard: "მუდმივი რეზიდენტი (Green Card)", visa: "სამუშაო ვიზა", ead: "EAD / სამუშაო ნებართვა", other: "სხვა",
+    prevNote: "მიუთითეთ ბოლო ორი სამუშაო ადგილი, უახლესიდან დაწყებული.",
+    recentEmp: "ბოლო სამუშაო ადგილი", prevEmp: "წინა სამუშაო ადგილი",
+    companyName: "კომპანია / შენობა", jobTitle: "თქვენი პოზიცია", supName: "ხელმძღვანელის სახელი",
+    supPhone: "ხელმძღვანელის ტელეფონი", startD: "დაწყების თარიღი", endD: "დასრულების თარიღი",
+    reasonLeave: "წასვლის მიზეზი", duties: "ძირითადი მოვალეობები", contactEmp: "შეგვიძლია დავუკავშირდეთ ამ დამსაქმებელს?",
+    yes: "კი", no: "არა", notYet: "ჯერ არა",
+    cleanExp: "დასუფთავების გამოცდილება", maintSkills: "ტექნიკური უნარები", languages: "ენები",
+    driverLic: "მოქმედი ნიუ-იორკის მართვის მოწმობა?",
+    refNote: "მიუთითეთ ორი პირი, ვინც შეძლებს დაახასიათოს თქვენი მუშაობა. ოჯახის წევრები არ მიიღება.",
+    ref1: "რეკომენდატორი 1", ref2: "რეკომენდატორი 2", refName: "სრული სახელი", relationship: "ურთიერთობა",
+    uploadText: "ატვირთეთ რეზიუმე ან სხვა შესაბამისი დოკუმენტი",
+    addInfoTitle: "დამატებითი ინფორმაცია",
+    whyUsLabel: "რატომ გსურთ იმუშაოთ OMNI Management-ში?",
+    anythingElseLabel: "არის კიდევ რაიმე, რისი გაზიარებაც გსურთ?",
+    disclaimer: "<strong>განმცხადებლის განაცხადი:</strong> ვადასტურებ, რომ ამ განაცხადში მოწოდებული ყველა ინფორმაცია სწორი და სრულია. ვიცი, რომ მცდარი ინფორმაცია შეიძლება გახდეს უარის ან სამსახურიდან გათავისუფლების საფუძველი. ვაძლევ OMNI Management-ს უფლებას დაუკავშირდეს წინა დამსაქმებლებსა და რეკომენდატორებს.",
+    eeo: "<strong>თანაბარი შესაძლებლობების დამსაქმებელი:</strong> OMNI Management არ ახდენს დისკრიმინაციას რასის, კანის ფერის, რელიგიის, სქესის, ეროვნული წარმოშობის, ასაკის, შეზღუდული შესაძლებლობის ან კანონით დაცული სხვა ნიშნის საფუძველზე.",
+    reqFields: "ველები, რომლებიც მონიშნულია",
+    reqFields2: "სავალდებულოა",
+    submit: "განაცხადის გაგზავნა →",
+    submitting: "იგზავნება…",
+    successMsg: "✅ გმადლობთ! თქვენი განაცხადი გაიგზავნა. დაგიკავშირდებით, თუ შესაბამისი ვაკანსია იქნება.",
+    errorMsg: "⚠️ განაცხადის გაგზავნისას მოხდა შეცდომა. სცადეთ ხელახლა ან მოგვწერეთ info@omnipropm.com.",
+    missingMsg: "გთხოვთ, შეავსოთ * ნიშნით მონიშნული სავალდებულო ველები.",
+    fileTooBig: "ფაილი ძალიან დიდია. ატვირთეთ 3MB-ზე ნაკლები დოკუმენტი."
+  }
+};
+
+let currentLang = "en";
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+  document.documentElement.lang = lang;
+
+  // Header
+  document.querySelector('.header-text h1').textContent = t.pageTitle;
+  document.querySelector('.header-text p').textContent = t.pageSubtitle;
+  document.querySelector('.notice').textContent = t.notice;
+
+  // Section titles
+  const titles = document.querySelectorAll('.section-title');
+  const titleKeys = ['s1title','s2title','s3title','s4title','s5title','s6title','addInfoTitle','s7title'];
+  titles.forEach((el,i) => { if(titleKeys[i]) el.textContent = t[titleKeys[i]]; });
+
+  // Labels by data-key
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.getAttribute('data-key');
+    if(t[k]) el.innerHTML = t[k];
+  });
+
+  // Disclaimer & EEO
+  document.querySelector('.disclaimer').innerHTML = t.disclaimer;
+  document.querySelector('.eeo-box p').innerHTML = t.eeo;
+
+  // Submit
+  document.querySelector('.btn-submit').textContent = t.submit;
+  document.querySelector('.submit-note').innerHTML = t.reqFields + ' <span style="color:var(--gold)">*</span> ' + t.reqFields2;
+
+  // Lang buttons
+  ['en','es','ru','uk','ka'].forEach(l => {
+    const btn = document.getElementById('btn-'+l);
+    if(!btn) return;
+    btn.style.background = lang===l ? '#C8922A' : 'transparent';
+    btn.style.borderColor = lang===l ? '#C8922A' : 'rgba(255,255,255,0.3)';
+    btn.style.color = lang===l ? 'white' : 'rgba(255,255,255,0.7)';
+  });
+}
+
+/* ---------- Submission ---------- */
+const form = document.getElementById('appForm');
+const statusEl = document.getElementById('status');
+const submitBtn = form.querySelector('.btn-submit');
+const fileInput = document.getElementById('resume');
+const fileNameEl = document.getElementById('resumeName');
+const MAX_FILE_BYTES = 3 * 1024 * 1024;
+
+fileInput.addEventListener('change', () => {
+  const f = fileInput.files[0];
+  fileNameEl.textContent = f ? f.name : '';
+});
+
+function val(name) {
+  const el = form.querySelector(`[name="${name}"]`);
+  return el ? el.value.trim() : '';
+}
+function radioText(name) {
+  const el = form.querySelector(`[name="${name}"]:checked`);
+  if (!el) return '';
+  const label = el.closest('label');
+  return label ? label.textContent.trim() : el.value;
+}
+function checksText(name) {
+  return Array.from(form.querySelectorAll(`[name="${name}"]:checked`))
+    .map(el => { const l = el.closest('label'); return l ? l.textContent.trim() : el.value; })
+    .join(', ');
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+function showStatus(kind, msg) {
+  statusEl.className = 'status show ' + (kind === 'ok' ? 'ok' : 'err');
+  statusEl.textContent = msg;
+  statusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function buildSections() {
+  const skill = (label, value) => ({ label, value });
+  return [
+    { title: 'Personal Information', fields: [
+      skill('First Name', val('fname')),
+      skill('Last Name', val('lname')),
+      skill('Phone Number', val('phone')),
+      skill('Email Address', val('email')),
+      skill('Home Address', val('address')),
+    ]},
+    { title: 'Position Applied For', fields: [
+      skill('Applying For', radioText('position')),
+      skill('Employment Type', radioText('emptype')),
+      skill('Available to Start', val('startdate')),
+      skill('Preferred Borough', checksText('borough')),
+    ]},
+    { title: 'Work Authorization', fields: [
+      skill('Authorized to Work in the U.S.', radioText('workauth')),
+      skill('Work Authorization Status', radioText('authtype')),
+    ]},
+    { title: 'Previous Employment — Most Recent Employer', fields: [
+      skill('Company / Building Name', val('emp1_company')),
+      skill('Job Title', val('emp1_title')),
+      skill("Supervisor's Name", val('emp1_supname')),
+      skill("Supervisor's Phone", val('emp1_supphone')),
+      skill('Start Date', val('emp1_start')),
+      skill('End Date', val('emp1_end')),
+      skill('Reason for Leaving', val('emp1_reason')),
+      skill('Main Duties', val('emp1_duties')),
+      skill('May We Contact?', radioText('emp1_contact')),
+    ]},
+    { title: 'Previous Employment — Previous Employer', fields: [
+      skill('Company / Building Name', val('emp2_company')),
+      skill('Job Title', val('emp2_title')),
+      skill("Supervisor's Name", val('emp2_supname')),
+      skill("Supervisor's Phone", val('emp2_supphone')),
+      skill('Start Date', val('emp2_start')),
+      skill('End Date', val('emp2_end')),
+      skill('Reason for Leaving', val('emp2_reason')),
+      skill('Main Duties', val('emp2_duties')),
+      skill('May We Contact?', radioText('emp2_contact')),
+    ]},
+    { title: 'Skills & Experience', fields: [
+      skill('Cleaning Experience', checksText('cleanexp')),
+      skill('Maintenance Skills', checksText('maintskills')),
+      skill("Valid NYS Driver's License", radioText('driver')),
+    ]},
+    { title: 'References — Reference 1', fields: [
+      skill('Full Name', val('ref1_name')),
+      skill('Relationship', val('ref1_rel')),
+      skill('Phone Number', val('ref1_phone')),
+      skill('Email', val('ref1_email')),
+    ]},
+    { title: 'References — Reference 2', fields: [
+      skill('Full Name', val('ref2_name')),
+      skill('Relationship', val('ref2_rel')),
+      skill('Phone Number', val('ref2_phone')),
+      skill('Email', val('ref2_email')),
+    ]},
+    { title: 'Additional Information', fields: [
+      skill('Why OMNI Management?', val('whyus')),
+      skill('Anything Else', val('anythingelse')),
+    ]},
+  ];
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const t = translations[currentLang];
+
+  // Required: first name, last name, phone, position, employment type,
+  // borough (>=1), work auth, auth status.
+  const missing = !val('fname') || !val('lname') || !val('phone') ||
+    !radioText('position') || !radioText('emptype') || !checksText('borough') ||
+    !radioText('workauth') || !radioText('authtype');
+  if (missing) {
+    showStatus('err', t.missingMsg);
+    return;
+  }
+
+  const file = fileInput.files[0];
+  if (file && file.size > MAX_FILE_BYTES) {
+    showStatus('err', t.fileTooBig);
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = t.submitting;
+
+  try {
+    let resume = null;
+    if (file) {
+      resume = {
+        filename: file.name,
+        contentType: file.type || 'application/octet-stream',
+        dataBase64: await fileToBase64(file),
+      };
+    }
+
+    const payload = {
+      applicantName: `${val('fname')} ${val('lname')}`.trim(),
+      position: radioText('position'),
+      phone: val('phone'),
+      email: val('email'),
+      language: currentLang,
+      sections: buildSections(),
+      resume,
+    };
+
+    const res = await fetch('/api/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      showStatus('ok', t.successMsg);
+      form.reset();
+      fileNameEl.textContent = '';
+    } else {
+      showStatus('err', t.errorMsg);
+    }
+  } catch (err) {
+    showStatus('err', t.errorMsg);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = t.submit;
+  }
+});
+</script>
+</body>
+</html>
