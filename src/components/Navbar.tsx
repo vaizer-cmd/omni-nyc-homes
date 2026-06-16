@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { useThemedPath } from "@/hooks/use-themed-path";
-import stagingLogo from "@/assets/omni_logo.png";
+import logo from "@/assets/omni_logo.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -14,13 +13,12 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { themed } = useThemedPath();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b bg-white/95 border-navy/10">
       <div className="container mx-auto px-6 flex items-center justify-between py-2">
-        <Link to={themed("/")} className="flex flex-col">
-          <img src={stagingLogo} alt="OMNI" className="h-14 md:h-16 w-auto" />
+        <Link to="/" className="flex flex-col">
+          <img src={logo} alt="OMNI" className="h-14 md:h-16 w-auto" />
         </Link>
 
         {/* Tagline */}
@@ -31,7 +29,7 @@ const Navbar = () => {
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
-            const to = themed(link.path);
+            const to = link.path;
             const isActive = location.pathname === to;
             return (
               <Link
@@ -66,7 +64,7 @@ const Navbar = () => {
       >
         <div className="bg-white border-t border-navy/10 px-6 py-4 space-y-3">
           {navLinks.map((link) => {
-            const to = themed(link.path);
+            const to = link.path;
             return (
               <Link
                 key={link.path}

@@ -3,7 +3,6 @@ import { Building2, Wrench, Users, Shield, Clock, BarChart3 } from "lucide-react
 import Layout from "@/components/Layout";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { useThemedPath } from "@/hooks/use-themed-path";
 
 const services = [
   {
@@ -46,7 +45,6 @@ const services = [
 
 const Services = () => {
   const { hash } = useLocation();
-  const { themed } = useThemedPath();
 
   useEffect(() => {
     if (hash) {
@@ -108,7 +106,7 @@ const Services = () => {
             We tailor our services to meet the unique needs of each property. Let's discuss how we can help.
           </p>
           <Link
-            to={themed("/contact")}
+            to="/contact"
             className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
           >
             Contact Us <ArrowRight size={16} />

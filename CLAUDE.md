@@ -1,5 +1,16 @@
 # OMNI NYC Homes - Agent Guide
 
+## ⚠️ Keep this file in sync
+
+**Whenever you change the site, update this file in the same task.** This is a hard requirement, not optional. After editing any of the following, reflect the change here before finishing:
+- **Routes / pages** → update the Routes table and Key Paths.
+- **Components / hooks** → update the Components list and Key Paths.
+- **Services, contact info, brand copy, colors, or assets** → update the Content & Brand Reference section.
+- **Email / API behavior, env vars, build, or deploy config** → update Architecture Notes and Commands.
+- **New conventions or patterns** → update Conventions.
+
+Keep edits concise and factual — this file is the project's single source of truth for agents. If a change makes something here wrong, fix it; don't just append.
+
 ## Project Overview
 
 Professional property management company website for OMNI NYC Homes. Static React SPA showcasing real estate management services across NYC's five boroughs.
@@ -14,7 +25,7 @@ Professional property management company website for OMNI NYC Homes. Static Reac
 - **State**: useState + React Query (configured but unused — all data is static)
 - **Testing**: Vitest + Testing Library + jsdom (configured, no tests written yet)
 - **Icons**: lucide-react
-- **Email**: nodemailer via Vercel serverless function
+- **Email**: Microsoft Graph API (app-only OAuth2) via Vercel serverless function
 - **Deployment**: Vercel (SPA rewrites in vercel.json)
 
 ## Key Paths
@@ -22,7 +33,7 @@ Professional property management company website for OMNI NYC Homes. Static Reac
 ```
 src/
 ├── pages/          # Route pages (Index, About, Services, Contact, NotFound)
-├── components/     # Layout, Navbar, Footer, NavLink
+├── components/     # Layout, Navbar, Footer, NavLink, ScrollToTop
 ├── components/ui/  # shadcn/ui primitives (do not edit manually)
 ├── hooks/          # use-toast, use-mobile
 ├── lib/utils.ts    # cn() utility
@@ -30,8 +41,15 @@ src/
 ├── index.css       # Global styles, CSS variables, font imports
 └── App.tsx         # Router + QueryClient setup
 api/
-└── contact.ts      # Vercel serverless endpoint (nodemailer, rate-limited)
+└── contact.ts      # Vercel serverless endpoint (Graph API, rate-limited)
 ```
+
+### Components
+- **Layout** — wraps `<Navbar /> <main pt-[72px] md:pt-[80px]> {children} </main> <Footer />`.
+- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 4 nav links right; mobile hamburger.
+- **Footer** — navy bg; brand + Quick Links + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
+- **NavLink** — `forwardRef` wrapper over RR `NavLink`, composes `className`/`activeClassName`/`pendingClassName` via `cn()`.
+- **ScrollToTop** — renders `null`; scrolls to top on pathname change (skips when a hash is present).
 
 ## Routes
 
@@ -41,7 +59,6 @@ api/
 | `/about` | `src/pages/About.tsx` | Company story, values, expertise |
 | `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
-| `/staging`, `/staging/about`, `/staging/services`, `/staging/contact` | same page components | Visual preview of alternate styling — same components, different theme |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
 ## Commands
@@ -58,25 +75,41 @@ npm run test:watch   # Vitest (watch mode)
 ## Architecture Notes
 
 - **All page data is static** — hardcoded in page components. No database.
-- **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via nodemailer (Namecheap email). Requires `NAMECHEAP_EMAIL` and `NAMECHEAP_EMAIL_PASSWORD` env vars.
+- **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via the **Microsoft Graph API** (`/users/{mailbox}/sendMail`, app-only OAuth2 token from Entra ID). Requires `M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, and `NAMECHEAP_EMAIL` (the licensed mailbox, e.g. `info@omnipropm.com`) env vars. Rate-limited to 3 requests per IP per 60s (in-memory). Field caps: name/email 200, subject 500, message 5000.
 - **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
 - **Path alias**: `@/*` maps to `./src/*`.
 - **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.
 - **Brand colors**: navy (dark blue), gold (accent), cream (light backgrounds) — defined as CSS variables.
 - **shadcn/ui components** are generated into `src/components/ui/` — modify via shadcn CLI, not by hand.
 - **Navbar** is fixed with `pt-[72px]` offset on main content. Mobile has a hamburger menu.
-- **Staging routes**: `/staging/*` renders the same page components as the main routes, differentiated only by per-component branching on `useThemedPath()` (`src/hooks/use-themed-path.ts`) — primarily the Navbar (white bg, staging logo, larger nav links). Internal `Link`s use `themed()` from the same hook to stay within `/staging` while browsing.
 
-## Staging-only changes
+## Content & Brand Reference
 
-When the user says **"do on staging"**, **"only on staging"**, **"staging only"**, or any equivalent phrasing, scope changes to the `/staging/*` experience only — the default site at `/`, `/about`, etc. must remain unchanged.
+**Services** (Services.tsx — name → hash id → lucide icon):
+| Service | Hash id | Icon |
+|---|---|---|
+| Property Management | `property-management` | Building2 |
+| Building Maintenance | `building-maintenance` | Wrench |
+| Tenant Relations | `tenant-relations` | Users |
+| Compliance & Safety | `compliance-safety` | Shield |
+| 24/7 Emergency Response | `emergency-response` | Clock |
+| Financial Management | `financial-management` | BarChart3 |
 
-Because staging routes share components with the main site, isolate changes with one of these patterns:
-- **Color/style tweaks** — override CSS variables inside the `.staging { ... }` block in `src/index.css`. Do not edit the `:root` block.
-- **Layout/markup/copy tweaks** — branch inside the affected component using `const { isStaging } = useThemedPath()` and render the alternate variant only when `isStaging` is true.
-- **Staging-only assets/components** — fine to add new files; gate their usage behind `isStaging` from `useThemedPath()`.
+**Contact info** (hardcoded in Contact.tsx; address/phone/hours also implied elsewhere):
+- Address: 224 W 35th St Ste 500, New York, NY 10001
+- Phone: (212) 460-5000
+- Email: info@omnipropm.com (mailto link)
+- Hours: Mon–Fri: 8AM – 6PM
 
-Never duplicate a whole page just to differentiate staging — keep the single component, branch on `isStaging`.
+**Brand colors** (HSL CSS vars in `:root`, `src/index.css`):
+- navy / primary: `220 50% 32%` (also `--navy-light: 220 35% 44%`)
+- gold / accent: `24 100% 50%` (also `--gold-light: 24 85% 65%`)
+- cream: `45 30% 95%`
+- `--radius: 0.375rem`
+
+**Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
+
+**Key copy**: Home hero — "Elevating the Standard of Property Management"; tagline "Built on Trust, Driven by Excellence."; "AAA Service Standard" / AAA-level service is a recurring brand phrase. Company is "OMNI Management LLC", founded by NYC real-estate veterans, serving all five boroughs.
 
 ## Conventions
 

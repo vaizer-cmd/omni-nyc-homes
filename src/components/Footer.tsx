@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { X } from "lucide-react";
-import { useThemedPath } from "@/hooks/use-themed-path";
 
 const privacyPolicy = `Privacy Policy
 
@@ -114,7 +113,6 @@ const LegalModal = ({ title, content, onClose }: { title: string; content: strin
 
 const Footer = () => {
   const [modal, setModal] = useState<"privacy" | "terms" | null>(null);
-  const { themed } = useThemedPath();
 
   return (
     <>
@@ -139,7 +137,7 @@ const Footer = () => {
                 {["About", "Services", "Contact"].map((item) => (
                   <Link
                     key={item}
-                    to={themed(`/${item.toLowerCase()}`)}
+                    to={`/${item.toLowerCase()}`}
                     className="block text-sm text-cream/60 hover:text-gold transition-colors"
                   >
                     {item}
@@ -150,7 +148,7 @@ const Footer = () => {
 
             {/* Services */}
             <div>
-              <Link to={themed("/services")} className="font-display text-sm font-semibold text-gold uppercase tracking-wider mb-4 block hover:text-gold/80 transition-colors">
+              <Link to="/services" className="font-display text-sm font-semibold text-gold uppercase tracking-wider mb-4 block hover:text-gold/80 transition-colors">
                 Services
               </Link>
               <div className="space-y-2 text-sm text-cream/60">
@@ -164,7 +162,7 @@ const Footer = () => {
                 ].map((item) => (
                   <Link
                     key={item.hash}
-                    to={`${themed("/services")}#${item.hash}`}
+                    to={`/services#${item.hash}`}
                     className="block hover:text-gold transition-colors"
                   >
                     {item.label}

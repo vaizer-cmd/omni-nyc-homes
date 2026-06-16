@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Building2, Shield, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/omni_backgound.png";
-import { useThemedPath } from "@/hooks/use-themed-path";
 
 const highlights = [
   {
@@ -24,7 +23,6 @@ const highlights = [
 ];
 
 const Index = () => {
-  const { themed } = useThemedPath();
   const highlightsRef = useRef<HTMLDivElement>(null);
   const [highlightsInView, setHighlightsInView] = useState(false);
 
@@ -64,13 +62,13 @@ const Index = () => {
             </p>
             <div className="flex flex-nowrap gap-3 md:gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
               <Link
-                to={themed("/contact")}
+                to="/contact"
                 className="order-1 inline-flex items-center gap-2 bg-gold text-accent-foreground px-5 md:px-8 py-3 font-body font-semibold text-sm tracking-wide shadow-lg hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 Contact Us <ArrowRight size={16} />
               </Link>
               <Link
-                to={themed("/about")}
+                to="/about"
                 className="order-2 inline-flex items-center gap-2 border border-cream/60 bg-navy/30 backdrop-blur-sm text-cream px-5 md:px-8 py-3 font-body font-semibold text-sm tracking-wide hover:border-gold hover:text-gold transition-colors whitespace-nowrap"
               >
                 Learn More <ArrowRight size={16} />
@@ -126,7 +124,7 @@ const Index = () => {
             Partner with a team that treats every property as if it were their own.
           </p>
           <Link
-            to={themed("/contact")}
+            to="/contact"
             className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
           >
             Get in Touch <ArrowRight size={16} />
