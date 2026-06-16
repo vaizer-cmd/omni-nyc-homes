@@ -8,6 +8,7 @@ const navLinks = [
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
   { label: "Contact", path: "/contact" },
+  { label: "Tenant Login", path: "https://omni-management-81ded.web.app", external: true },
 ];
 
 const Navbar = () => {
@@ -18,7 +19,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b bg-white/95 border-navy/10">
       <div className="container mx-auto px-6 flex items-center justify-between py-2">
         <Link to="/" className="flex flex-col">
-          <img src={logo} alt="OMNI" className="h-14 md:h-16 w-auto" />
+          <img src={logo} alt="OMNI" className="h-16 md:h-20 w-auto" />
         </Link>
 
         {/* Tagline */}
@@ -29,6 +30,19 @@ const Navbar = () => {
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
+            if (link.external) {
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative font-body font-medium tracking-wide text-xl text-navy/80 hover:text-gold transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gold after:w-0 hover:after:w-full after:transition-all after:duration-300"
+                >
+                  {link.label}
+                </a>
+              );
+            }
             const to = link.path;
             const isActive = location.pathname === to;
             return (
@@ -64,6 +78,20 @@ const Navbar = () => {
       >
         <div className="bg-white border-t border-navy/10 px-6 py-4 space-y-3">
           {navLinks.map((link) => {
+            if (link.external) {
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="block font-body font-medium tracking-wide py-2 text-xl text-navy/80 hover:text-gold"
+                >
+                  {link.label}
+                </a>
+              );
+            }
             const to = link.path;
             return (
               <Link

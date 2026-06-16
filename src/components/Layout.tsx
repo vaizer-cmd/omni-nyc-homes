@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 pt-[72px] md:pt-[80px]">{children}</main>
+      <main className="flex-1 pt-[80px] md:pt-[96px]">{children}</main>
       <Footer />
     </div>
   );

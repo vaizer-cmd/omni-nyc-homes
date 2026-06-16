@@ -134,15 +134,33 @@ const Footer = () => {
                 Quick Links
               </h4>
               <div className="space-y-2">
-                {["About", "Services", "Contact"].map((item) => (
-                  <Link
-                    key={item}
-                    to={`/${item.toLowerCase()}`}
-                    className="block text-sm text-cream/60 hover:text-gold transition-colors"
-                  >
-                    {item}
-                  </Link>
-                ))}
+                {[
+                  { label: "Home", to: "/" },
+                  { label: "About", to: "/about" },
+                  { label: "Services", to: "/services" },
+                  { label: "Contact", to: "/contact" },
+                  { label: "Tenant Login", to: "https://omni-management-81ded.web.app", external: true },
+                ].map((item) =>
+                  item.external ? (
+                    <a
+                      key={item.label}
+                      href={item.to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sm text-cream/60 hover:text-gold transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      className="block text-sm text-cream/60 hover:text-gold transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
               </div>
             </div>
 
