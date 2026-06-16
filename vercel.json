@@ -1,11 +1,8 @@
 {
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "jobs.omnipropm.com" }],
-      "destination": "/jobs.html"
-    },
-    { "source": "/jobs", "destination": "/jobs.html" },
-    { "source": "/((?!api/|@|.*\\.).*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/", "has": [{ "type": "host", "value": "jobs.omnipropm.com" }], "dest": "/jobs.html" },
+    { "handle": "filesystem" },
+    { "src": "/jobs", "dest": "/jobs.html" },
+    { "src": "/((?!api/|@|.*\\.).*)", "dest": "/index.html" }
   ]
 }
