@@ -1,24 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Building2, Shield, Users, ArrowRight } from "lucide-react";
+import { Wrench, ShieldCheck, AlertTriangle, Sparkles, Users, MonitorSmartphone, Plus, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/omni_backgound.png";
 
 const highlights = [
   {
-    icon: Building2,
-    title: "Full-Service Management",
-    description: "Comprehensive property management for residential and commercial buildings of any complexity.",
+    icon: Wrench,
+    title: "Daily Building Maintenance",
+    description: "Our on-the-ground team handles day-to-day upkeep and repairs — catching issues early before they become costly problems.",
   },
   {
-    icon: Shield,
-    title: "AAA Service Standard",
-    description: "We hold ourselves to the highest standards of maintenance, responsiveness, and professionalism.",
+    icon: ShieldCheck,
+    title: "Preventive Care & NYC Code Compliance",
+    description: "Scheduled inspections and system maintenance aligned with New York City building code, keeping your property fully compliant year-round.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "Violation Remediation",
+    description: "We identify, address, and close open violations with the city — fast, thorough, and fully documented.",
+  },
+  {
+    icon: Sparkles,
+    title: "Cleaning Services",
+    description: "Professional, recurring cleaning of common areas, lobbies, and basements. A clean building reflects an owner who cares.",
   },
   {
     icon: Users,
-    title: "Decades of Expertise",
-    description: "Our team of seasoned real estate professionals brings unmatched industry knowledge.",
+    title: "Tenant Management",
+    description: "From rent collection and lease renewals to day-to-day communication and complaint handling — we're the face of your building.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Online Tenant Portal",
+    description: "Tenants can submit requests, track progress in real time, and get updates without having to chase anyone down. Every request is logged, assigned, and followed through to completion — and tenants always know where things stand.",
+  },
+  {
+    icon: Plus,
+    title: "And More",
+    description: "24/7 emergency response, vendor coordination, owner reporting, and everything in between.",
   },
 ];
 
@@ -52,13 +72,16 @@ const Index = () => {
         <div className="relative container mx-auto px-4 md:px-6 flex flex-col w-full md:block">
           <div className="max-w-2xl md:max-w-4xl flex flex-col flex-1 md:block">
             <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-28 md:mt-12 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
-              Elevating the Standard
+              Your Building,
               <br />
-              of <br className="md:hidden" />
-              <span className="text-gold md:whitespace-nowrap">Property Management</span>
+              <span className="text-gold">Perfectly Managed.</span>
+              <br />
+              Your Tenants,
+              <br />
+              <span className="text-gold">always in the Loop.</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
-              OMNI Management delivers exceptional building management and maintenance services across all five boroughs of New York City.
+            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 mb-8 max-w-2xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+              OMNI Management handles the day-to-day operations of your building — maintenance, compliance, violations, cleaning, and more — while giving every tenant direct access to our team through an online portal. Requests submitted, tracked, and resolved. No calls falling through the cracks.
             </p>
             <div className="flex flex-nowrap gap-3 md:gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
               <Link
@@ -120,14 +143,19 @@ const Index = () => {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-4">
             Ready to Experience Premium Management?
           </h2>
-          <p className="font-body text-cream/70 mb-8 max-w-lg mx-auto">
-            Partner with a team that treats every property as if it were their own.
+          <p className="font-body text-cream/80 mb-4 max-w-2xl mx-auto">
+            Whether you manage one building or twenty, OMNI takes the heavy lifting off your plate — and gives your tenants the responsiveness they expect.
+          </p>
+          <p className="font-body text-cream/70 mb-8 max-w-2xl mx-auto">
+            <strong className="font-bold text-cream">Owners</strong> get a team that shows up and gets things done.
+            <br />
+            <strong className="font-bold text-cream">Tenants</strong> get a portal to submit requests, track progress, and get real answers.
           </p>
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
           >
-            Get in Touch <ArrowRight size={16} />
+            Let's Talk <ArrowRight size={16} />
           </Link>
         </div>
       </section>
