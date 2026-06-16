@@ -18,7 +18,11 @@ const About = () => {
             <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Our Story</span>
           </div>
           <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-3xl">
-            We Answer the Phone. We Show Up. We Get It Done.
+            We Answer the Phone.
+            <br />
+            We Show Up.
+            <br />
+            We Get It Done.
           </h1>
         </div>
       </section>
