@@ -37,7 +37,7 @@ const Navbar = () => {
                   href={link.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center bg-navy text-cream font-body font-semibold tracking-wide text-base px-5 py-2 shadow-sm hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center bg-navy text-gold font-body font-semibold tracking-wide text-base px-5 py-2 shadow-sm hover:opacity-90 transition-opacity"
                 >
                   {link.label}
                 </a>
@@ -86,7 +86,7 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center bg-navy text-cream font-body font-semibold tracking-wide text-base px-5 py-2 mt-1 shadow-sm hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center bg-navy text-gold font-body font-semibold tracking-wide text-base px-5 py-2 mt-1 shadow-sm hover:opacity-90 transition-opacity"
                 >
                   {link.label}
                 </a>
