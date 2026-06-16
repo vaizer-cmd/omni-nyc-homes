@@ -1,4 +1,3 @@
-import { CheckCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import aboutImage from "@/assets/about-building.jpg";
 
@@ -6,17 +5,6 @@ const values = [
   { title: "Reliability", desc: "When you call, we answer. When something needs to be fixed, we're there — not tomorrow, not after a follow-up, now." },
   { title: "Professionalism", desc: "Every job, every visit, every interaction is handled with care and accountability. We represent your building, and we take that seriously." },
   { title: "Responsiveness", desc: "We're available 24/7 for emergencies — and for everything else, tenants don't need to make a single phone call. Through our online portal, they can submit requests, get status updates, and communicate directly with our team at any time. Fast answers, full transparency, no runaround." },
-];
-
-const expertise = [
-  "HVAC & Mechanical Systems",
-  "Electrical & Plumbing Infrastructure",
-  "Fire Safety & Life Safety Systems",
-  "Elevator & Vertical Transportation",
-  "Structural Maintenance & Facade",
-  "Energy Management & Sustainability",
-  "Security Systems & Access Control",
-  "Common Area & Amenity Management",
 ];
 
 const About = () => {
@@ -98,29 +86,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Technical Expertise */}
-      <section className="py-20 bg-navy">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-4">
-                Technical Expertise
-              </h2>
-              <p className="font-body text-cream/70">
-                We specialize in maintaining the most complex building systems at the highest level of proficiency.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {expertise.map((item) => (
-                <div key={item} className="flex items-center gap-3 py-3 px-4 border border-cream/10">
-                  <CheckCircle size={18} className="text-gold shrink-0" />
-                  <span className="font-body text-cream/80 text-sm">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
     </Layout>
   );
 };
