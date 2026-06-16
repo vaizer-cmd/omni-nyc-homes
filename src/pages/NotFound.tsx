@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { useThemedPath } from "@/hooks/use-themed-path";
 
 const NotFound = () => {
-  const { themed } = useThemedPath();
   return (
     <Layout>
       <section className="py-32 bg-cream">
@@ -13,7 +11,7 @@ const NotFound = () => {
             The page you're looking for doesn't exist.
           </p>
           <Link
-            to={themed("/")}
+            to="/"
             className="inline-flex items-center gap-2 bg-navy text-cream px-8 py-3 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
           >
             Return to Home
