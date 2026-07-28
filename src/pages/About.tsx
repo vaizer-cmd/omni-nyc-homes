@@ -13,17 +13,10 @@ const About = () => {
       {/* Hero */}
       <section className="relative py-6 md:py-12 bg-navy">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3">
             <div className="h-px w-12 bg-gold" />
             <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Our Story</span>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-3xl">
-            We Answer the Phone.
-            <br />
-            We Show Up.
-            <br />
-            We Get It Done.
-          </h1>
         </div>
       </section>
 
