@@ -107,9 +107,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gold" />
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Why Choose Us</span>
-              <div className="h-px w-12 bg-gold" />
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
               Built on Trust, Driven by Excellence.
