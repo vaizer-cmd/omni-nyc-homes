@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Poplar St. — Punch List</title>
+<style>
+  :root {
+    --bg-0: #f4f0e8;
+    --bg-1: #fbf9f4;
+    --navy: #1a3a52;
+    --navy-deep: #0f2436;
+    --gold: #b8912f;
+    --gold-bright: #d9ac3f;
+    --ink: #211d16;
+    --ink-muted: #6b6455;
+    --paper: #ffffff;
+    --paper-tint: #f8f4eb;
+    --line: #e6ddc9;
+    --shadow: 220 30% 15%;
+  }
+
+  :root[data-theme="dark"] {
+    --bg-0: #0e1a24;
+    --bg-1: #13222d;
+    --navy: #21384a;
+    --navy-deep: #0a1720;
+    --gold: #d9ac3f;
+    --gold-bright: #eec568;
+    --ink: #e9e4d6;
+    --ink-muted: #9b9382;
+    --paper: #172732;
+    --paper-tint: #1c2e3a;
+    --line: #2b3f4c;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg-0: #0e1a24;
+      --bg-1: #13222d;
+      --navy: #21384a;
+      --navy-deep: #0a1720;
+      --gold: #d9ac3f;
+      --gold-bright: #eec568;
+      --ink: #e9e4d6;
+      --ink-muted: #9b9382;
+      --paper: #172732;
+      --paper-tint: #1c2e3a;
+      --line: #2b3f4c;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, var(--bg-0) 0%, var(--bg-1) 55%);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .display {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #f3efe4;
+    padding: 32px 36px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px -12px hsl(var(--shadow) / 0.45);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 40%, hsl(0 0% 100% / 0.05) 50%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    font-weight: 600;
+  }
+
+  header h1 {
+    font-size: clamp(24px, 4vw, 32px);
+    margin-top: 6px;
+    text-wrap: balance;
+    font-weight: 700;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #cfd9e0;
+  }
+
+  .header-meta strong {
+    color: #f3efe4;
+    font-weight: 600;
+  }
+
+  .header-stat {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid hsl(0 0% 100% / 0.15);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .header-stat .count {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--gold-bright);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .header-stat .label {
+    font-size: 12px;
+    color: #cfd9e0;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-bar {
+    display: flex;
+    gap: 8px;
+    margin: 28px 0 32px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 12px;
+    z-index: 10;
+  }
+
+  .nav-bar button {
+    background: var(--paper);
+    color: var(--navy);
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    box-shadow: 0 1px 3px hsl(var(--shadow) / 0.08);
+  }
+
+  .nav-bar button .badge {
+    font-size: 11px;
+    background: var(--paper-tint);
+    color: var(--ink-muted);
+    border-radius: 999px;
+    padding: 1px 7px;
+    font-variant-numeric: tabular-nums;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-bar button:hover,
+  .nav-bar button.active {
+    background: var(--navy);
+    color: #f3efe4;
+    border-color: var(--navy);
+  }
+
+  .nav-bar button:hover .badge,
+  .nav-bar button.active .badge {
+    background: hsl(0 0% 100% / 0.15);
+    color: var(--gold-bright);
+  }
+
+  .nav-bar button.print-btn {
+    margin-left: auto;
+    background: transparent;
+    color: var(--ink-muted);
+    border-style: dashed;
+  }
+
+  .section {
+    background: var(--paper);
+    padding: 26px 28px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    box-shadow: 0 3px 14px -6px hsl(var(--shadow) / 0.18);
+    border-left: 4px solid var(--gold);
+    scroll-margin-top: 90px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-head h2 {
+    color: var(--navy);
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  .section-head .tally {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .defect-item {
+    background: var(--paper-tint);
+    padding: 15px 16px;
+    margin-bottom: 12px;
+    border-radius: 7px;
+    border-left: 3px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .defect-item:last-child { margin-bottom: 0; }
+
+  .defect-content { flex: 1; min-width: 0; }
+
+  .defect-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 3px;
+    font-size: 15px;
+  }
+
+  :root[data-theme="dark"] .defect-title { color: #cfe0ee; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .defect-title { color: #cfe0ee; }
+  }
+
+  .defect-description {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+  }
+
+  .image-links {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .image-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--navy);
+    color: #f3efe4;
+    padding: 7px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .image-link:hover { background: var(--gold); color: var(--navy-deep); }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background-color: hsl(0 0% 0% / 0.55);
+    animation: fadeIn 0.2s;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-content {
+    background-color: var(--paper);
+    max-width: 90%;
+    max-height: 90vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -10px hsl(0 0% 0% / 0.5);
+  }
+
+  .modal-header {
+    background: var(--navy);
+    color: #f3efe4;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .modal-header h3 { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: #f3efe4;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-btn:hover { background: hsl(0 0% 100% / 0.15); }
+
+  .modal-body {
+    padding: 18px;
+    max-height: calc(90vh - 55px);
+    overflow-y: auto;
+  }
+
+  .modal-body img { max-width: 100%; height: auto; border-radius: 6px; display: block; }
+
+  .image-placeholder {
+    background: var(--paper-tint);
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--ink-muted);
+    border-radius: 6px;
+    font-size: 13.5px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--ink-muted);
+    font-size: 12px;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 20px 14px 50px; }
+    header { padding: 22px 18px; }
+    .nav-bar { position: static; }
+    .nav-bar button { flex: 1 1 calc(33% - 6px); justify-content: center; }
+    .nav-bar button.print-btn { margin-left: 0; }
+    .section { padding: 18px 16px; }
+    .defect-item { flex-direction: column; align-items: stretch; }
+    .image-links { justify-content: flex-start; }
+    .image-link { flex: 1; justify-content: center; }
+  }
+
+  @media print {
+    body { background: var(--bg-1); }
+    .nav-bar, .image-link { display: none; }
+    .modal { display: none !important; }
+    .section { box-shadow: none; border: 1px solid var(--line); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="eyebrow">Property Inspection · OMNI Management LLC</div>
+    <h1 class="display">Poplar Street — Punch List</h1>
+    <div class="header-meta">
+      <span><strong>Property:</strong> 2443 Poplar St.</span>
+      <span><strong>Report date:</strong> July 28, 2026</span>
+    </div>
+    <div class="header-stat">
+      <span class="count" id="totalCount">—</span>
+      <span class="label">open items across 5 areas</span>
+    </div>
+  </header>
+
+  <nav class="nav-bar" id="navBar">
+    <button data-target="cellar" class="active">Cellar <span class="badge" data-badge="cellar"></span></button>
+    <button data-target="floor1">1st Floor <span class="badge" data-badge="floor1"></span></button>
+    <button data-target="floor2">2nd Floor <span class="badge" data-badge="floor2"></span></button>
+    <button data-target="floor3">3rd Floor <span class="badge" data-badge="floor3"></span></button>
+    <button data-target="building">Building <span class="badge" data-badge="building"></span></button>
+    <button class="print-btn" onclick="window.print()">Print</button>
+  </nav>
+
+  <div class="section" id="cellar">
+    <div class="section-head">
+      <h2 class="display">Cellar</h2>
+      <span class="tally" data-tally="cellar"></span>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">AC in Hallway — Non-Operational</div>
+        <div class="defect-description">HVAC unit requires service</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">AC in East Side of Dining Room — Non-Operational</div>
+        <div class="defect-description">HVAC unit requires service</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Sprinklers & Water Pumps Room</div>
+        <div class="defect-description">Mold present, water running from bucket with leaking valve, no airflow</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('cellar-sprinkler1')">Image 1</button>
+        <button class="image-link" onclick="openImage('cellar-sprinkler2')">Image 2</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Restrooms ADA (Front of Elevator)</div>
+        <div class="defect-description">No flush, add TP holder and blower</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Bathroom C05</div>
+        <div class="defect-description">Mirror missing, wrong mark on second tap</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Dorm Room C09</div>
+        <div class="defect-description">Leak on right corner ceiling</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('cellar-c09')">Image</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="floor1">
+    <div class="section-head">
+      <h2 class="display">1st Floor</h2>
+      <span class="tally" data-tally="floor1"></span>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Unit 08 Ambulatory</div>
+        <div class="defect-description">Add blower, TP holder in bathroom</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Unit 05 Ambulatory</div>
+        <div class="defect-description">Add blower, TP holder in bathroom. AC not cooling</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Unit 06 Ambulatory</div>
+        <div class="defect-description">Add blower, TP holder in bathroom, sink trap waste line not installed. AC not cooling</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('floor1-unit06')">Image</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Unit 02 Ambulatory</div>
+        <div class="defect-description">Add blower, TP holder in bathroom</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Unit 03 Ambulatory</div>
+        <div class="defect-description">Add blower, TP holder in bathroom</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Hallway Middle 1 Bathroom</div>
+        <div class="defect-description">Add blower, TP holder</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Hallway Middle 2 Bathroom</div>
+        <div class="defect-description">Add blower, TP holder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="floor2">
+    <div class="section-head">
+      <h2 class="display">2nd Floor</h2>
+      <span class="tally" data-tally="floor2"></span>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Missing Tile or Access Door</div>
+        <div class="defect-description">Missing tiles in middle area</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('floor2-hallway-door')">Image</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Ambulatory Room 208</div>
+        <div class="defect-description">Paint patch, bathroom needs blower and TP holder</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('floor2-room208')">Image</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Dorm Room 206</div>
+        <div class="defect-description">AC not cooling, door not self-latching</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Dorm Room 202</div>
+        <div class="defect-description">AC not cooling</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="floor3">
+    <div class="section-head">
+      <h2 class="display">3rd Floor</h2>
+      <span class="tally" data-tally="floor3"></span>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Dorm Room 302</div>
+        <div class="defect-description">Door window glass cracked</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('floor3-dorm302')">Image</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Hallway Telephone Cable</div>
+        <div class="defect-description">Cable maintenance needed</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('floor3-cable')">Image</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="building">
+    <div class="section-head">
+      <h2 class="display">Building</h2>
+      <span class="tally" data-tally="building"></span>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Toilet Paper Holders (TP Holders)</div>
+        <div class="defect-description">28 TP holders needed throughout building: Cellar (5), 1st Floor (7), 2nd Floor (8), 3rd Floor (8)</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Sprinkler Cups Throughout Building</div>
+        <div class="defect-description">Complete the missing</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Thermostat Lock Boxes</div>
+        <div class="defect-description">15 lock boxes needed throughout building</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Doors — Self Latching</div>
+        <div class="defect-description">Adjust or replace hinges throughout building</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">DETEX Exit Door Alarm</div>
+        <div class="defect-description">4 alarm panels needed for stairway exits (2 roof exits, 2 street)</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Electric Panels</div>
+        <div class="defect-description">Printed signage needed in English throughout building</div>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Fire Extinguishers</div>
+        <div class="defect-description">Expired extinguishers throughout building — renewal required</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>OMNI Management LLC — Poplar St. Punch List</footer>
+</div>
+
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Image View</h3>
+      <button class="close-btn" onclick="closeImage()" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="imageContainer" class="image-placeholder">Add your image link here</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const imageLinks = {
+    'cellar-sprinkler1': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/sprinklers%20room.jpeg?download=1',
+    'cellar-sprinkler2': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Sprinkler%20water%20pumps%20room%20(2).jpeg?download=1',
+    'cellar-c09': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/C09.jpeg?download=1',
+    'floor1-unit06': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Unit%2006%20Ambulatory.jpeg?download=1',
+    'floor2-hallway-door': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Hallway%20access%20door%20missing%20tiles%20middle.jpeg?download=1',
+    'floor2-room208': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/208.jpeg?download=1',
+    'floor3-dorm302': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Dorm%20302%20door%20window%20glass%20cracked.jpeg?download=1',
+    'floor3-cable': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Hallway%20telephone%20cable.jpeg?download=1'
+  };
+
+  function openImage(imageId) {
+    const modal = document.getElementById('imageModal');
+    const container = document.getElementById('imageContainer');
+    const title = document.getElementById('modalTitle');
+    title.textContent = 'Image: ' + imageId.replace(/-/g, ' ').toUpperCase();
+    const url = imageLinks[imageId];
+    if (url) {
+      container.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Defect photo';
+      img.onerror = function () {
+        container.innerHTML = '<div class="image-placeholder">This photo is stored on a private SharePoint link and can’t be displayed to visitors outside OMNI’s organization.</div>';
+      };
+      container.appendChild(img);
+    } else {
+      container.innerHTML = '<div class="image-placeholder">Image not available</div>';
+    }
+    modal.style.display = 'block';
+  }
+
+  function closeImage() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+
+  window.addEventListener('click', function (event) {
+    const modal = document.getElementById('imageModal');
+    if (event.target === modal) modal.style.display = 'none';
+  });
+
+  window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeImage();
+  });
+
+  const sectionIds = ['cellar', 'floor1', 'floor2', 'floor3', 'building'];
+  const navButtons = Array.from(document.querySelectorAll('#navBar button[data-target]'));
+  let total = 0;
+
+  sectionIds.forEach(function (id) {
+    const section = document.getElementById(id);
+    const count = section.querySelectorAll('.defect-item').length;
+    total += count;
+    const badge = document.querySelector('[data-badge="' + id + '"]');
+    if (badge) badge.textContent = count;
+    const tally = document.querySelector('[data-tally="' + id + '"]');
+    if (tally) tally.textContent = count + (count === 1 ? ' item' : ' items');
+  });
+
+  document.getElementById('totalCount').textContent = total;
+
+  navButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById(btn.dataset.target).scrollIntoView({ behavior: 'smooth' });
+      navButtons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          navButtons.forEach(function (b) {
+            b.classList.toggle('active', b.dataset.target === entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sectionIds.forEach(function (id) { observer.observe(document.getElementById(id)); });
+  }
+</script>
+</body>
+</html>
