@@ -397,7 +397,6 @@
 <body>
 <div class="container">
   <header>
-    <div class="eyebrow">Property Inspection · OMNI Management LLC</div>
     <h1 class="display">Poplar Street — Punch List</h1>
     <div class="header-meta">
       <span><strong>Property:</strong> 2443 Poplar St.</span>
@@ -446,6 +445,7 @@
       <div class="image-links">
         <button class="image-link" onclick="openImage('cellar-sprinkler1')">Image 1</button>
         <button class="image-link" onclick="openImage('cellar-sprinkler2')">Image 2</button>
+        <button class="image-link" onclick="openImage('cellar-sprinkler3')">Image 3</button>
       </div>
     </div>
 
@@ -657,7 +657,6 @@
     </div>
   </div>
 
-  <footer>OMNI Management LLC — Poplar St. Punch List</footer>
 </div>
 
 <div id="imageModal" class="modal">
@@ -674,14 +673,15 @@
 
 <script>
   const imageLinks = {
-    'cellar-sprinkler1': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/sprinklers%20room.jpeg?download=1',
-    'cellar-sprinkler2': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Sprinkler%20water%20pumps%20room%20(2).jpeg?download=1',
-    'cellar-c09': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/C09.jpeg?download=1',
-    'floor1-unit06': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Unit%2006%20Ambulatory.jpeg?download=1',
-    'floor2-hallway-door': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Hallway%20access%20door%20missing%20tiles%20middle.jpeg?download=1',
-    'floor2-room208': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/208.jpeg?download=1',
-    'floor3-dorm302': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Dorm%20302%20door%20window%20glass%20cracked.jpeg?download=1',
-    'floor3-cable': 'https://omnipropm-my.sharepoint.com/personal/ov_omnipropm_com/Documents/Poplar%20report/Hallway%20telephone%20cable.jpeg?download=1'
+    'cellar-sprinkler1': 'poplar-photos/cellar-sprinkler-1.jpg',
+    'cellar-sprinkler2': 'poplar-photos/cellar-sprinkler-2.jpg',
+    'cellar-sprinkler3': 'poplar-photos/cellar-sprinkler-3.jpg',
+    'cellar-c09': 'poplar-photos/cellar-c09.jpg',
+    'floor1-unit06': 'poplar-photos/floor1-unit06.jpg',
+    'floor2-hallway-door': 'poplar-photos/floor2-hallway-door.jpg',
+    'floor2-room208': 'poplar-photos/floor2-room208.jpg',
+    'floor3-dorm302': 'poplar-photos/floor3-dorm302.jpg',
+    'floor3-cable': 'poplar-photos/floor3-cable.jpg'
   };
 
   function openImage(imageId) {
@@ -696,7 +696,7 @@
       img.src = url;
       img.alt = 'Defect photo';
       img.onerror = function () {
-        container.innerHTML = '<div class="image-placeholder">This photo is stored on a private SharePoint link and can’t be displayed to visitors outside OMNI’s organization.</div>';
+        container.innerHTML = '<div class="image-placeholder">Image failed to load.</div>';
       };
       container.appendChild(img);
     } else {
