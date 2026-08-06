@@ -19,6 +19,8 @@
     --paper-tint: #f8f4eb;
     --line: #e6ddc9;
     --shadow: 220 30% 15%;
+    --alert: #a5402f;
+    --alert-tint: #fbf0ee;
   }
 
   :root[data-theme="dark"] {
@@ -33,6 +35,8 @@
     --paper: #172732;
     --paper-tint: #1c2e3a;
     --line: #2b3f4c;
+    --alert: #e0776a;
+    --alert-tint: #2e1c1c;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -48,6 +52,8 @@
       --paper: #172732;
       --paper-tint: #1c2e3a;
       --line: #2b3f4c;
+      --alert: #e0776a;
+      --alert-tint: #2e1c1c;
     }
   }
 
@@ -231,6 +237,19 @@
     font-variant-numeric: tabular-nums;
   }
 
+  .section.alert { border-left-color: var(--alert); }
+  .section.alert .section-head .eyebrow-tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--alert);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .section.alert .defect-item { border-left-color: var(--alert); }
+  .section.alert .defect-title { color: var(--alert); }
+
   .defect-item {
     background: var(--paper-tint);
     padding: 15px 16px;
@@ -407,6 +426,36 @@
       <span class="label">open items across 5 areas</span>
     </div>
   </header>
+
+  <div class="section alert" id="violations">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow-tag">NYC DOB &amp; DOF Records</span>
+        <h2 class="display">Open Violations &amp; Outstanding Fines</h2>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Open DOB/ECB Violation — Altered Building Occupied Without Valid C/O</div>
+        <div class="defect-description">Violation #35304980P, Class 2, filed 12/19/2018 — status: IN VIOLATION, certificate of correction disapproved 02/17/2026. Penalty of $1,250 paid in full, but violation remains open on DOB records until an acceptable Certificate of Correction is approved.</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('dob-ecb-violation')">Image</button>
+      </div>
+    </div>
+
+    <div class="defect-item">
+      <div class="defect-content">
+        <div class="defect-title">Outstanding DOB/DEP Fines &amp; Penalties</div>
+        <div class="defect-description">CityPay Bill #BIL000540978 — 6 defaulted/docketed items totaling $25,631.39, expires 09/05/2026. Includes noise mitigation plan violations (DEP), pedestrian protection, concrete washout, and miscellaneous DOB violations.</div>
+      </div>
+      <div class="image-links">
+        <button class="image-link" onclick="openImage('fines-and-penalties-1')">Image 1</button>
+        <button class="image-link" onclick="openImage('fines-and-penalties-2')">Image 2</button>
+      </div>
+    </div>
+  </div>
 
   <nav class="nav-bar" id="navBar">
     <button data-target="cellar" class="active">Cellar <span class="badge" data-badge="cellar"></span></button>
@@ -769,6 +818,9 @@
 
 <script>
   const imageLinks = {
+    'dob-ecb-violation': 'poplar-photos/dob-ecb-violation.png',
+    'fines-and-penalties-1': 'poplar-photos/fines-and-penalties-1.png',
+    'fines-and-penalties-2': 'poplar-photos/fines-and-penalties-2.png',
     'cellar-sprinkler1': 'poplar-photos/cellar-sprinkler-1.jpg',
     'cellar-sprinkler2': 'poplar-photos/cellar-sprinkler-2.jpg',
     'cellar-sprinkler3': 'poplar-photos/cellar-sprinkler-3.jpg',
