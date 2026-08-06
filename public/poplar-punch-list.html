@@ -248,8 +248,8 @@
     background: var(--paper-tint);
     border: 1px solid var(--line);
     color: var(--navy);
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -263,12 +263,10 @@
 
   .collapse-btn .chevron {
     display: inline-block;
-    font-size: 11px;
+    font-size: 20px;
+    font-weight: 700;
     line-height: 1;
-    transition: transform 0.2s;
   }
-
-  .section.collapsed .collapse-btn .chevron { transform: rotate(-90deg); }
 
   .section.collapsed .defect-item { display: none; }
 
@@ -507,7 +505,7 @@
       <h2 class="display">Cellar</h2>
       <div class="section-head-right">
         <span class="tally" data-tally="cellar"></span>
-        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse Cellar section"><span class="chevron">&#9662;</span></button>
+        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse Cellar section"><span class="chevron">&#8722;</span></button>
       </div>
     </div>
 
@@ -608,7 +606,7 @@
       <h2 class="display">1st Floor</h2>
       <div class="section-head-right">
         <span class="tally" data-tally="floor1"></span>
-        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 1st Floor section"><span class="chevron">&#9662;</span></button>
+        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 1st Floor section"><span class="chevron">&#8722;</span></button>
       </div>
     </div>
 
@@ -670,7 +668,7 @@
       <h2 class="display">2nd Floor</h2>
       <div class="section-head-right">
         <span class="tally" data-tally="floor2"></span>
-        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 2nd Floor section"><span class="chevron">&#9662;</span></button>
+        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 2nd Floor section"><span class="chevron">&#8722;</span></button>
       </div>
     </div>
 
@@ -714,7 +712,7 @@
       <h2 class="display">3rd Floor</h2>
       <div class="section-head-right">
         <span class="tally" data-tally="floor3"></span>
-        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 3rd Floor section"><span class="chevron">&#9662;</span></button>
+        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse 3rd Floor section"><span class="chevron">&#8722;</span></button>
       </div>
     </div>
 
@@ -774,7 +772,7 @@
       <h2 class="display">Building</h2>
       <div class="section-head-right">
         <span class="tally" data-tally="building"></span>
-        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse Building section"><span class="chevron">&#9662;</span></button>
+        <button class="collapse-btn" aria-expanded="true" aria-label="Collapse Building section"><span class="chevron">&#8722;</span></button>
       </div>
     </div>
 
@@ -959,7 +957,11 @@
   function expandSection(section) {
     section.classList.remove('collapsed');
     const btn = section.querySelector('.collapse-btn');
-    if (btn) btn.setAttribute('aria-expanded', 'true');
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'true');
+      const chevron = btn.querySelector('.chevron');
+      if (chevron) chevron.innerHTML = '&#8722;';
+    }
   }
 
   document.querySelectorAll('.collapse-btn').forEach(function (btn) {
@@ -967,6 +969,8 @@
       const section = btn.closest('.section');
       const collapsed = section.classList.toggle('collapsed');
       btn.setAttribute('aria-expanded', String(!collapsed));
+      const chevron = btn.querySelector('.chevron');
+      if (chevron) chevron.innerHTML = collapsed ? '&#43;' : '&#8722;';
       const heading = section.querySelector('.section-head h2');
       const label = heading ? heading.textContent : 'section';
       btn.setAttribute('aria-label', (collapsed ? 'Expand ' : 'Collapse ') + label + ' section');
