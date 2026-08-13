@@ -21,6 +21,8 @@
     --shadow: 220 30% 15%;
     --alert: #a5402f;
     --alert-tint: #fbf0ee;
+    --success: #3f7d4a;
+    --success-tint: #eaf3ea;
   }
 
   :root[data-theme="dark"] {
@@ -37,6 +39,8 @@
     --line: #2b3f4c;
     --alert: #e0776a;
     --alert-tint: #2e1c1c;
+    --success: #7cc283;
+    --success-tint: #17261a;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -54,6 +58,8 @@
       --line: #2b3f4c;
       --alert: #e0776a;
       --alert-tint: #2e1c1c;
+      --success: #7cc283;
+      --success-tint: #17261a;
     }
   }
 
@@ -297,6 +303,26 @@
 
   .defect-item:last-child { margin-bottom: 0; }
 
+  .defect-item.done { border-left-color: var(--success); }
+  .defect-item.done .defect-title { text-decoration: line-through; text-decoration-color: var(--ink-muted); }
+  .defect-item.done .defect-description { opacity: 0.7; }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--success-tint);
+    color: var(--success);
+    text-decoration: none;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
   .defect-content { flex: 1; min-width: 0; }
 
   .defect-title {
@@ -453,7 +479,7 @@
     <h1 class="display">Poplar Street — Punch List</h1>
     <div class="header-meta">
       <span><strong>Property:</strong> 2443 Poplar St.</span>
-      <span><strong>Report date:</strong> August 10, 2026</span>
+      <span><strong>Report date:</strong> August 13, 2026</span>
     </div>
     <div class="header-stat">
       <span class="count" id="totalCount">—</span>
@@ -566,9 +592,9 @@
       </div>
     </div>
 
-    <div class="defect-item">
+    <div class="defect-item done">
       <div class="defect-content">
-        <div class="defect-title">Electricity Room — Post-Rain Leak</div>
+        <div class="defect-title">Electricity Room — Post-Rain Leak <span class="status-badge">Done</span></div>
         <div class="defect-description">Standing water on floor after rain, near electrical panels — source needs to be identified and sealed</div>
       </div>
       <div class="image-links">
@@ -963,7 +989,7 @@
 
   sectionIds.forEach(function (id) {
     const section = document.getElementById(id);
-    const count = section.querySelectorAll('.defect-item').length;
+    const count = section.querySelectorAll('.defect-item:not(.done)').length;
     total += count;
     const badge = document.querySelector('[data-badge="' + id + '"]');
     if (badge) badge.textContent = count;
