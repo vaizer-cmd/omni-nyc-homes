@@ -989,6 +989,13 @@
 
   sectionIds.forEach(function (id) {
     const section = document.getElementById(id);
+    section.querySelectorAll('.defect-item.done').forEach(function (item) {
+      section.appendChild(item);
+    });
+  });
+
+  sectionIds.forEach(function (id) {
+    const section = document.getElementById(id);
     const count = section.querySelectorAll('.defect-item:not(.done)').length;
     total += count;
     const badge = document.querySelector('[data-badge="' + id + '"]');
