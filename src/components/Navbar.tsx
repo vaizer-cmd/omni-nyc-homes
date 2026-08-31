@@ -1,13 +1,26 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/omni_logo.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
-  { label: "Industry Expertise", path: "/industry-expertise" },
+  {
+    label: "Industry Expertise",
+    path: "/industry-expertise",
+    children: [
+      { label: "Commercial & Residential", path: "/industry-expertise#commercial-and-residential" },
+      { label: "Shelters", path: "/industry-expertise#shelters" },
+    ],
+  },
   { label: "Contact", path: "/contact" },
   { label: "Tenant Login", path: "https://omni-management-81ded.web.app", external: true },
 ];
@@ -44,18 +57,40 @@ const Navbar = () => {
                 </a>
               );
             }
+
             const to = link.path;
             const isActive = location.pathname === to;
+            const linkClasses = `relative flex items-center gap-1 font-body font-medium tracking-wide text-xl transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gold after:transition-all after:duration-300 ${
+              isActive
+                ? "text-gold after:w-full"
+                : "text-navy/80 hover:text-gold after:w-0 hover:after:w-full"
+            }`;
+
+            if (link.children) {
+              return (
+                <DropdownMenu key={link.path}>
+                  <DropdownMenuTrigger className={linkClasses}>
+                    {link.label}
+                    <ChevronDown size={16} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="center" className="bg-white border-navy/10">
+                    {link.children.map((child) => (
+                      <DropdownMenuItem key={child.path} asChild>
+                        <Link
+                          to={child.path}
+                          className="font-body text-navy/80 cursor-pointer focus:text-gold focus:bg-navy/5"
+                        >
+                          {child.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              );
+            }
+
             return (
-              <Link
-                key={link.path}
-                to={to}
-                className={`relative font-body font-medium tracking-wide text-xl transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-gold after:transition-all after:duration-300 ${
-                  isActive
-                    ? "text-gold after:w-full"
-                    : "text-navy/80 hover:text-gold after:w-0 hover:after:w-full"
-                }`}
-              >
+              <Link key={link.path} to={to} className={linkClasses}>
                 {link.label}
               </Link>
             );
@@ -74,7 +109,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-          isOpen ? "max-h-96" : "max-h-0"
+          isOpen ? "max-h-[36rem]" : "max-h-0"
         }`}
       >
         <div className="bg-white border-t border-navy/10 px-6 py-4 space-y-3">
@@ -93,18 +128,34 @@ const Navbar = () => {
                 </a>
               );
             }
+
             const to = link.path;
             return (
-              <Link
-                key={link.path}
-                to={to}
-                onClick={() => setIsOpen(false)}
-                className={`block font-body font-medium tracking-wide py-2 text-xl ${
-                  location.pathname === to ? "text-gold" : "text-navy/80"
-                }`}
-              >
-                {link.label}
-              </Link>
+              <div key={link.path}>
+                <Link
+                  to={to}
+                  onClick={() => setIsOpen(false)}
+                  className={`block font-body font-medium tracking-wide py-2 text-xl ${
+                    location.pathname === to ? "text-gold" : "text-navy/80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+                {link.children && (
+                  <div className="pl-4 space-y-1 pb-1">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.path}
+                        to={child.path}
+                        onClick={() => setIsOpen(false)}
+                        className="block font-body text-base text-navy/60 py-1"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
