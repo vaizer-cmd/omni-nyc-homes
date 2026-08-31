@@ -118,7 +118,7 @@ const Footer = () => {
     <>
       <footer className="bg-navy text-cream/80">
         <div className="container mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
             {/* Brand */}
             <div className="md:col-span-2">
               <h3 className="font-display text-2xl font-bold text-cream mb-2">OMNI</h3>
@@ -162,6 +162,27 @@ const Footer = () => {
                     </Link>
                   )
                 )}
+              </div>
+            </div>
+
+            {/* Industry Expertise */}
+            <div>
+              <Link to="/industry-expertise" className="font-display text-sm font-semibold text-gold uppercase tracking-wider mb-4 block hover:text-gold/80 transition-colors">
+                Industry Expertise
+              </Link>
+              <div className="space-y-2 text-sm text-cream/60">
+                {[
+                  { label: "Commercial & Residential", hash: "commercial-and-residential" },
+                  { label: "Shelters", hash: "shelters" },
+                ].map((item) => (
+                  <Link
+                    key={item.hash}
+                    to={`/industry-expertise#${item.hash}`}
+                    className="block hover:text-gold transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
 
