@@ -61,7 +61,7 @@ api/
 |-------|------|---------|
 | `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA |
 | `/about` | `src/pages/About.tsx` | Company story, values, expertise |
-| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation; includes "In the Field" photo gallery |
+| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
 | `/industry-expertise` | `src/pages/IndustryExpertise.tsx` | Commercial & Residential and Shelters sub-sections with hash scroll navigation |
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
@@ -120,7 +120,7 @@ npm run test:watch   # Vitest (watch mode)
 - cream: `45 30% 95%`
 - `--radius: 0.375rem`
 
-**Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About), `field-shelving-1.jpg`, `field-doorway-1.jpg`, `field-shelving-2.jpg`, `field-sink-install.jpg`, `field-elevator-lobby.jpg`, `field-ac-service.jpg` (Services "In the Field" gallery — cropped from staff photos). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
+**Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
 
 **Key copy**: Home hero — "Elevating the Standard of Property Management"; tagline "Built on Trust, Driven by Excellence."; "AAA Service Standard" / AAA-level service is a recurring brand phrase. Company is "OMNI Management LLC", founded by NYC real-estate veterans, serving all five boroughs.
 
