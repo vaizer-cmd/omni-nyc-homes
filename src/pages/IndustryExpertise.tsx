@@ -64,7 +64,7 @@ const IndustryExpertise = () => {
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Buildings That Run Right. Tenants Who Stay.
+              Commercial &amp; Residential
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
               OMNI manages rental buildings, co-ops and condos, mixed-use properties, and office and retail spaces across the five boroughs. We take care of the day-to-day operations — maintenance, preventive care, compliance, cleaning, and vendors, to tenant communication, so landlords can focus on their investment.
