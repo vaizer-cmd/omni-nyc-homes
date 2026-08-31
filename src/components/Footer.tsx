@@ -138,6 +138,7 @@ const Footer = () => {
                   { label: "Home", to: "/" },
                   { label: "About", to: "/about" },
                   { label: "Services", to: "/services" },
+                  { label: "Industry Expertise", to: "/industry-expertise" },
                   { label: "Contact", to: "/contact" },
                   { label: "Tenant Login", to: "https://omni-management-81ded.web.app", external: true },
                 ].map((item) =>

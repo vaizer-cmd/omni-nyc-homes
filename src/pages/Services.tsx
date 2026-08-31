@@ -3,6 +3,12 @@ import { Building2, Wrench, Users, Shield, Clock, BarChart3, CheckCircle } from 
 import Layout from "@/components/Layout";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import fieldShelving1 from "@/assets/field-shelving-1.jpg";
+import fieldDoorway1 from "@/assets/field-doorway-1.jpg";
+import fieldShelving2 from "@/assets/field-shelving-2.jpg";
+import fieldSinkInstall from "@/assets/field-sink-install.jpg";
+import fieldElevatorLobby from "@/assets/field-elevator-lobby.jpg";
+import fieldAcService from "@/assets/field-ac-service.jpg";
 
 const services = [
   {
@@ -41,6 +47,15 @@ const services = [
     title: "Financial Management",
     description: "Transparent financial reporting, budgeting, capital planning, and cost optimization to maximize property value.",
   },
+];
+
+const fieldPhotos = [
+  { src: fieldShelving1, alt: "OMNI technician setting up storage shelving" },
+  { src: fieldDoorway1, alt: "OMNI staff member cleaning a building doorway" },
+  { src: fieldElevatorLobby, alt: "OMNI team members inspecting an elevator lobby" },
+  { src: fieldAcService, alt: "OMNI technician servicing a wall-mounted AC unit" },
+  { src: fieldSinkInstall, alt: "OMNI technician installing a utility sink" },
+  { src: fieldShelving2, alt: "OMNI technician organizing a storage room" },
 ];
 
 const expertise = [
@@ -126,6 +141,30 @@ const Services = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* In the Field */}
+      <section className="py-10 md:py-20 bg-cream">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">In the Field</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+              Our Team, On Site
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {fieldPhotos.map((photo) => (
+              <div
+                key={photo.src}
+                className="aspect-[3/4] overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300"
+              >
+                <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" />
+              </div>
+            ))}
           </div>
         </div>
       </section>

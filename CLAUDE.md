@@ -50,7 +50,7 @@ api/
 
 ### Components
 - **Layout** — wraps `<Navbar /> <main pt-[72px] md:pt-[80px]> {children} </main> <Footer />`.
-- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 4 nav links right; mobile hamburger.
+- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 5 nav links + Tenant Login button right; mobile hamburger.
 - **Footer** — navy bg; brand + Quick Links + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
 - **NavLink** — `forwardRef` wrapper over RR `NavLink`, composes `className`/`activeClassName`/`pendingClassName` via `cn()`.
 - **ScrollToTop** — renders `null`; scrolls to top on pathname change (skips when a hash is present).
@@ -61,7 +61,8 @@ api/
 |-------|------|---------|
 | `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA |
 | `/about` | `src/pages/About.tsx` | Company story, values, expertise |
-| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
+| `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation; includes "In the Field" photo gallery |
+| `/industry-expertise` | `src/pages/IndustryExpertise.tsx` | Commercial & Residential and Shelters sub-sections with hash scroll navigation |
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
@@ -88,6 +89,7 @@ npm run test:watch   # Vitest (watch mode)
 - **Jobs application** (`public/jobs.html`) posts JSON to **`/api/apply`** (Vercel serverless function). The endpoint generates a PDF of the application with `pdf-lib` (Unicode font DejaVu Sans fetched once from jsDelivr and cached on the warm instance — covers Latin+Cyrillic; falls back to Helvetica with non-Latin chars stripped if the fetch fails) and emails it via the **Microsoft Graph API**, reusing the same env vars as `/api/contact` (`M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, `NAMECHEAP_EMAIL`). The applicant's optional uploaded resume is attached as a second file. Recipient resolves to `JOBS_RECIPIENT` → `CONTACT_RECIPIENT` → the mailbox itself. Rate-limited 3/IP/60s. Caps: applicant name 200, section title 200, field label 200, field value 5000; resume base64 ≤ 4.4M chars (~3MB raw, kept under Vercel's ~4.5MB body limit — client also enforces a 3MB cap).
 - **Subdomain routing** (`vercel.json`): uses **legacy `routes`** (not `rewrites`) because a high-level `rewrite` is skipped when the path matches a static file — and `/` already resolves to `index.html`, so a host rewrite for the root never fires. With `routes`, a host-conditional rule for `/` placed **before** the `{ "handle": "filesystem" }` phase overrides `index.html` and serves `/jobs.html` at the root of `jobs.omnipropm.com`. `/jobs` maps to it on any host; the SPA catch-all (`/((?!api/|@|.*\\.).*)` → `/index.html`) stays last, after the filesystem phase. `/api/*` is served by the filesystem phase (functions), so it is intentionally NOT rewritten — the jobs form can still POST to `/api/apply`. Add `jobs.omnipropm.com` to this Vercel project (DNS is a `CNAME jobs → cname.vercel-dns.com`, proxy OFF, managed at Cloudflare).
 - **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
+- **Industry Expertise page** supports hash-based smooth scrolling (e.g. `/industry-expertise#shelters`), same pattern as Services.
 - **Path alias**: `@/*` maps to `./src/*`.
 - **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.
 - **Brand colors**: navy (dark blue), gold (accent), cream (light backgrounds) — defined as CSS variables.
@@ -118,7 +120,7 @@ npm run test:watch   # Vitest (watch mode)
 - cream: `45 30% 95%`
 - `--radius: 0.375rem`
 
-**Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
+**Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About), `field-shelving-1.jpg`, `field-doorway-1.jpg`, `field-shelving-2.jpg`, `field-sink-install.jpg`, `field-elevator-lobby.jpg`, `field-ac-service.jpg` (Services "In the Field" gallery — cropped from staff photos). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
 
 **Key copy**: Home hero — "Elevating the Standard of Property Management"; tagline "Built on Trust, Driven by Excellence."; "AAA Service Standard" / AAA-level service is a recurring brand phrase. Company is "OMNI Management LLC", founded by NYC real-estate veterans, serving all five boroughs.
 
