@@ -18,7 +18,7 @@ const navLinks = [
     path: "/industry-expertise",
     children: [
       { label: "Commercial & Residential", path: "/industry-expertise#commercial-and-residential" },
-      { label: "Shelters", path: "/industry-expertise#shelters" },
+      { label: "Nonprofit Organizations", path: "/industry-expertise#shelters" },
     ],
   },
   { label: "Contact", path: "/contact" },

@@ -173,7 +173,7 @@ const Footer = () => {
               <div className="space-y-2 text-sm text-cream/60">
                 {[
                   { label: "Commercial & Residential", hash: "commercial-and-residential" },
-                  { label: "Shelters", hash: "shelters" },
+                  { label: "Nonprofit Organizations", hash: "shelters" },
                 ].map((item) => (
                   <Link
                     key={item.hash}

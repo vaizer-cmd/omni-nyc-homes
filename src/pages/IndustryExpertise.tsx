@@ -104,7 +104,7 @@ const IndustryExpertise = () => {
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              An Experienced Partner to Shelters and Their Providers
+              An Experienced Partner to Nonprofit Organizations and Their Providers
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
               OMNI is an experienced partner to shelters and the nonprofit providers that operate them.
