@@ -56,6 +56,44 @@ const IndustryExpertise = () => {
         </div>
       </section>
 
+      {/* Shelters / Nonprofit Organizations */}
+      <section id="shelters" className="py-10 md:py-20 bg-background scroll-mt-32">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              An Experienced Partner to Nonprofit Organizations and Their Providers
+            </h2>
+            <p className="font-body text-muted-foreground leading-relaxed">
+              OMNI is an approved vendor supporting Mayor's Office contracts and agencies including DHS, DSS, and ACCO, with an understanding of the unique demands of shelter and nonprofit environments.
+            </p>
+            <p className="font-body text-muted-foreground leading-relaxed mt-4">
+              OMNI provides the operational backbone that keeps facilities safe, clean, compliant, and fully functional, allowing program staff to focus on their mission and the people they serve.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+            {shelterPillars.map((p) => (
+              <div key={p.title} className="bg-card border border-border p-6 shadow-card">
+                <h4 className="font-display text-lg font-semibold text-foreground mb-2">{p.title}</h4>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
+            >
+              Talk to Our Team <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Commercial & Residential */}
       <section id="commercial-and-residential" className="py-10 md:py-20 bg-cream scroll-mt-32">
         <div className="container mx-auto px-6">
@@ -91,41 +129,6 @@ const IndustryExpertise = () => {
               className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-8 py-3 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
             >
               Schedule a Walkthrough <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Shelters */}
-      <section id="shelters" className="py-10 md:py-20 bg-background scroll-mt-32">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
-            </div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              An Experienced Partner to Nonprofit Organizations and Their Providers
-            </h2>
-            <p className="font-body text-muted-foreground leading-relaxed">
-              OMNI is an experienced partner to shelters and the nonprofit providers that operate them.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
-            {shelterPillars.map((p) => (
-              <div key={p.title} className="bg-card border border-border p-6 shadow-card">
-                <h4 className="font-display text-lg font-semibold text-foreground mb-2">{p.title}</h4>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-gold text-accent-foreground px-10 py-4 font-body font-semibold text-sm tracking-wide hover:opacity-90 transition-opacity"
-            >
-              Talk to Our Team <ArrowRight size={16} />
             </Link>
           </div>
         </div>
