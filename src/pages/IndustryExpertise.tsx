@@ -2,10 +2,29 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
+import logoMocs from "@/assets/logo-mocs.png";
+import logoAcco from "@/assets/logo-acco.png";
+import logoNycDhs from "@/assets/logo-nyc-dhs.png";
+import logoNycDss from "@/assets/logo-nyc-dss.png";
+import logoDhsDss from "@/assets/logo-dhs-dss.png";
+import logoPassport from "@/assets/logo-passport.png";
+import logoCrf from "@/assets/logo-childrens-rescue-fund.png";
+import logoNbd from "@/assets/logo-new-brooklyn-development.png";
 
 const commercialPillars = [
   "Through our resident portal and responsive management approach, we help create well-maintained buildings and a better living experience for residents.",
   "For owners, our proactive management and disciplined cost control help eliminate unnecessary expenses, protect property value, and keep assets operating efficiently and profitably.",
+];
+
+const partnerLogos = [
+  { src: logoMocs, alt: "NYC Mayor's Office of Contract Services" },
+  { src: logoAcco, alt: "Agency Chief Contracting Officer (ACCO)" },
+  { src: logoNycDhs, alt: "NYC Department of Homeless Services" },
+  { src: logoNycDss, alt: "NYC Department of Social Services" },
+  { src: logoDhsDss, alt: "NYC Department of Homeless Services & Department of Social Services" },
+  { src: logoPassport, alt: "PASSPort - City of New York" },
+  { src: logoCrf, alt: "Children's Rescue Fund" },
+  { src: logoNbd, alt: "New Brooklyn Development" },
 ];
 
 const IndustryExpertise = () => {
@@ -62,6 +81,22 @@ const IndustryExpertise = () => {
             >
               Talk to Our Team <ArrowRight size={16} />
             </Link>
+          </div>
+
+          <div className="mt-16 pt-12 border-t border-border">
+            <p className="text-center font-body text-xs tracking-[0.2em] uppercase text-muted-foreground mb-8">
+              Approved Vendor & Trusted Partner
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              {partnerLogos.map((logo) => (
+                <div
+                  key={logo.alt}
+                  className="flex items-center justify-center h-24 p-4 bg-card border border-border shadow-card"
+                >
+                  <img src={logo.src} alt={logo.alt} className="max-h-14 max-w-full object-contain" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
