@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/omni_logo.png";
@@ -8,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -26,7 +26,7 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useMobileMenu();
   const location = useLocation();
 
   return (

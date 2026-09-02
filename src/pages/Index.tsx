@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Wrench, ShieldCheck, AlertTriangle, Sparkles, Users, MonitorSmartphone, Plus, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/omni_backgound.png";
+import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 const highlights = [
   {
@@ -45,6 +46,7 @@ const highlights = [
 const Index = () => {
   const highlightsRef = useRef<HTMLDivElement>(null);
   const [highlightsInView, setHighlightsInView] = useState(false);
+  const { setIsOpen } = useMobileMenu();
 
   useEffect(() => {
     if (!highlightsRef.current || highlightsInView) return;
@@ -79,6 +81,12 @@ const Index = () => {
         >
           Client Login
         </a>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="justify-self-end font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
+        >
+          More
+        </button>
       </div>
 
       {/* Hero */}
