@@ -36,6 +36,7 @@ src/
 ├── pages/          # Route pages (Index, About, Services, Contact, NotFound)
 ├── components/     # Layout, Navbar, Footer, NavLink, ScrollToTop
 ├── components/ui/  # shadcn/ui primitives (do not edit manually)
+├── contexts/       # MobileMenuContext — shared mobile hamburger-menu open state
 ├── hooks/          # use-toast, use-mobile
 ├── lib/utils.ts    # cn() utility
 ├── assets/         # Static images (hero, about, logos)
@@ -49,20 +50,23 @@ api/
 ```
 
 ### Components
-- **Layout** — wraps `<Navbar /> <main pt-[72px] md:pt-[80px]> {children} </main> <Footer />`.
-- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 5 nav links + Client Login button right; mobile hamburger.
-- **Footer** — navy bg; brand + Quick Links + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
+- **Layout** — wraps `<MobileMenuProvider> <Navbar /> <main pt-[80px] md:pt-[96px]> {children} </main> <Footer /> </MobileMenuProvider>`.
+- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, nav links (Industry Expertise has a click-to-open dropdown for its two sub-sections) + Client Login button right; mobile hamburger reads open/close state from `useMobileMenu()` (`src/contexts/MobileMenuContext.tsx`) instead of local state, so other components can open it; shows a "Menu" label with a chevron underneath that flips when open.
+- **Footer** — navy bg; brand + Quick Links + Industry Expertise (hash anchors) + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
 - **NavLink** — `forwardRef` wrapper over RR `NavLink`, composes `className`/`activeClassName`/`pendingClassName` via `cn()`.
 - **ScrollToTop** — renders `null`; scrolls to top on pathname change (skips when a hash is present).
+
+### Contexts
+- **MobileMenuContext** (`src/contexts/MobileMenuContext.tsx`) — provides `{ isOpen, setIsOpen, toggle }` for the mobile hamburger menu, provided by `Layout` so it wraps every page. Lets a page trigger the menu itself — used by Index's mobile quick-access bar ("More" button).
 
 ## Routes
 
 | Route | File | Purpose |
 |-------|------|---------|
-| `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA |
+| `/` | `src/pages/Index.tsx` | Home — hero, highlights, CTA. On mobile, a quick-access bar sits under the navbar (Industry Expertise / Client Login / More — More opens the hamburger menu via `MobileMenuContext`) |
 | `/about` | `src/pages/About.tsx` | Company story, values, expertise |
 | `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
-| `/industry-expertise` | `src/pages/IndustryExpertise.tsx` | Commercial & Residential and Shelters sub-sections with hash scroll navigation |
+| `/industry-expertise` | `src/pages/IndustryExpertise.tsx` | Nonprofit Organizations (approved NYC vendor, partner logo grid) and Commercial & Residential sub-sections with hash scroll navigation |
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
