@@ -50,9 +50,6 @@ const IndustryExpertise = () => {
           <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-2xl">
             Built for Every Kind of Property
           </h1>
-          <p className="font-body text-cream/70 mt-4 max-w-xl">
-            From residential and commercial buildings to shelters operated with nonprofit partners, we bring the same discipline and accountability to every property we manage.
-          </p>
         </div>
       </section>
 
