@@ -122,7 +122,7 @@ npm run test:watch   # Vitest (watch mode)
 
 **Active assets** (`src/assets/`): `omni_logo.png` (navbar), `omni_backgound.png` (Index hero bg), `about-building.jpg` (About), `logo-mocs.png`/`logo-acco.png`/`logo-nyc-dhs.png`/`logo-nyc-dss.png`/`logo-dhs-dss.png`/`logo-passport.png`/`logo-childrens-rescue-fund.png`/`logo-new-brooklyn-development.png` (partner/vendor logo grid on Industry Expertise's Nonprofit Organizations section). Unused: `hero-nyc.jpeg`, `logo.png/.svg`, `logo-bg.png/.svg`, `logo-staging.png`.
 
-**Key copy**: Home hero — "Elevating the Standard of Property Management"; tagline "Built on Trust, Driven by Excellence."; "AAA Service Standard" / AAA-level service is a recurring brand phrase. Company is "OMNI Management LLC", founded by NYC real-estate veterans, serving all five boroughs.
+**Key copy**: Home hero — "Your Building, Perfectly Managed. Your Tenants, always in the Loop."; tagline "Built on Trust, Driven by Excellence." Company is "OMNI Management LLC", founded by NYC real-estate veterans, serving all five boroughs. About/Contact/Services/Industry Expertise hero boxes are short — just the gold eyebrow label, no H1 (matches About's original style).
 
 ## Conventions
 
