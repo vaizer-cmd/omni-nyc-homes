@@ -71,15 +71,9 @@ const Services = () => {
       {/* Hero */}
       <section className="relative py-6 md:py-12 bg-navy">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3">
             <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">What We Do</span>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-2xl">
-            Our Services
-          </h1>
-          <p className="font-body text-cream/70 mt-4 max-w-xl">
-            Delivering AAA-level property management services with expertise in the most complex building systems.
-          </p>
         </div>
       </section>
 

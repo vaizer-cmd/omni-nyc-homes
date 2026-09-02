@@ -53,12 +53,9 @@ const Contact = () => {
       {/* Hero */}
       <section className="relative py-6 md:py-12 bg-navy">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3">
             <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Get in Touch</span>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-cream max-w-2xl">
-            Contact Us
-          </h1>
         </div>
       </section>
 
