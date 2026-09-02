@@ -50,7 +50,7 @@ api/
 
 ### Components
 - **Layout** — wraps `<Navbar /> <main pt-[72px] md:pt-[80px]> {children} </main> <Footer />`.
-- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 5 nav links + Tenant Login button right; mobile hamburger.
+- **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, 5 nav links + Client Login button right; mobile hamburger.
 - **Footer** — navy bg; brand + Quick Links + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
 - **NavLink** — `forwardRef` wrapper over RR `NavLink`, composes `className`/`activeClassName`/`pendingClassName` via `cn()`.
 - **ScrollToTop** — renders `null`; scrolls to top on pathname change (skips when a hash is present).
