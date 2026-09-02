@@ -8,25 +8,6 @@ const commercialPillars = [
   "For owners, our proactive management and disciplined cost control help eliminate unnecessary expenses, protect property value, and keep assets operating efficiently and profitably.",
 ];
 
-const shelterPillars = [
-  {
-    title: "Experience on the Ground",
-    desc: "OMNI has years of experience working with shelters and with the nonprofit organizations that run them. Our people know how to work alongside professional staff, under daily pressure, in an environment that can be complex. They do it with a big heart and a real understanding of the space they're working in.",
-  },
-  {
-    title: "Hand in Hand with Program Staff",
-    desc: "We work day to day with nonprofit leadership and program directors. Every issue is different, and so is the response it calls for. We're there with the program team to make sure clients get the full support they need.",
-  },
-  {
-    title: "Understanding the Bigger Picture",
-    desc: "We operate under demanding conditions with a working knowledge of the whole system. We know how the City and the operating organizations work, and what each side needs.",
-  },
-  {
-    title: "Maintenance That Doesn't Wait for an Inspection",
-    desc: "OMNI doesn't wait for a Callahan (right-to-shelter court standards) or Coalition for the Homeless inspection to maintain the building. We work every day, year-round, to OTDA (NYS Office of Temporary and Disability Assistance), Callahan, and CFH standards. The shelter stays clean, well maintained, and a decent place for clients to live and be supported.",
-  },
-];
-
 const IndustryExpertise = () => {
   const { hash } = useLocation();
 
@@ -64,7 +45,7 @@ const IndustryExpertise = () => {
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              An Experienced Partner to Nonprofit Organizations and Their Providers
+              Approved New York City Mayor Office Vendor
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
               OMNI is an approved vendor supporting Mayor's Office contracts and agencies including DHS, DSS, and ACCO, with an understanding of the unique demands of shelter and nonprofit environments.
@@ -72,15 +53,6 @@ const IndustryExpertise = () => {
             <p className="font-body text-muted-foreground leading-relaxed mt-4">
               OMNI provides the operational backbone that keeps facilities safe, clean, compliant, and fully functional, allowing program staff to focus on their mission and the people they serve.
             </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
-            {shelterPillars.map((p) => (
-              <div key={p.title} className="bg-card border border-border p-6 shadow-card">
-                <h4 className="font-display text-lg font-semibold text-foreground mb-2">{p.title}</h4>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
           </div>
 
           <div className="text-center">
