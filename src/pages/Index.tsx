@@ -63,6 +63,24 @@ const Index = () => {
 
   return (
     <Layout>
+      {/* Mobile quick links — one tap away, no hamburger needed */}
+      <div className="md:hidden flex items-center justify-between gap-3 bg-navy px-4 py-2.5 border-b border-cream/10">
+        <Link
+          to="/industry-expertise"
+          className="font-body text-xs font-medium tracking-wide text-cream/90 hover:text-gold transition-colors"
+        >
+          Industry Expertise
+        </Link>
+        <a
+          href="https://omni-management-81ded.web.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-white text-gold border border-navy font-body font-semibold text-xs px-3 py-1.5 shadow-sm"
+        >
+          Client Login
+        </a>
+      </div>
+
       {/* Hero */}
       <section className="relative h-[85vh] min-h-[600px] flex items-stretch md:items-start pt-8 md:pt-24 overflow-hidden">
         <div className="absolute inset-0">
