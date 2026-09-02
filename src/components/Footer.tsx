@@ -140,7 +140,7 @@ const Footer = () => {
                   { label: "Services", to: "/services" },
                   { label: "Industry Expertise", to: "/industry-expertise" },
                   { label: "Contact", to: "/contact" },
-                  { label: "Tenant Login", to: "https://omni-management-81ded.web.app", external: true },
+                  { label: "Client Login", to: "https://omni-management-81ded.web.app", external: true },
                 ].map((item) =>
                   item.external ? (
                     <a

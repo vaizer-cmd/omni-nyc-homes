@@ -22,7 +22,7 @@ const navLinks = [
     ],
   },
   { label: "Contact", path: "/contact" },
-  { label: "Tenant Login", path: "https://omni-management-81ded.web.app", external: true },
+  { label: "Client Login", path: "https://omni-management-81ded.web.app", external: true },
 ];
 
 const Navbar = () => {
