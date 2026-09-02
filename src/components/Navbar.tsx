@@ -17,7 +17,7 @@ const navLinks = [
     label: "Industry Expertise",
     path: "/industry-expertise",
     children: [
-      { label: "Nonprofit Organizations", path: "/industry-expertise#shelters" },
+      { label: "Nonprofit Organizations", path: "/industry-expertise#nonprofit" },
       { label: "Commercial & Residential", path: "/industry-expertise#commercial-and-residential" },
     ],
   },
@@ -32,8 +32,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b bg-white/95 border-navy/10">
       <div className="container mx-auto px-6 flex items-center justify-between py-2">
-        <Link to="/" className="flex flex-col">
-          <img src={logo} alt="OMNI" className="h-16 md:h-20 w-auto" />
+        <Link to="/" className="flex flex-col shrink-0">
+          <img src={logo} alt="OMNI" className="h-16 md:h-20 w-auto shrink-0" />
         </Link>
 
         {/* Tagline */}
@@ -42,7 +42,7 @@ const Navbar = () => {
         </span>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => {
             if (link.external) {
               return (
@@ -100,7 +100,7 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden flex flex-col items-center gap-0.5 text-navy"
+          className="lg:hidden flex flex-col items-center gap-0.5 text-navy shrink-0"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
           <span className="flex items-center gap-0.5 font-body text-[10px] font-medium tracking-wide text-navy/70">
@@ -115,7 +115,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+        className={`lg:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
           isOpen ? "max-h-[36rem]" : "max-h-0"
         }`}
       >

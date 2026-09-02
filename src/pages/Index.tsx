@@ -66,10 +66,10 @@ const Index = () => {
   return (
     <Layout>
       {/* Mobile quick links — one tap away, no hamburger needed */}
-      <div className="md:hidden grid grid-cols-3 items-center bg-navy px-4 py-2.5 border-b border-cream/10">
+      <div className="lg:hidden grid grid-cols-[1fr_auto_1fr] items-center gap-2 bg-navy px-4 py-2.5 border-b border-cream/10">
         <Link
           to="/industry-expertise"
-          className="justify-self-start font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
+          className="justify-self-start whitespace-nowrap font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
         >
           Industry Expertise
         </Link>
@@ -77,13 +77,13 @@ const Index = () => {
           href="https://omni-management-81ded.web.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="justify-self-center inline-flex items-center bg-navy text-gold border border-gold font-body font-semibold text-xs px-3 py-1.5 hover:bg-navy-light transition-colors"
+          className="justify-self-center whitespace-nowrap inline-flex items-center bg-navy text-gold border border-gold font-body font-semibold text-xs px-3 py-1.5 hover:bg-navy-light transition-colors"
         >
           Client Login
         </a>
         <button
           onClick={() => setIsOpen(true)}
-          className="justify-self-end font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
+          className="justify-self-end whitespace-nowrap font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
         >
           More
         </button>

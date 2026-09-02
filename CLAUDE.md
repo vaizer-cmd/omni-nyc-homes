@@ -50,14 +50,14 @@ api/
 ```
 
 ### Components
-- **Layout** — wraps `<MobileMenuProvider> <Navbar /> <main pt-[80px] md:pt-[96px]> {children} </main> <Footer /> </MobileMenuProvider>`.
+- **Layout** — wraps `<Navbar /> <main pt-[80px] md:pt-[96px]> {children} </main> <Footer />`.
 - **Navbar** — fixed, white bg, blur; logo (`omni_logo.png`) left, gold italic tagline "Built on Trust, Driven by Excellence." center, nav links (Industry Expertise has a click-to-open dropdown for its two sub-sections) + Client Login button right; mobile hamburger reads open/close state from `useMobileMenu()` (`src/contexts/MobileMenuContext.tsx`) instead of local state, so other components can open it; shows a "Menu" label with a chevron underneath that flips when open.
 - **Footer** — navy bg; brand + Quick Links + Industry Expertise (hash anchors) + Services (hash anchors); dynamic copyright; Privacy Policy / Terms of Use open a `LegalModal`.
 - **NavLink** — `forwardRef` wrapper over RR `NavLink`, composes `className`/`activeClassName`/`pendingClassName` via `cn()`.
 - **ScrollToTop** — renders `null`; scrolls to top on pathname change (skips when a hash is present).
 
 ### Contexts
-- **MobileMenuContext** (`src/contexts/MobileMenuContext.tsx`) — provides `{ isOpen, setIsOpen, toggle }` for the mobile hamburger menu, provided by `Layout` so it wraps every page. Lets a page trigger the menu itself — used by Index's mobile quick-access bar ("More" button).
+- **MobileMenuContext** (`src/contexts/MobileMenuContext.tsx`) — provides `{ isOpen, setIsOpen, toggle }` for the mobile hamburger menu. **Provided in `App.tsx`, wrapping `<Routes>`, not in `Layout`** — a page component (e.g. Index) calls `useMobileMenu()` in its own top-level render, i.e. it's the parent that renders `<Layout>`, so the provider must sit above the page in the tree or the hook throws and the page renders blank. Lets a page trigger the menu itself — used by Index's mobile quick-access bar ("More" button).
 
 ## Routes
 
@@ -93,7 +93,8 @@ npm run test:watch   # Vitest (watch mode)
 - **Jobs application** (`public/jobs.html`) posts JSON to **`/api/apply`** (Vercel serverless function). The endpoint generates a PDF of the application with `pdf-lib` (Unicode font DejaVu Sans fetched once from jsDelivr and cached on the warm instance — covers Latin+Cyrillic; falls back to Helvetica with non-Latin chars stripped if the fetch fails) and emails it via the **Microsoft Graph API**, reusing the same env vars as `/api/contact` (`M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, `NAMECHEAP_EMAIL`). The applicant's optional uploaded resume is attached as a second file. Recipient resolves to `JOBS_RECIPIENT` → `CONTACT_RECIPIENT` → the mailbox itself. Rate-limited 3/IP/60s. Caps: applicant name 200, section title 200, field label 200, field value 5000; resume base64 ≤ 4.4M chars (~3MB raw, kept under Vercel's ~4.5MB body limit — client also enforces a 3MB cap).
 - **Subdomain routing** (`vercel.json`): uses **legacy `routes`** (not `rewrites`) because a high-level `rewrite` is skipped when the path matches a static file — and `/` already resolves to `index.html`, so a host rewrite for the root never fires. With `routes`, a host-conditional rule for `/` placed **before** the `{ "handle": "filesystem" }` phase overrides `index.html` and serves `/jobs.html` at the root of `jobs.omnipropm.com`. `/jobs` maps to it on any host; the SPA catch-all (`/((?!api/|@|.*\\.).*)` → `/index.html`) stays last, after the filesystem phase. `/api/*` is served by the filesystem phase (functions), so it is intentionally NOT rewritten — the jobs form can still POST to `/api/apply`. Add `jobs.omnipropm.com` to this Vercel project (DNS is a `CNAME jobs → cname.vercel-dns.com`, proxy OFF, managed at Cloudflare).
 - **Services page** supports hash-based smooth scrolling (e.g. `/services#building-maintenance`).
-- **Industry Expertise page** supports hash-based smooth scrolling (e.g. `/industry-expertise#shelters`), same pattern as Services.
+- **Industry Expertise page** supports hash-based smooth scrolling (e.g. `/industry-expertise#nonprofit`), same pattern as Services.
+- **Navbar responsive breakpoint is `lg` (1024px), not `md`** — at 768–1023px (tablet) there isn't enough width for logo + tagline + full nav + Client Login button in one row, so tablets get the mobile hamburger nav. Don't switch this back to `md:` without re-checking that width budget. Index's mobile quick-access bar uses the same `lg:hidden` breakpoint to match.
 - **Path alias**: `@/*` maps to `./src/*`.
 - **Brand fonts**: Playfair Display (headings via `font-display`), Source Sans 3 (body via `font-body`) — loaded from Google Fonts in index.css.
 - **Brand colors**: navy (dark blue), gold (accent), cream (light backgrounds) — defined as CSS variables.

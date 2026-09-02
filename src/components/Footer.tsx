@@ -172,7 +172,7 @@ const Footer = () => {
               </Link>
               <div className="space-y-2 text-sm text-cream/60">
                 {[
-                  { label: "Nonprofit Organizations", hash: "shelters" },
+                  { label: "Nonprofit Organizations", hash: "nonprofit" },
                   { label: "Commercial & Residential", hash: "commercial-and-residential" },
                 ].map((item) => (
                   <Link

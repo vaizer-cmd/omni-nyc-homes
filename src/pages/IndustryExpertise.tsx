@@ -51,7 +51,7 @@ const IndustryExpertise = () => {
       </section>
 
       {/* Shelters / Nonprofit Organizations */}
-      <section id="shelters" className="py-10 md:py-20 bg-background scroll-mt-32">
+      <section id="nonprofit" className="py-10 md:py-20 bg-background scroll-mt-32">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
