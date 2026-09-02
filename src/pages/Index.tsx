@@ -64,10 +64,10 @@ const Index = () => {
   return (
     <Layout>
       {/* Mobile quick links — one tap away, no hamburger needed */}
-      <div className="md:hidden flex items-center justify-between gap-3 bg-navy px-4 py-2.5 border-b border-cream/10">
+      <div className="md:hidden grid grid-cols-3 items-center bg-navy px-4 py-2.5 border-b border-cream/10">
         <Link
           to="/industry-expertise"
-          className="font-body text-xs font-medium tracking-wide text-cream/90 hover:text-gold transition-colors"
+          className="justify-self-start font-body text-sm font-semibold tracking-wide text-cream/90 hover:text-gold transition-colors"
         >
           Industry Expertise
         </Link>
@@ -75,7 +75,7 @@ const Index = () => {
           href="https://omni-management-81ded.web.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center bg-white text-gold border border-navy font-body font-semibold text-xs px-3 py-1.5 shadow-sm"
+          className="justify-self-center inline-flex items-center bg-navy text-gold border border-gold font-body font-semibold text-xs px-3 py-1.5 hover:bg-navy-light transition-colors"
         >
           Client Login
         </a>

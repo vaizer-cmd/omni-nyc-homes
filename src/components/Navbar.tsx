@@ -100,9 +100,16 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-navy"
+          className="md:hidden flex flex-col items-center gap-0.5 text-navy"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <span className="flex items-center gap-0.5 font-body text-[10px] font-medium tracking-wide text-navy/70">
+            Menu
+            <ChevronDown
+              size={10}
+              className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            />
+          </span>
         </button>
       </div>
 
