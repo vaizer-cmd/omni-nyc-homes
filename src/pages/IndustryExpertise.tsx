@@ -58,7 +58,7 @@ const IndustryExpertise = () => {
               <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Professionally Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Approved to Do Business with the City of New York
+              Approved New York City Vendor
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
               OMNI Management has completed New York City's vendor review and vetting process and is approved to do business with the City, including review by the Mayor's Office of Contract Services and applicable oversight entities.
