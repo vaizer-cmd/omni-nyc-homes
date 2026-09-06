@@ -11,7 +11,6 @@ import { useMobileMenu } from "@/contexts/MobileMenuContext";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
   {
     label: "Industry Expertise",
@@ -21,6 +20,7 @@ const navLinks = [
       { label: "Commercial & Residential", path: "/industry-expertise#commercial-and-residential" },
     ],
   },
+  { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
   { label: "Client Login", path: "https://omni-management-81ded.web.app", external: true },
 ];

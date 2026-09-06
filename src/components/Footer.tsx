@@ -136,9 +136,9 @@ const Footer = () => {
               <div className="space-y-2">
                 {[
                   { label: "Home", to: "/" },
-                  { label: "About", to: "/about" },
                   { label: "Services", to: "/services" },
                   { label: "Industry Expertise", to: "/industry-expertise" },
+                  { label: "About", to: "/about" },
                   { label: "Contact", to: "/contact" },
                   { label: "Client Login", to: "https://omni-management-81ded.web.app", external: true },
                 ].map((item) =>
