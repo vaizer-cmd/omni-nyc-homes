@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Wrench, ShieldCheck, AlertTriangle, Sparkles, Users, MonitorSmartphone, Plus, ArrowRight } from "lucide-react";
+import { Wrench, ShieldCheck, AlertTriangle, Sparkles, Users, MonitorSmartphone, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImage from "@/assets/omni_backgound.png";
 import { useMobileMenu } from "@/contexts/MobileMenuContext";
@@ -35,11 +35,6 @@ const highlights = [
     icon: MonitorSmartphone,
     title: "Online Tenant Portal",
     description: "Tenants can submit requests, track progress in real time, and get updates without having to chase anyone down. Every request is logged, assigned, and followed through to completion — and tenants always know where things stand.",
-  },
-  {
-    icon: Plus,
-    title: "And More",
-    description: "24/7 emergency response, vendor coordination, owner reporting, and everything in between.",
   },
 ];
 
