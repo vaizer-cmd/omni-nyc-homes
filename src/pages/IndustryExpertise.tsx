@@ -12,8 +12,8 @@ import logoCrf from "@/assets/logo-childrens-rescue-fund.png";
 import logoNbd from "@/assets/logo-new-brooklyn-development.png";
 
 const commercialPillars = [
-  "Through our resident portal and responsive management approach, we help create well-maintained buildings and a better living experience for residents.",
-  "For owners, our proactive management and disciplined cost control help eliminate unnecessary expenses, protect property value, and keep assets operating efficiently and profitably.",
+  "Through responsive management, proactive building oversight, and our resident portal, we streamline communication, address issues efficiently, and help create well-maintained properties and a better experience for residents and tenants.",
+  "For owners, our focus is on protecting the long-term value of the asset. Through preventive maintenance, careful vendor oversight, cost management, and early identification of potential issues, we work to control unnecessary expenses and support efficient property operations.",
 ];
 
 const partnerLogos = [
@@ -55,16 +55,16 @@ const IndustryExpertise = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
+              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Professionally Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Approved New York City Mayor Office Vendor
+              Approved to Do Business with the City of New York
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
-              OMNI is an approved vendor supporting Mayor's Office contracts and agencies including DHS, DSS, and ACCO, with an understanding of the unique demands of shelter and nonprofit environments.
+              OMNI Management has completed New York City's vendor review and vetting process and is approved to do business with the City, including review by the Mayor's Office of Contract Services and applicable oversight entities.
             </p>
             <p className="font-body text-muted-foreground leading-relaxed mt-4">
-              OMNI provides the operational backbone that keeps facilities safe, clean, compliant, and fully functional, allowing program staff to focus on their mission and the people they serve.
+              Our team understands the accountability, compliance, and operational demands of publicly funded environments, with experience supporting DHS- and DSS-funded shelter and nonprofit operations.
             </p>
           </div>
 
@@ -100,13 +100,16 @@ const IndustryExpertise = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Perfectly Managed.</span>
+              <span className="text-gold font-body text-sm tracking-[0.2em] uppercase">Your Building, Professionally Managed.</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
               Commercial &amp; Residential
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed">
-              OMNI manages rental buildings, co-ops and condos, mixed-use properties, and office and retail spaces across the five boroughs. We take care of the day-to-day operations — maintenance, preventive care, compliance, cleaning, and vendors, to tenant communication, so landlords can focus on their investment.
+              OMNI provides comprehensive property management for rental buildings, co-ops and condominiums, mixed-use properties, and commercial spaces throughout New York City's five boroughs.
+            </p>
+            <p className="font-body text-muted-foreground leading-relaxed mt-4">
+              We oversee the day-to-day details that keep properties operating effectively—from maintenance and preventive care to regulatory compliance, cleaning, vendor management, and tenant communication—giving owners confidence that their properties are being actively managed and maintained.
             </p>
           </div>
 
@@ -122,8 +125,11 @@ const IndustryExpertise = () => {
             <h3 className="font-display text-2xl font-bold text-cream mb-4">
               Compliance &amp; Cost Protection
             </h3>
-            <p className="font-body text-cream/70 leading-relaxed mb-8">
-              We help landlords keep their buildings safe, compliant, and up to code, proactively addressing issues before they become costly violations. Our approach helps owners avoid unnecessary ECB, DOB, and FDNY violations and fines, potentially saving thousands of dollars while protecting the value of their property.
+            <p className="font-body text-cream/70 leading-relaxed">
+              New York City property ownership comes with complex and evolving regulatory requirements. OMNI helps owners stay ahead of those requirements by monitoring building conditions, identifying potential compliance issues, and coordinating corrective action before minor concerns become more costly problems.
+            </p>
+            <p className="font-body text-cream/70 leading-relaxed mt-4 mb-8">
+              Our team helps owners navigate requirements involving agencies such as DOB and FDNY and address applicable violations and compliance matters efficiently. This proactive approach can reduce exposure to avoidable fines and penalties, control costs, and protect the long-term value of the property.
             </p>
             <Link
               to="/contact"

@@ -100,14 +100,17 @@ const Index = () => {
             <h1 className="font-display text-3xl md:text-6xl font-bold text-cream leading-tight mt-28 md:mt-12 mb-6 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:100ms] [text-shadow:_0_2px_12px_rgb(0_0_0_/_0.65)]">
               Your Building,
               <br />
-              <span className="text-gold">Perfectly Managed.</span>
+              <span className="text-gold">Professionally Managed.</span>
               <br />
               Your Tenants,
               <br />
-              <span className="text-gold">always in the Loop.</span>
+              <span className="text-gold">Always Connected.</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 mb-8 max-w-2xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
-              OMNI Management handles the day-to-day operations of your building — maintenance, compliance, violations, cleaning, and more — while giving every tenant direct access to our team through an online portal. Requests submitted, tracked, and resolved. No calls falling through the cracks.
+            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-2 md:mt-4 max-w-2xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:300ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+              OMNI Management provides comprehensive day-to-day property management, overseeing maintenance, regulatory compliance, building operations, cleaning services, and violation resolution.
+            </p>
+            <p className="font-body text-base md:text-lg text-cream leading-relaxed mt-3 mb-8 max-w-2xl mx-auto md:mx-0 text-center md:text-left animate-fade-in-up [animation-fill-mode:both] [animation-delay:400ms] [text-shadow:_0_1px_8px_rgb(0_0_0_/_0.7)]">
+              Through our online tenant portal, residents have direct access to our management team, making it easy to submit service requests, track progress, and receive timely updates.
             </p>
             <div className="flex flex-nowrap gap-3 md:gap-4 justify-center md:justify-start mt-auto md:mt-0 pb-8 md:pb-0 animate-fade-in-up [animation-fill-mode:both] [animation-delay:500ms]">
               <Link
@@ -165,12 +168,12 @@ const Index = () => {
       <section className="bg-navy py-10">
         <div className="container mx-auto px-6 text-center">
           <p className="font-body font-bold text-xl text-cream mb-4 max-w-2xl mx-auto">
-            Whether you manage one building or twenty, OMNI takes the heavy lifting off your plate — and gives your tenants the responsiveness they expect.
+            Whether you own one building or twenty, OMNI handles the heavy lifting – while giving your tenants the responsive service they expect.
           </p>
           <p className="font-body text-cream/70 mb-8 max-w-2xl mx-auto">
-            <strong className="font-bold text-cream">Owners</strong> get a team that shows up and gets things done.
+            <strong className="font-bold text-cream">Owners</strong> get a team that takes ownership and gets things done.
             <br />
-            <strong className="font-bold text-cream">Tenants</strong> get a portal to submit requests, track progress, and get real answers.
+            <strong className="font-bold text-cream">Tenants</strong> get a direct line to our team to submit requests, track progress, and stay informed.
           </p>
           <Link
             to="/contact"

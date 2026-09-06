@@ -29,16 +29,13 @@ const About = () => {
               </h2>
               <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                 <p>
-                  OMNI Management was built by people who know New York City real estate from the ground up — with over 20 years of hands-on experience managing residential and commercial buildings across all five boroughs.
+                  OMNI Management was built by people who know New York City real estate from the ground up, with more than 20 years of hands-on experience managing residential and commercial properties across all five boroughs.
                 </p>
                 <p>
-                  We started this company because we kept seeing the same problem: building owners and tenants couldn't get a straight answer, couldn't get someone on-site, and couldn't get their issues resolved without chasing people down for days. That's not how it should work.
+                  We started OMNI because we saw the same problem again and again: owners and tenants waiting too long for answers, service, and resolution. When a boiler fails at midnight, a pipe bursts on a Sunday, or a violation needs immediate attention, you need a team that responds and takes ownership.
                 </p>
                 <p>
-                  When something goes wrong in your building — a boiler fails at midnight, a pipe bursts on a Sunday, a violation needs to be closed before an inspection — you need a team that picks up the phone and shows up ready to work. That's exactly what we do.
-                </p>
-                <p>
-                  We're not a call center. We're not a ticketing system. We're real people who know your building, know your tenants, and take ownership of every problem until it's solved.
+                  We're real people who know your building, know your tenants, and stay accountable from the moment an issue is reported until it's resolved. That's how property management should work.
                 </p>
               </div>
             </div>
