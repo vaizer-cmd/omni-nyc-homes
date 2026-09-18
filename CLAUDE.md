@@ -43,7 +43,8 @@ src/
 ├── index.css       # Global styles, CSS variables, font imports
 └── App.tsx         # Router + QueryClient setup
 public/
-└── jobs.html       # Standalone employment-application form (served on the jobs. subdomain & /jobs)
+├── jobs.html       # Standalone employment-application form (served on the jobs. subdomain & /jobs)
+└── email/          # Static images for external email campaigns (e.g. omni-logo.png) — served as-is, not referenced by the app
 api/
 ├── contact.ts      # Vercel serverless endpoint — contact form (Graph API, rate-limited)
 └── apply.ts        # Vercel serverless endpoint — job application → PDF + email (Graph API, rate-limited)
