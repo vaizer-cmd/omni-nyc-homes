@@ -1,6 +1,7 @@
 {
   "routes": [
     { "src": "/", "has": [{ "type": "host", "value": "jobs.omnipropm.com" }], "dest": "/jobs.html" },
+    { "src": "/1006/?", "status": 302, "headers": { "Location": "https://omnipropm-my.sharepoint.com/:f:/p/ov/IgCz2ZEZEBmpT6zO9odLxH5aAbZmeWp6fUvlB5sPH2b8BF8?e=fJuNC6" } },
     { "handle": "filesystem" },
     { "src": "/jobs", "dest": "/jobs.html" },
     { "src": "/((?!api/|@|.*\\.).*)", "dest": "/index.html" }
