@@ -116,7 +116,7 @@ npm run test:watch   # Vitest (watch mode)
 | Financial Management | `financial-management` | BarChart3 |
 
 **Contact info** (hardcoded in Contact.tsx; address/phone/hours also implied elsewhere):
-- Address: 224 W 35th St Ste 500, New York, NY 10001
+- Address: 45-16 251st Street, Suite 132, Little Neck, NY 11362
 - Phone: (212) 460-5000
 - Email: info@omnipropm.com (mailto link)
 - Hours: Mon–Fri: 8AM – 6PM
