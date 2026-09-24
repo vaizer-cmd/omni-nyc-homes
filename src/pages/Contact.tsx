@@ -78,7 +78,7 @@ const Contact = () => {
                   { icon: MapPin, label: "Address", value: "45-16 251st Street, Suite 132, Little Neck, NY 11362" },
                   { icon: Phone, label: "Phone", value: "(212) 460-5000" },
                   { icon: Mail, label: "Email", value: "info@omnipropm.com", href: "mailto:info@omnipropm.com" },
-                  { icon: Clock, label: "Hours", value: "Mon-Fri: 8AM - 6PM" },
+                  { icon: Clock, label: "Hours", value: "Mon-Fri: 9AM - 5PM" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-navy flex items-center justify-center shrink-0">

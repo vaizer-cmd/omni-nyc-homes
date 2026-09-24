@@ -119,7 +119,7 @@ npm run test:watch   # Vitest (watch mode)
 - Address: 45-16 251st Street, Suite 132, Little Neck, NY 11362
 - Phone: (212) 460-5000
 - Email: info@omnipropm.com (mailto link)
-- Hours: Mon–Fri: 8AM – 6PM
+- Hours: Mon–Fri: 9AM – 5PM
 
 **Brand colors** (HSL CSS vars in `:root`, `src/index.css`):
 - navy / primary: `220 50% 32%` (also `--navy-light: 220 35% 44%`)
