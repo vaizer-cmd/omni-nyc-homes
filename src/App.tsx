@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import IndustryExpertise from "./pages/IndustryExpertise";
 import Contact from "./pages/Contact";
+import QuickQuote from "./pages/QuickQuote";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import { MobileMenuProvider } from "./contexts/MobileMenuContext";
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/services" element={<Services />} />
             <Route path="/industry-expertise" element={<IndustryExpertise />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/quickquote" element={<QuickQuote />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MobileMenuProvider>

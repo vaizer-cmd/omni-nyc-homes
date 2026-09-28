@@ -33,7 +33,7 @@ Professional property management company website for OMNI NYC Homes. Static Reac
 
 ```
 src/
-├── pages/          # Route pages (Index, About, Services, Contact, NotFound)
+├── pages/          # Route pages (Index, About, Services, Industry Expertise, Contact, QuickQuote, NotFound)
 ├── components/     # Layout, Navbar, Footer, NavLink, ScrollToTop
 ├── components/ui/  # shadcn/ui primitives (do not edit manually)
 ├── contexts/       # MobileMenuContext — shared mobile hamburger-menu open state
@@ -47,6 +47,7 @@ public/
 └── email/          # Static images for external email campaigns (e.g. omni-logo.png) — served as-is, not referenced by the app
 api/
 ├── contact.ts      # Vercel serverless endpoint — contact form (Graph API, rate-limited)
+├── quickquote.ts   # Vercel serverless endpoint — /quickquote short form (phone + email required; Graph API, rate-limited)
 └── apply.ts        # Vercel serverless endpoint — job application → PDF + email (Graph API, rate-limited)
 ```
 
@@ -69,6 +70,7 @@ api/
 | `/services` | `src/pages/Services.tsx` | 6 service offerings with hash scroll navigation |
 | `/industry-expertise` | `src/pages/IndustryExpertise.tsx` | Nonprofit Organizations (approved NYC vendor, partner logo grid) and Commercial & Residential sub-sections with hash scroll navigation |
 | `/contact` | `src/pages/Contact.tsx` | Contact form (sends email via API) + contact info |
+| `/quickquote` | `src/pages/QuickQuote.tsx` | Standalone branded quick-quote card (no navbar/footer; logo + navy/gold). Fields: name, organization, phone*, email*, message (only phone and email required). Posts to `/api/quickquote` |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
 **Jobs form** is **not** a React route — it's the standalone static page `public/jobs.html` (own styling, 5-language switcher EN/ES/RU/UK/KA, no navbar/footer). Served at the root of the `jobs.omnipropm.com` subdomain and at `/jobs` on the main site, via host/path rewrites in `vercel.json`. It posts to `/api/apply`.
@@ -88,7 +90,7 @@ npm run test:watch   # Vitest (watch mode)
 
 - **All page data is static** — hardcoded in page components. No database.
 - **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via the **Microsoft Graph API** (`/users/{mailbox}/sendMail`, app-only OAuth2 token from Entra ID). Requires `M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, and `NAMECHEAP_EMAIL` (the licensed mailbox that sends, e.g. `info@omnipropm.com`) env vars. Optional `CONTACT_RECIPIENT` overrides the recipient (defaults to the mailbox itself) — used to redirect to a test inbox locally. Rate-limited to 3 requests per IP per 60s (in-memory). Field caps: name/email 200, subject 500, message 5000.
-- **Local API testing**: `npm run dev` (Vite, port 8080) does **not** serve `/api/*`. Use `vercel dev` (serves app + functions on port 3000). The Graph *sender* must be a real licensed M365 mailbox — only the recipient can be changed for testing via `CONTACT_RECIPIENT`.
+- **Quick quote form** (`/quickquote`) submits to `/api/quickquote`, which reuses the same Graph API mailbox/env vars and recipient logic as `/api/contact` (`M365_*`, `NAMECHEAP_EMAIL`, optional `CONTACT_RECIPIENT`); subject `[OMNI Quick Quote] <organization|name|email>`. Server requires only `phone` (≥7 digits) and `email`; caps: name/organization/email 200, phone 50, message 5000. Rate-limited 3/IP/60s.: `npm run dev` (Vite, port 8080) does **not** serve `/api/*`. Use `vercel dev` (serves app + functions on port 3000). The Graph *sender* must be a real licensed M365 mailbox — only the recipient can be changed for testing via `CONTACT_RECIPIENT`.
   - **Gotcha**: once the project is linked, `vercel dev` pulls the cloud *Development* env vars and **ignores `.env.local`**. Inject local secrets via the process env instead: `npx dotenv-cli -e .env.local -- vercel dev --listen 3000`. Verify with a temporary `api/*.ts` that echoes `process.env[...].length` (no underscore prefix — Vercel ignores `_`-prefixed api files).
   - The SPA fallback route in `vercel.json` is `/((?!api/|@|.*\.).*)` → `/index.html` so it doesn't swallow Vite dev modules (`/src/*`, `/@vite/*`) under `vercel dev`.
 - **Jobs application** (`public/jobs.html`) posts JSON to **`/api/apply`** (Vercel serverless function). The endpoint generates a PDF of the application with `pdf-lib` (Unicode font DejaVu Sans fetched once from jsDelivr and cached on the warm instance — covers Latin+Cyrillic; falls back to Helvetica with non-Latin chars stripped if the fetch fails) and emails it via the **Microsoft Graph API**, reusing the same env vars as `/api/contact` (`M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, `NAMECHEAP_EMAIL`). The applicant's optional uploaded resume is attached as a second file. Recipient resolves to `JOBS_RECIPIENT` → `CONTACT_RECIPIENT` → the mailbox itself. Rate-limited 3/IP/60s. Caps: applicant name 200, section title 200, field label 200, field value 5000; resume base64 ≤ 4.4M chars (~3MB raw, kept under Vercel's ~4.5MB body limit — client also enforces a 3MB cap).
