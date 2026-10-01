@@ -2,6 +2,7 @@
   "routes": [
     { "src": "/", "has": [{ "type": "host", "value": "jobs.omnipropm.com" }], "dest": "/jobs.html" },
     { "src": "/1006/?", "status": 302, "headers": { "Location": "https://omnipropm-my.sharepoint.com/:f:/p/ov/IgCz2ZEZEBmpT6zO9odLxH5aAQQjUGe5dPB-to-BLSsHnSg?e=RZ8cmf" } },
+    { "src": "/clients/?", "status": 302, "headers": { "Location": "https://omni-management-81ded.web.app/" } },
     { "handle": "filesystem" },
     { "src": "/jobs", "dest": "/jobs.html" },
     { "src": "/((?!api/|@|.*\\.).*)", "dest": "/index.html" }
