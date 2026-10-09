@@ -48,7 +48,8 @@ public/
 api/
 ├── contact.ts      # Vercel serverless endpoint — contact form (Graph API, rate-limited)
 ├── quickquote.ts   # Vercel serverless endpoint — /quickquote short form (phone + email required; Graph API, rate-limited)
-└── apply.ts        # Vercel serverless endpoint — job application → PDF + email (Graph API, rate-limited)
+├── apply.ts        # Vercel serverless endpoint — job application → PDF + email (Graph API, rate-limited)
+└── schedule-email.ts # Vercel serverless endpoint — emails the work-order app's schedule from info@omnipropm.com (admin-only, CORS-restricted)
 ```
 
 ### Components
@@ -91,6 +92,7 @@ npm run test:watch   # Vitest (watch mode)
 - **All page data is static** — hardcoded in page components. No database.
 - **Contact form** submits to `/api/contact` (Vercel serverless function) which sends email via the **Microsoft Graph API** (`/users/{mailbox}/sendMail`, app-only OAuth2 token from Entra ID). Requires `M365_TENANT_ID`, `M365_CLIENT_ID`, `M365_CLIENT_SECRET`, and `NAMECHEAP_EMAIL` (the licensed mailbox that sends, e.g. `info@omnipropm.com`) env vars. Optional `CONTACT_RECIPIENT` overrides the recipient (defaults to the mailbox itself) — used to redirect to a test inbox locally. Rate-limited to 3 requests per IP per 60s (in-memory). Field caps: name/email 200, subject 500, message 5000.
 - **Quick quote form** (`/quickquote`) submits to `/api/quickquote`, which reuses the same Graph API mailbox/env vars and recipient logic as `/api/contact` (`M365_*`, `NAMECHEAP_EMAIL`, optional `CONTACT_RECIPIENT`); subject `[OMNI Quick Quote] <organization|name|email>`. Server requires only `phone` (≥7 digits) and `email`; caps: name/organization/email 200, phone 50, message 5000. Rate-limited 3/IP/60s.
+- **Schedule email** (`/api/schedule-email`) is called cross-origin by the separate Firebase work-order app (`https://omni-management-81ded.web.app`, source `C:\omni-workorders\index.html`, not in this repo) from its Schedule → Email button. It is **not** an open relay: CORS allows only that app's origins, and it requires a Firebase ID token whose `users/{uid}` doc (read via Firestore REST with the user's own token, so forged/expired tokens fail) has `role == "admin"`. Body: `{idToken, to[1–5 emails], title, property, items[≤300 of {date,time,label,desc,loc,type}]}`; the HTML (OMNI logo from `public/email/omni-logo.png`, property, items grouped by date) is built and escaped server-side. Sends from the `NAMECHEAP_EMAIL` mailbox (info@omnipropm.com) via Graph, saved to Sent Items. Rate-limited 5/user/10 min. Needs the same `M365_*` + `NAMECHEAP_EMAIL` env vars; no extra ones. Must be called on the apex domain (`omnipropm.com`) — `www.` 307-redirects, which breaks the CORS preflight.
 - **Local API testing**: `npm run dev` (Vite, port 8080) does **not** serve `/api/*`. Use `vercel dev` (serves app + functions on port 3000). The Graph *sender* must be a real licensed M365 mailbox — only the recipient can be changed for testing via `CONTACT_RECIPIENT`.
   - **Gotcha**: once the project is linked, `vercel dev` pulls the cloud *Development* env vars and **ignores `.env.local`**. Inject local secrets via the process env instead: `npx dotenv-cli -e .env.local -- vercel dev --listen 3000`. Verify with a temporary `api/*.ts` that echoes `process.env[...].length` (no underscore prefix — Vercel ignores `_`-prefixed api files).
   - The SPA fallback route in `vercel.json` is `/((?!api/|@|.*\.).*)` → `/index.html` so it doesn't swallow Vite dev modules (`/src/*`, `/@vite/*`) under `vercel dev`.
