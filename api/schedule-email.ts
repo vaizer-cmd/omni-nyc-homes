@@ -10,6 +10,7 @@ const ALLOWED_ORIGINS = [
   "https://omni-management-81ded.firebaseapp.com",
 ];
 const LOGO_URL = "https://omnipropm.com/email/omni-logo.png";
+const CLIENT_PORTAL_URL = "https://www.omnipropm.com/clients";
 
 function escapeHtml(str: string): string {
   return str
@@ -167,7 +168,8 @@ function buildHtml(title: string, property: string, items: Item[]): string {
       </td>
     </tr></table>
     ${days}
-    <p style="margin-top:24px;font-size:11px;color:#889">Sent by OMNI Management · (212) 460-5000 · info@omnipropm.com</p>
+    <p style="margin-top:28px;font-size:18px;font-weight:bold;color:#1a2b45">For more information - <a href="${CLIENT_PORTAL_URL}" style="color:#1e3a6e;text-decoration:underline">Click Here</a> to log into Client Portal</p>
+    <p style="margin-top:16px;font-size:11px;color:#889">Sent by OMNI Management · (212) 460-5000 · info@omnipropm.com</p>
   </div>`;
 }
 
