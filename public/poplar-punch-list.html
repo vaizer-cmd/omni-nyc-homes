@@ -479,7 +479,7 @@
     <h1 class="display">Poplar Street — Punch List</h1>
     <div class="header-meta">
       <span><strong>Property:</strong> 2443 Poplar St.</span>
-      <span><strong>Report date:</strong> September 21, 2026</span>
+      <span><strong>Report date:</strong> October 20, 2026</span>
     </div>
     <div class="header-stat">
       <span class="count" id="totalCount">—</span>
@@ -537,23 +537,23 @@
       </div>
     </div>
 
-    <div class="defect-item">
+    <div class="defect-item done">
       <div class="defect-content">
-        <div class="defect-title">Soap Dispensers</div>
+        <div class="defect-title">Soap Dispensers <span class="status-badge">Completed</span></div>
         <div class="defect-description">28 soap dispensers needed for bathrooms throughout building</div>
       </div>
     </div>
 
-    <div class="defect-item">
+    <div class="defect-item done">
       <div class="defect-content">
-        <div class="defect-title">Paper Towel Dispensers</div>
+        <div class="defect-title">Paper Towel Dispensers <span class="status-badge">Completed</span></div>
         <div class="defect-description">14 Paper Towel Dispensers needed for bathrooms throughout building</div>
       </div>
     </div>
 
-    <div class="defect-item">
+    <div class="defect-item done">
       <div class="defect-content">
-        <div class="defect-title">Thermostat Lock Boxes</div>
+        <div class="defect-title">Thermostat Lock Boxes <span class="status-badge">Completed</span></div>
         <div class="defect-description">15 lock boxes needed throughout building</div>
       </div>
     </div>
@@ -569,9 +569,9 @@
       </div>
     </div>
 
-    <div class="defect-item">
+    <div class="defect-item done">
       <div class="defect-content">
-        <div class="defect-title">Locksmith</div>
+        <div class="defect-title">Locksmith <span class="status-badge">Completed</span></div>
         <div class="defect-description">Lock &amp; moderate access to staff bathrooms, ambulatory units, throughout the building</div>
       </div>
     </div>
@@ -653,6 +653,9 @@
 
   sectionIds.forEach(function (id) {
     const section = document.getElementById(id);
+    section.querySelectorAll('.defect-item.done').forEach(function (item) {
+      section.appendChild(item);
+    });
     const count = section.querySelectorAll('.defect-item:not(.done)').length;
     total += count;
     const tally = document.querySelector('[data-tally="' + id + '"]');
