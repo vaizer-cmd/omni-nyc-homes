@@ -29,7 +29,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                 <p>
-                  OMNI Management was built by people who know New York City real estate from the ground up, with more than 20 years of hands-on experience managing residential and commercial properties across all five boroughs.
+                  OMNI Management was founded by experienced professionals with extensive hands-on experience in New York City real estate, managing residential and commercial properties across all five boroughs.
                 </p>
                 <p>
                   We started OMNI because we saw the same problem again and again: owners and tenants waiting too long for answers, service, and resolution. When a boiler fails at midnight, a pipe bursts on a Sunday, or a violation needs immediate attention, you need a team that responds and takes ownership.
