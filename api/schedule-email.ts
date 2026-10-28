@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import sharp from "sharp";
 
 // Emails a work schedule (built by the Firebase work-order app) from the company mailbox.
 // Called cross-origin from https://omni-management-81ded.web.app — only a signed-in ADMIN of that
@@ -100,13 +101,10 @@ function fmtTime(t: string): string {
 }
 
 function dayLabel(ds: string): string {
-  return new Date(`${ds}T12:00:00Z`).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  });
+  // "Monday, 10/12/2026" (US format MM/DD/YYYY)
+  const weekday = new Date(`${ds}T12:00:00Z`).toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
+  const [y, m, d] = ds.split("-");
+  return `${weekday}, ${m}/${d}/${y}`;
 }
 
 const str = (v: unknown, max: number): string => (typeof v === "string" ? v.trim().slice(0, max) : "");
@@ -132,7 +130,108 @@ function parseItems(raw: unknown): Item[] | null {
   return items;
 }
 
-function buildHtml(title: string, property: string, items: Item[]): string {
+// ── Event attachments (single-event emails) ────────────────────────────────
+// The files are read server-side from the event document (read with the caller's own token) and attached to the
+// email: images are resized and shown inline, PDFs / Word / Excel are attached as they are.
+const STORAGE_PREFIX = `https://firebasestorage.googleapis.com/v0/b/${FIREBASE_PROJECT_ID}.firebasestorage.app/o/scheduleEvents%2F`;
+const MAX_ATTACH_TOTAL = 2.6 * 1024 * 1024; // raw bytes — base64 + body must stay under Graph's ~4 MB request limit
+const MAX_SOURCE_BYTES = 30 * 1024 * 1024;
+const MIME: Record<string, string> = {
+  pdf: "application/pdf",
+  doc: "application/msword",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  xls: "application/vnd.ms-excel",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
+
+type EmailAtt = { name: string; contentType: string; bytes: Buffer; inlineId?: string };
+type FsAtt = { mapValue?: { fields?: { url?: { stringValue?: string }; name?: { stringValue?: string } } } };
+
+async function loadEventAttachments(idToken: string, eventId: string): Promise<{ atts: EmailAtt[]; skipped: string[] }> {
+  const atts: EmailAtt[] = [];
+  const skipped: string[] = [];
+  const docRes = await fetch(
+    `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/scheduleEvents/${eventId}`,
+    { headers: { Authorization: `Bearer ${idToken}` } },
+  );
+  if (!docRes.ok) return { atts, skipped: ["attachments (could not be read)"] };
+  const doc = (await docRes.json()) as { fields?: { attachments?: { arrayValue?: { values?: FsAtt[] } } } };
+  const list = (doc.fields?.attachments?.arrayValue?.values || []).slice(0, 10);
+
+  const files = await Promise.all(
+    list.map(async (a, i) => {
+      const f = a.mapValue?.fields;
+      const url = f?.url?.stringValue || "";
+      const name = (f?.name?.stringValue || `file-${i + 1}`).slice(0, 120);
+      if (!url.startsWith(STORAGE_PREFIX)) return { name, bytes: null as Buffer | null, why: "unsupported location" };
+      try {
+        const r = await fetch(url, { signal: AbortSignal.timeout(20000) });
+        if (!r.ok) return { name, bytes: null, why: "could not be loaded" };
+        if (Number(r.headers.get("content-length") || 0) > MAX_SOURCE_BYTES) return { name, bytes: null, why: "too large" };
+        return { name, bytes: Buffer.from(await r.arrayBuffer()), why: "" };
+      } catch {
+        return { name, bytes: null, why: "could not be loaded" };
+      }
+    }),
+  );
+
+  const prepared: EmailAtt[] = [];
+  for (const file of files) {
+    if (!file.bytes) {
+      skipped.push(`${file.name} (${file.why})`);
+      continue;
+    }
+    const ext = (file.name.split(".").pop() || "").toLowerCase();
+    if (/^(png|jpe?g|gif|webp)$/.test(ext)) {
+      try {
+        const bytes = await sharp(file.bytes)
+          .rotate()
+          .resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true })
+          .flatten({ background: "#ffffff" })
+          .jpeg({ quality: 78 })
+          .toBuffer();
+        prepared.push({ name: file.name.replace(/\.[^.]+$/, "") + ".jpg", contentType: "image/jpeg", bytes });
+      } catch {
+        skipped.push(`${file.name} (not a readable image)`);
+      }
+    } else {
+      prepared.push({ name: file.name, contentType: MIME[ext] || "application/octet-stream", bytes: file.bytes });
+    }
+  }
+
+  // Images first (they show inline), then the other files; stop adding once the size budget is used up
+  prepared.sort((a, b) => Number(!!b.contentType.startsWith("image/")) - Number(!!a.contentType.startsWith("image/")));
+  let total = 0;
+  let n = 0;
+  for (const a of prepared) {
+    if (total + a.bytes.length > MAX_ATTACH_TOTAL) {
+      skipped.push(`${a.name} (too large to attach)`);
+      continue;
+    }
+    total += a.bytes.length;
+    atts.push(a.contentType.startsWith("image/") ? { ...a, inlineId: `img${n++}` } : a);
+  }
+  return { atts, skipped };
+}
+
+function attachmentsHtml(atts: EmailAtt[], skipped: string[]): string {
+  if (!atts.length && !skipped.length) return "";
+  const images = atts
+    .filter((a) => a.inlineId)
+    .map(
+      (a) => `<div style="margin:12px 0"><div style="font-size:12px;color:#667;margin-bottom:4px">${escapeHtml(a.name)}</div>
+        <img src="cid:${a.inlineId}" alt="${escapeHtml(a.name)}" style="max-width:100%;border:1px solid #ddd;border-radius:4px"></div>`,
+    )
+    .join("");
+  const files = atts.filter((a) => !a.inlineId);
+  return `
+    <h3 style="font-size:14px;margin:24px 0 6px;padding-bottom:4px;border-bottom:1px solid #1e3a6e;color:#1e3a6e">Attachments</h3>
+    ${images}
+    ${files.length ? `<p style="font-size:13px;margin:10px 0 4px">Attached files:</p><ul style="font-size:13px;margin:0">${files.map((a) => `<li>${escapeHtml(a.name)}</li>`).join("")}</ul>` : ""}
+    ${skipped.length ? `<p style="font-size:12px;color:#b45309;margin-top:10px">Not attached: ${skipped.map(escapeHtml).join("; ")}</p>` : ""}`;
+}
+
+function buildHtml(title: string, property: string, items: Item[], extraHtml = ""): string {
   const byDate = new Map<string, Item[]>();
   [...items]
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time || "99").localeCompare(b.time || "99"))
@@ -168,6 +267,7 @@ function buildHtml(title: string, property: string, items: Item[]): string {
       </td>
     </tr></table>
     ${days}
+    ${extraHtml}
     <p style="margin-top:28px;font-size:18px;font-weight:bold;color:#1a2b45">For more information - <a href="${CLIENT_PORTAL_URL}" style="color:#1e3a6e;text-decoration:underline">Click Here</a> to log into Client Portal</p>
     <p style="margin-top:16px;font-size:11px;color:#889">Sent by OMNI Management · (212) 460-5000 · info@omnipropm.com</p>
   </div>`;
@@ -219,7 +319,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // The licensed Microsoft 365 mailbox that sends (info@omnipropm.com).
   const mailbox = process.env.NAMECHEAP_EMAIL;
 
+  // Single-event emails: attach the event's files (read from the event document, not from the request)
+  const eventId = typeof body.eventId === "string" && /^[A-Za-z0-9]{10,40}$/.test(body.eventId) ? body.eventId : "";
+
   try {
+    let atts: EmailAtt[] = [];
+    let skipped: string[] = [];
+    if (eventId) {
+      try {
+        ({ atts, skipped } = await loadEventAttachments(idToken, eventId));
+      } catch (error) {
+        console.error("Attachment load error:", error);
+        skipped = ["attachments (could not be loaded)"];
+      }
+    }
+
     const token = await getGraphToken();
 
     const graphRes = await fetch(
@@ -230,8 +344,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         body: JSON.stringify({
           message: {
             subject: `Work Schedule — ${propertyName} — ${periodTitle}`,
-            body: { contentType: "HTML", content: buildHtml(periodTitle, propertyName, items) },
+            body: { contentType: "HTML", content: buildHtml(periodTitle, propertyName, items, attachmentsHtml(atts, skipped)) },
             toRecipients: recipients.map((address) => ({ emailAddress: { address } })),
+            ...(atts.length
+              ? {
+                  attachments: atts.map((a) => ({
+                    "@odata.type": "#microsoft.graph.fileAttachment",
+                    name: a.name,
+                    contentType: a.contentType,
+                    contentBytes: a.bytes.toString("base64"),
+                    ...(a.inlineId ? { isInline: true, contentId: a.inlineId } : {}),
+                  })),
+                }
+              : {}),
           },
           saveToSentItems: true,
         }),
@@ -243,7 +368,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Graph sendMail failed (${graphRes.status}): ${detail}`);
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, attached: atts.length, skipped });
   } catch (error) {
     console.error("Schedule email error:", error);
     return res.status(500).json({ error: "Failed to send email" });
