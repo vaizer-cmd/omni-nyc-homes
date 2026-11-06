@@ -283,6 +283,22 @@
   }
   .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+  .quick-row { display: flex; justify-content: center; margin: -4px 0 28px; }
+  .btn-quick {
+    font-family: 'DM Sans', sans-serif;
+    background: white;
+    color: var(--navy);
+    border: 2px solid var(--gold);
+    padding: 13px 34px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+  }
+  .btn-quick:hover { background: var(--gold); color: white; transform: translateY(-1px); }
+  .btn-quick:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
   /* Status banner */
   .status {
     display: none;
@@ -313,6 +329,7 @@
     .grid-2 { grid-template-columns: 1fr; }
     .col-span-2 { grid-column: span 1; }
     .submit-row { flex-direction: column; align-items: stretch; }
+    .quick-row .btn-quick { width: 100%; }
   }
 </style>
 </head>
@@ -449,6 +466,11 @@
       </div>
     </div>
 
+    <!-- Quick send: all required fields are in sections 1-3 -->
+    <div class="quick-row">
+      <button type="button" class="btn-quick" id="quickBtn" data-key="quickBtn">Send Details Quickly →</button>
+    </div>
+
     <!-- 4. Previous Employment -->
     <div class="section">
       <div class="section-header">
@@ -456,7 +478,7 @@
         <div class="section-title">Previous Employment</div>
       </div>
       <div class="section-body">
-        <p style="font-size:13px; color:var(--light); margin-bottom:20px;"><span data-key="prevNote">List your two most recent employers, starting with the most recent.</span></p>
+        <p style="font-size:13px; color:var(--light); margin-bottom:20px;"><span data-key="prevNote">Tell us about your most recent employer.</span></p>
 
         <div class="employer-card">
           <div class="employer-card-title"><span data-key="recentEmp">Most Recent Employer</span></div>
@@ -503,154 +525,13 @@
           </div>
         </div>
 
-        <div class="employer-card">
-          <div class="employer-card-title"><span data-key="prevEmp">Previous Employer</span></div>
-          <div class="grid-2">
-            <div class="field">
-              <label>Company / Building Name</label>
-              <input type="text" name="emp2_company" placeholder="e.g. XYZ Properties">
-            </div>
-            <div class="field">
-              <label>Your Job Title</label>
-              <input type="text" name="emp2_title" placeholder="e.g. Maintenance, Super, Janitor">
-            </div>
-            <div class="field">
-              <label>Supervisor's Name</label>
-              <input type="text" name="emp2_supname" placeholder="Full name">
-            </div>
-            <div class="field">
-              <label>Supervisor's Phone</label>
-              <input type="tel" name="emp2_supphone" placeholder="(212) 000-0000">
-            </div>
-            <div class="field">
-              <label>Start Date</label>
-              <input type="month" name="emp2_start">
-            </div>
-            <div class="field">
-              <label>End Date</label>
-              <input type="month" name="emp2_end">
-            </div>
-            <div class="field col-span-2">
-              <label>Reason for Leaving</label>
-              <input type="text" name="emp2_reason" placeholder="e.g. End of contract, seeking better opportunity...">
-            </div>
-            <div class="field col-span-2">
-              <label>Main Duties</label>
-              <textarea name="emp2_duties" placeholder="Briefly describe what you did in this job..."></textarea>
-            </div>
-            <div class="field">
-              <label>May We Contact This Employer?</label>
-              <div class="radio-group">
-                <label class="radio-pill"><input type="radio" name="emp2_contact" value="Yes"> Yes</label>
-                <label class="radio-pill"><input type="radio" name="emp2_contact" value="Not Yet"> Not Yet</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- 5. Skills -->
+    <!-- 5. Additional Information -->
     <div class="section">
       <div class="section-header">
         <div class="section-num">5</div>
-        <div class="section-title">Skills &amp; Experience</div>
-      </div>
-      <div class="section-body">
-        <div class="field" style="margin-bottom:18px">
-          <label data-key="cleanExp">Cleaning Experience</label>
-          <div class="check-group">
-            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Apartments / Units"> Apartments / Units</label>
-            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Common Areas / Hallways"> Common Areas / Hallways</label>
-            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Commercial / Office"> Commercial / Office</label>
-            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Laundry Rooms"> Laundry Rooms</label>
-            <label class="check-pill"><input type="checkbox" name="cleanexp" value="Outdoor / Grounds"> Outdoor / Grounds</label>
-          </div>
-        </div>
-        <div class="field" style="margin-bottom:18px">
-          <label data-key="maintSkills">Maintenance Skills</label>
-          <div class="check-group">
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="Plumbing (basic)"> Plumbing (basic)</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="Electrical (basic)"> Electrical (basic)</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="Painting"> Painting</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="Carpentry"> Carpentry</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="HVAC"> HVAC</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="Appliance Repair"> Appliance Repair</label>
-            <label class="check-pill"><input type="checkbox" name="maintskills" value="General Repairs"> General Repairs</label>
-          </div>
-        </div>
-        <div class="field">
-          <label data-key="driverLic">Valid NYS Driver's License?</label>
-          <div class="radio-group">
-            <label class="radio-pill"><input type="radio" name="driver" value="Yes"> Yes</label>
-            <label class="radio-pill"><input type="radio" name="driver" value="No"> No</label>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 6. References -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">6</div>
-        <div class="section-title">References</div>
-      </div>
-      <div class="section-body">
-        <p style="font-size:13px; color:var(--light); margin-bottom:20px;"><span data-key="refNote">Please provide two people who can speak to your work. Do not list family members.</span></p>
-
-        <div class="employer-card">
-          <div class="employer-card-title"><span data-key="ref1">Reference 1</span></div>
-          <div class="grid-2">
-            <div class="field">
-              <label>Full Name</label>
-              <input type="text" name="ref1_name" placeholder="Full name">
-            </div>
-            <div class="field">
-              <label>Relationship to You</label>
-              <input type="text" name="ref1_rel" placeholder="e.g. Former supervisor, coworker">
-            </div>
-            <div class="field">
-              <label>Phone Number</label>
-              <input type="tel" name="ref1_phone" placeholder="(212) 000-0000">
-            </div>
-            <div class="field">
-              <label>Email (optional)</label>
-              <input type="email" name="ref1_email" placeholder="email@example.com">
-            </div>
-          </div>
-        </div>
-
-        <div class="employer-card">
-          <div class="employer-card-title"><span data-key="ref2">Reference 2</span></div>
-          <div class="grid-2">
-            <div class="field">
-              <label>Full Name</label>
-              <input type="text" name="ref2_name" placeholder="Full name">
-            </div>
-            <div class="field">
-              <label>Relationship to You</label>
-              <input type="text" name="ref2_rel" placeholder="e.g. Former supervisor, coworker">
-            </div>
-            <div class="field">
-              <label>Phone Number</label>
-              <input type="tel" name="ref2_phone" placeholder="(212) 000-0000">
-            </div>
-            <div class="field">
-              <label>Email (optional)</label>
-              <input type="email" name="ref2_email" placeholder="email@example.com">
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 6.5 Additional Information -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-num">7</div>
         <div class="section-title" data-key="addInfoTitle">Additional Information</div>
       </div>
       <div class="section-body">
@@ -665,10 +546,10 @@
       </div>
     </div>
 
-    <!-- 7. Upload -->
+    <!-- 6. Upload -->
     <div class="section">
       <div class="section-header">
-        <div class="section-num">8</div>
+        <div class="section-num">6</div>
       </div>
       <div class="section-body">
         <div class="upload-area">
@@ -710,7 +591,7 @@ const translations = {
     pageSubtitle: "Cleaning Staff & Maintenance · OMNI Management · New York, NY",
     notice: "📋 Please complete all sections as fully as possible. All information will be kept confidential and used for hiring purposes only.",
     s1title: "Personal Information", s2title: "Position Applied For", s3title: "Work Authorization",
-    s4title: "Previous Employment", s5title: "Skills & Experience", s6title: "References",
+    s4title: "Previous Employment",
     s7title: "Documents (Optional)",
     fname: "First Name", lname: "Last Name", phone: "Phone Number", email: "Email Address", address: "Home Address",
     applyFor: "I am applying for", porter: "🧹 Porter", maintenance: "🔧 Maintenance Worker", both: "Both",
@@ -719,18 +600,15 @@ const translations = {
     authQ: "Are you legally authorized to work in the United States?",
     authStatus: "Work Authorization Status",
     citizen: "U.S. Citizen", greencard: "Permanent Resident (Green Card)", visa: "Work Visa", ead: "EAD / Work Permit", other: "Other",
-    prevNote: "List your two most recent employers, starting with the most recent.",
-    recentEmp: "Most Recent Employer", prevEmp: "Previous Employer",
+    prevNote: "Tell us about your most recent employer.",
+    recentEmp: "Most Recent Employer",
     companyName: "Company / Building Name", jobTitle: "Your Job Title", supName: "Supervisor's Name",
     supPhone: "Supervisor's Phone", startD: "Start Date", endD: "End Date",
     reasonLeave: "Reason for Leaving", duties: "Main Duties", contactEmp: "May We Contact This Employer?",
     yes: "Yes", no: "No", notYet: "Not Yet",
-    cleanExp: "Cleaning Experience", maintSkills: "Maintenance Skills", languages: "Languages Spoken",
-    driverLic: "Valid NYS Driver's License?",
+    languages: "Languages Spoken",
     tradeLicQ: "Do you hold a NYC Trade License?",
     licDetails: "License Details", licType: "License Type(s)", licNum: "License Number", licExp: "Expiration Date", licDetail: "Additional Details",
-    refNote: "Please provide two people who can speak to your work. Do not list family members.",
-    ref1: "Reference 1", ref2: "Reference 2", refName: "Full Name", relationship: "Relationship to You",
     uploadText: "Upload a resume or any relevant document",
     addInfoTitle: "Additional Information",
     whyUsLabel: "Why do you want to work with OMNI Management?",
@@ -740,6 +618,7 @@ const translations = {
     reqFields: "Fields marked",
     reqFields2: "are required",
     submit: "Submit Application →",
+    quickBtn: "Send Details Quickly →",
     submitting: "Submitting…",
     successMsg: "✅ Thank you! Your application has been submitted. We'll be in touch if there's a good fit.",
     errorMsg: "⚠️ Something went wrong submitting your application. Please try again, or email info@omnipropm.com.",
@@ -751,7 +630,7 @@ const translations = {
     pageSubtitle: "Personal de Limpieza y Mantenimiento · OMNI Management · New York, NY",
     notice: "📋 Por favor complete todas las secciones lo más detalladamente posible. Toda la información será tratada de manera confidencial.",
     s1title: "Información Personal", s2title: "Puesto Solicitado", s3title: "Autorización de Trabajo",
-    s4title: "Empleos Anteriores", s5title: "Habilidades y Experiencia", s6title: "Referencias",
+    s4title: "Empleos Anteriores",
     s7title: "Documentos (Opcional)",
     fname: "Nombre", lname: "Apellido", phone: "Teléfono", email: "Correo Electrónico", address: "Dirección",
     applyFor: "Estoy solicitando el puesto de", porter: "🧹 Porter (Limpieza)", maintenance: "🔧 Mantenimiento", both: "Ambos",
@@ -760,18 +639,15 @@ const translations = {
     authQ: "¿Está legalmente autorizado para trabajar en los Estados Unidos?",
     authStatus: "Estado de Autorización de Trabajo",
     citizen: "Ciudadano/a Americano/a", greencard: "Residente Permanente (Green Card)", visa: "Visa de Trabajo", ead: "EAD / Permiso de Trabajo", other: "Otro",
-    prevNote: "Indique sus dos empleos más recientes, comenzando con el más reciente.",
-    recentEmp: "Empleo Más Reciente", prevEmp: "Empleo Anterior",
+    prevNote: "Cuéntenos sobre su empleo más reciente.",
+    recentEmp: "Empleo Más Reciente",
     companyName: "Empresa / Nombre del Edificio", jobTitle: "Su Puesto", supName: "Nombre del Supervisor",
     supPhone: "Teléfono del Supervisor", startD: "Fecha de Inicio", endD: "Fecha de Fin",
     reasonLeave: "Motivo de Salida", duties: "Principales Responsabilidades", contactEmp: "¿Podemos Contactar a Este Empleador?",
     yes: "Sí", no: "No", notYet: "Aún No",
-    cleanExp: "Experiencia en Limpieza", maintSkills: "Habilidades de Mantenimiento", languages: "Idiomas que Habla",
-    driverLic: "¿Tiene Licencia de Conducir de NY?",
+    languages: "Idiomas que Habla",
     tradeLicQ: "¿Tiene una Licencia de Oficio de la Ciudad de Nueva York?",
     licDetails: "Detalles de la Licencia", licType: "Tipo(s) de Licencia", licNum: "Número de Licencia", licExp: "Fecha de Vencimiento", licDetail: "Detalles Adicionales",
-    refNote: "Proporcione dos personas que puedan hablar sobre su trabajo. No incluya familiares.",
-    ref1: "Referencia 1", ref2: "Referencia 2", refName: "Nombre Completo", relationship: "Relación con Usted",
     uploadText: "Suba un currículum u otro documento relevante",
     addInfoTitle: "Información Adicional",
     whyUsLabel: "¿Por qué desea trabajar con OMNI Management?",
@@ -781,6 +657,7 @@ const translations = {
     reqFields: "Los campos marcados con",
     reqFields2: "son obligatorios",
     submit: "Enviar Solicitud →",
+    quickBtn: "Enviar Datos Rápido →",
     submitting: "Enviando…",
     successMsg: "✅ ¡Gracias! Su solicitud ha sido enviada. Nos pondremos en contacto si hay una buena oportunidad.",
     errorMsg: "⚠️ Ocurrió un error al enviar su solicitud. Inténtelo de nuevo o escriba a info@omnipropm.com.",
@@ -792,7 +669,7 @@ const translations = {
     pageSubtitle: "Уборщик / Обслуживающий персонал · OMNI Management · Нью-Йорк",
     notice: "📋 Пожалуйста, заполните все разделы как можно полнее. Вся информация будет храниться конфиденциально.",
     s1title: "Личные данные", s2title: "Желаемая должность", s3title: "Право на работу",
-    s4title: "Предыдущие места работы", s5title: "Навыки и опыт", s6title: "Рекомендации",
+    s4title: "Предыдущие места работы",
     s7title: "Документы (необязательно)",
     fname: "Имя", lname: "Фамилия", phone: "Номер телефона", email: "Электронная почта", address: "Адрес проживания",
     applyFor: "Я претендую на должность", porter: "🧹 Портье / Уборщик", maintenance: "🔧 Специалист по обслуживанию", both: "Обе должности",
@@ -801,16 +678,13 @@ const translations = {
     authQ: "Имеете ли вы законное право работать в США?",
     authStatus: "Статус права на работу",
     citizen: "Гражданин США", greencard: "Постоянный житель (Green Card)", visa: "Рабочая виза", ead: "EAD / Разрешение на работу", other: "Другое",
-    prevNote: "Укажите два последних места работы, начиная с самого недавнего.",
-    recentEmp: "Последнее место работы", prevEmp: "Предыдущее место работы",
+    prevNote: "Расскажите о вашем последнем месте работы.",
+    recentEmp: "Последнее место работы",
     companyName: "Компания / Здание", jobTitle: "Ваша должность", supName: "Имя руководителя",
     supPhone: "Телефон руководителя", startD: "Дата начала", endD: "Дата окончания",
     reasonLeave: "Причина увольнения", duties: "Основные обязанности", contactEmp: "Можем ли мы связаться с этим работодателем?",
     yes: "Да", no: "Нет", notYet: "Пока нет",
-    cleanExp: "Опыт уборки", maintSkills: "Технические навыки", languages: "Языки",
-    driverLic: "Действующие водительские права штата Нью-Йорк?",
-    refNote: "Укажите двух человек, которые могут охарактеризовать вашу работу. Родственники не принимаются.",
-    ref1: "Рекомендатель 1", ref2: "Рекомендатель 2", refName: "Полное имя", relationship: "Ваши отношения",
+    languages: "Языки",
     uploadText: "Загрузите резюме или любой другой документ",
     addInfoTitle: "Дополнительная информация",
     whyUsLabel: "Почему вы хотите работать в OMNI Management?",
@@ -820,6 +694,7 @@ const translations = {
     reqFields: "Поля, отмеченные",
     reqFields2: "обязательны для заполнения",
     submit: "Отправить заявку →",
+    quickBtn: "Быстрая отправка данных →",
     submitting: "Отправка…",
     successMsg: "✅ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами при наличии подходящей вакансии.",
     errorMsg: "⚠️ При отправке заявки произошла ошибка. Повторите попытку или напишите на info@omnipropm.com.",
@@ -831,7 +706,7 @@ const translations = {
     pageSubtitle: "Прибиральник / Технічний персонал · OMNI Management · Нью-Йорк",
     notice: "📋 Будь ласка, заповніть усі розділи якомога повніше. Уся інформація зберігатиметься конфіденційно.",
     s1title: "Особисті дані", s2title: "Бажана посада", s3title: "Право на працевлаштування",
-    s4title: "Попередні місця роботи", s5title: "Навички та досвід", s6title: "Рекомендації",
+    s4title: "Попередні місця роботи",
     s7title: "Документи (необов'язково)",
     fname: "Ім'я", lname: "Прізвище", phone: "Номер телефону", email: "Електронна пошта", address: "Адреса проживання",
     applyFor: "Я претендую на посаду", porter: "🧹 Портьє / Прибиральник", maintenance: "🔧 Технічний спеціаліст", both: "Обидві посади",
@@ -840,16 +715,13 @@ const translations = {
     authQ: "Чи маєте ви законне право працювати в США?",
     authStatus: "Статус права на роботу",
     citizen: "Громадянин США", greencard: "Постійний резидент (Green Card)", visa: "Робоча віза", ead: "EAD / Дозвіл на роботу", other: "Інше",
-    prevNote: "Вкажіть два останніх місця роботи, починаючи з найновішого.",
-    recentEmp: "Останнє місце роботи", prevEmp: "Попереднє місце роботи",
+    prevNote: "Розкажіть про ваше останнє місце роботи.",
+    recentEmp: "Останнє місце роботи",
     companyName: "Компанія / Будівля", jobTitle: "Ваша посада", supName: "Ім'я керівника",
     supPhone: "Телефон керівника", startD: "Дата початку", endD: "Дата закінчення",
     reasonLeave: "Причина звільнення", duties: "Основні обов'язки", contactEmp: "Чи можемо ми зв'язатися з цим роботодавцем?",
     yes: "Так", no: "Ні", notYet: "Ще ні",
-    cleanExp: "Досвід прибирання", maintSkills: "Технічні навички", languages: "Мови",
-    driverLic: "Дійсне водійське посвідчення штату Нью-Йорк?",
-    refNote: "Вкажіть двох осіб, які можуть охарактеризувати вашу роботу. Родичі не приймаються.",
-    ref1: "Рекомендатор 1", ref2: "Рекомендатор 2", refName: "Повне ім'я", relationship: "Ваші стосунки",
+    languages: "Мови",
     uploadText: "Завантажте резюме або будь-який інший документ",
     addInfoTitle: "Додаткова інформація",
     whyUsLabel: "Чому ви хочете працювати в OMNI Management?",
@@ -859,6 +731,7 @@ const translations = {
     reqFields: "Поля, позначені",
     reqFields2: "є обов'язковими",
     submit: "Надіслати заявку →",
+    quickBtn: "Швидке надсилання даних →",
     submitting: "Надсилання…",
     successMsg: "✅ Дякуємо! Вашу заявку надіслано. Ми зв'яжемося з вами за наявності підходящої вакансії.",
     errorMsg: "⚠️ Під час надсилання заявки сталася помилка. Спробуйте ще раз або напишіть на info@omnipropm.com.",
@@ -870,7 +743,7 @@ const translations = {
     pageSubtitle: "დამლაგებელი / ტექნიკური პერსონალი · OMNI Management · ნიუ-იორკი",
     notice: "📋 გთხოვთ, შეავსოთ ყველა განყოფილება რაც შეიძლება სრულად. ყველა ინფორმაცია კონფიდენციალური იქნება.",
     s1title: "პირადი ინფორმაცია", s2title: "სასურველი პოზიცია", s3title: "სამუშაო ნებართვა",
-    s4title: "წინა სამუშაო გამოცდილება", s5title: "უნარები და გამოცდილება", s6title: "რეკომენდაციები",
+    s4title: "წინა სამუშაო გამოცდილება",
     s7title: "დოკუმენტები (არასავალდებულო)",
     fname: "სახელი", lname: "გვარი", phone: "ტელეფონის ნომერი", email: "ელ. ფოსტა", address: "საცხოვრებელი მისამართი",
     applyFor: "მე ვაცხადებ პოზიციაზე", porter: "🧹 პორტიე / დამლაგებელი", maintenance: "🔧 ტექნიკური სპეციალისტი", both: "ორივე პოზიცია",
@@ -879,16 +752,13 @@ const translations = {
     authQ: "გაქვთ კანონიერი უფლება იმუშაოთ აშშ-ში?",
     authStatus: "სამუშაო ნებართვის სტატუსი",
     citizen: "აშშ-ის მოქალაქე", greencard: "მუდმივი რეზიდენტი (Green Card)", visa: "სამუშაო ვიზა", ead: "EAD / სამუშაო ნებართვა", other: "სხვა",
-    prevNote: "მიუთითეთ ბოლო ორი სამუშაო ადგილი, უახლესიდან დაწყებული.",
-    recentEmp: "ბოლო სამუშაო ადგილი", prevEmp: "წინა სამუშაო ადგილი",
+    prevNote: "მოგვიყევით თქვენი ბოლო სამუშაო ადგილის შესახებ.",
+    recentEmp: "ბოლო სამუშაო ადგილი",
     companyName: "კომპანია / შენობა", jobTitle: "თქვენი პოზიცია", supName: "ხელმძღვანელის სახელი",
     supPhone: "ხელმძღვანელის ტელეფონი", startD: "დაწყების თარიღი", endD: "დასრულების თარიღი",
     reasonLeave: "წასვლის მიზეზი", duties: "ძირითადი მოვალეობები", contactEmp: "შეგვიძლია დავუკავშირდეთ ამ დამსაქმებელს?",
     yes: "კი", no: "არა", notYet: "ჯერ არა",
-    cleanExp: "დასუფთავების გამოცდილება", maintSkills: "ტექნიკური უნარები", languages: "ენები",
-    driverLic: "მოქმედი ნიუ-იორკის მართვის მოწმობა?",
-    refNote: "მიუთითეთ ორი პირი, ვინც შეძლებს დაახასიათოს თქვენი მუშაობა. ოჯახის წევრები არ მიიღება.",
-    ref1: "რეკომენდატორი 1", ref2: "რეკომენდატორი 2", refName: "სრული სახელი", relationship: "ურთიერთობა",
+    languages: "ენები",
     uploadText: "ატვირთეთ რეზიუმე ან სხვა შესაბამისი დოკუმენტი",
     addInfoTitle: "დამატებითი ინფორმაცია",
     whyUsLabel: "რატომ გსურთ იმუშაოთ OMNI Management-ში?",
@@ -898,6 +768,7 @@ const translations = {
     reqFields: "ველები, რომლებიც მონიშნულია",
     reqFields2: "სავალდებულოა",
     submit: "განაცხადის გაგზავნა →",
+    quickBtn: "მონაცემების სწრაფი გაგზავნა →",
     submitting: "იგზავნება…",
     successMsg: "✅ გმადლობთ! თქვენი განაცხადი გაიგზავნა. დაგიკავშირდებით, თუ შესაბამისი ვაკანსია იქნება.",
     errorMsg: "⚠️ განაცხადის გაგზავნისას მოხდა შეცდომა. სცადეთ ხელახლა ან მოგვწერეთ info@omnipropm.com.",
@@ -920,7 +791,7 @@ function setLang(lang) {
 
   // Section titles
   const titles = document.querySelectorAll('.section-title');
-  const titleKeys = ['s1title','s2title','s3title','s4title','s5title','s6title','addInfoTitle','s7title'];
+  const titleKeys = ['s1title','s2title','s3title','s4title','addInfoTitle','s7title'];
   titles.forEach((el,i) => { if(titleKeys[i]) el.textContent = t[titleKeys[i]]; });
 
   // Labels by data-key
@@ -951,6 +822,7 @@ function setLang(lang) {
 const form = document.getElementById('appForm');
 const statusEl = document.getElementById('status');
 const submitBtn = form.querySelector('.btn-submit');
+const quickBtn = document.getElementById('quickBtn');
 const fileInput = document.getElementById('resume');
 const fileNameEl = document.getElementById('resumeName');
 const MAX_FILE_BYTES = 3 * 1024 * 1024;
@@ -1022,34 +894,6 @@ function buildSections() {
       skill('Main Duties', val('emp1_duties')),
       skill('May We Contact?', radioText('emp1_contact')),
     ]},
-    { title: 'Previous Employment — Previous Employer', fields: [
-      skill('Company / Building Name', val('emp2_company')),
-      skill('Job Title', val('emp2_title')),
-      skill("Supervisor's Name", val('emp2_supname')),
-      skill("Supervisor's Phone", val('emp2_supphone')),
-      skill('Start Date', val('emp2_start')),
-      skill('End Date', val('emp2_end')),
-      skill('Reason for Leaving', val('emp2_reason')),
-      skill('Main Duties', val('emp2_duties')),
-      skill('May We Contact?', radioText('emp2_contact')),
-    ]},
-    { title: 'Skills & Experience', fields: [
-      skill('Cleaning Experience', checksText('cleanexp')),
-      skill('Maintenance Skills', checksText('maintskills')),
-      skill("Valid NYS Driver's License", radioText('driver')),
-    ]},
-    { title: 'References — Reference 1', fields: [
-      skill('Full Name', val('ref1_name')),
-      skill('Relationship', val('ref1_rel')),
-      skill('Phone Number', val('ref1_phone')),
-      skill('Email', val('ref1_email')),
-    ]},
-    { title: 'References — Reference 2', fields: [
-      skill('Full Name', val('ref2_name')),
-      skill('Relationship', val('ref2_rel')),
-      skill('Phone Number', val('ref2_phone')),
-      skill('Email', val('ref2_email')),
-    ]},
     { title: 'Additional Information', fields: [
       skill('Why OMNI Management?', val('whyus')),
       skill('Anything Else', val('anythingelse')),
@@ -1057,8 +901,7 @@ function buildSections() {
   ];
 }
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+async function sendApplication(trigger) {
   const t = translations[currentLang];
 
   // Required: first name, last name, phone, position, employment type,
@@ -1078,7 +921,8 @@ form.addEventListener('submit', async (e) => {
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = t.submitting;
+  quickBtn.disabled = true;
+  trigger.textContent = t.submitting;
 
   try {
     let resume = null;
@@ -1116,10 +960,19 @@ form.addEventListener('submit', async (e) => {
   } catch (err) {
     showStatus('err', t.errorMsg);
   } finally {
+    const now = translations[currentLang];
     submitBtn.disabled = false;
-    submitBtn.textContent = t.submit;
+    quickBtn.disabled = false;
+    submitBtn.textContent = now.submit;
+    quickBtn.textContent = now.quickBtn;
   }
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  sendApplication(submitBtn);
 });
+quickBtn.addEventListener('click', () => sendApplication(quickBtn));
 </script>
 </body>
 </html>

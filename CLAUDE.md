@@ -76,7 +76,7 @@ api/
 | `/quickquote` | `src/pages/QuickQuote.tsx` | Standalone branded quick-quote card (no navbar/footer; logo + navy/gold). Fields: name, organization, phone*, email*, message (only phone and email required). Posts to `/api/quickquote` |
 | `*` | `src/pages/NotFound.tsx` | 404 page |
 
-**Jobs form** is **not** a React route — it's the standalone static page `public/jobs.html` (own styling, 5-language switcher EN/ES/RU/UK/KA, no navbar/footer). Served at the root of the `jobs.omnipropm.com` subdomain and at `/jobs` on the main site, via host/path rewrites in `vercel.json`. It posts to `/api/apply`.
+**Jobs form** is **not** a React route — it's the standalone static page `public/jobs.html` (own styling, 5-language switcher EN/ES/RU/UK/KA, no navbar/footer). Sections: 1 Personal Information, 2 Position, 3 Work Authorization, a **Send Details Quickly** button (submits whatever is filled in; all required fields live in sections 1–3), 4 Previous Employment (most recent employer only), 5 Additional Information, 6 Upload. Every visible string is translated in the `translations` object in all 5 languages — add new text to all five. Served at the root of the `jobs.omnipropm.com` subdomain and at `/jobs` on the main site, via host/path rewrites in `vercel.json`. It posts to `/api/apply`.
 
 ## Commands
 
