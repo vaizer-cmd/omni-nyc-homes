@@ -231,7 +231,7 @@ function attachmentsHtml(atts: EmailAtt[], skipped: string[]): string {
     ${skipped.length ? `<p style="font-size:12px;color:#b45309;margin-top:10px">Not attached: ${skipped.map(escapeHtml).join("; ")}</p>` : ""}`;
 }
 
-function buildHtml(title: string, property: string, items: Item[], extraHtml = ""): string {
+function buildHtml(title: string, property: string, items: Item[], extraHtml = "", docTitle = "Work Schedule"): string {
   const byDate = new Map<string, Item[]>();
   [...items]
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time || "99").localeCompare(b.time || "99"))
@@ -261,7 +261,7 @@ function buildHtml(title: string, property: string, items: Item[], extraHtml = "
     <table style="width:100%;border-bottom:3px solid #1e3a6e;margin-bottom:8px"><tr>
       <td><img src="${LOGO_URL}" alt="OMNI Management" style="height:60px;width:auto"></td>
       <td style="text-align:right">
-        <div style="font-size:20px;font-weight:bold">Work Schedule</div>
+        <div style="font-size:20px;font-weight:bold">${escapeHtml(docTitle)}</div>
         <div style="font-size:14px;font-weight:bold;margin-top:4px">Property: ${escapeHtml(property)}</div>
         <div style="font-size:12px;color:#667;margin-top:2px">${escapeHtml(title)}</div>
       </td>
@@ -315,6 +315,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const periodTitle = str(title, 100);
   if (!items || !periodTitle) return res.status(400).json({ error: "Invalid schedule data" });
   const propertyName = str(property, 100) || "2443 Poplar St.";
+  // Heading / subject word: "Work Schedule" (default) or e.g. "Work Order"
+  const docTitle = str(body.docTitle, 40) || "Work Schedule";
+
+  // Optional ready-made PDF (the app's work-order PDF) attached to the email — admin-only like the rest of this endpoint
+  let pdfAtt: EmailAtt | null = null;
+  if (body.pdf) {
+    const pdfIn = body.pdf as { name?: unknown; data?: unknown };
+    const pname = typeof pdfIn.name === "string" ? pdfIn.name.trim() : "";
+    const data = typeof pdfIn.data === "string" ? pdfIn.data : "";
+    if (!/^[\w .()-]{1,100}\.pdf$/i.test(pname) || !data || data.length > 3_600_000 || !/^[A-Za-z0-9+/]+={0,2}$/.test(data)) {
+      return res.status(400).json({ error: "Invalid PDF attachment" });
+    }
+    const bytes = Buffer.from(data, "base64");
+    if (bytes.subarray(0, 5).toString("latin1") !== "%PDF-") return res.status(400).json({ error: "Invalid PDF attachment" });
+    pdfAtt = { name: pname, contentType: "application/pdf", bytes };
+  }
 
   // The licensed Microsoft 365 mailbox that sends (info@omnipropm.com).
   const mailbox = process.env.NAMECHEAP_EMAIL;
@@ -334,6 +350,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
+    const allAtts = pdfAtt ? [...atts, pdfAtt] : atts;
     const token = await getGraphToken();
 
     const graphRes = await fetch(
@@ -343,12 +360,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           message: {
-            subject: `Work Schedule — ${propertyName} — ${periodTitle}`,
-            body: { contentType: "HTML", content: buildHtml(periodTitle, propertyName, items, attachmentsHtml(atts, skipped)) },
+            subject: `${docTitle} — ${propertyName} — ${periodTitle}`,
+            body: { contentType: "HTML", content: buildHtml(periodTitle, propertyName, items, attachmentsHtml(atts, skipped), docTitle) },
             toRecipients: recipients.map((address) => ({ emailAddress: { address } })),
-            ...(atts.length
+            ...(allAtts.length
               ? {
-                  attachments: atts.map((a) => ({
+                  attachments: allAtts.map((a) => ({
                     "@odata.type": "#microsoft.graph.fileAttachment",
                     name: a.name,
                     contentType: a.contentType,
@@ -368,7 +385,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Graph sendMail failed (${graphRes.status}): ${detail}`);
     }
 
-    return res.status(200).json({ success: true, attached: atts.length, skipped });
+    return res.status(200).json({ success: true, attached: allAtts.length, skipped });
   } catch (error) {
     console.error("Schedule email error:", error);
     return res.status(500).json({ error: "Failed to send email" });
