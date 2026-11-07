@@ -307,8 +307,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const recipients = (Array.isArray(to) ? to : typeof to === "string" ? [to] : [])
     .map((e) => (typeof e === "string" ? e.trim() : ""))
     .filter(Boolean);
-  if (recipients.length < 1 || recipients.length > 5 || recipients.some((e) => e.length > 200 || !isValidEmail(e))) {
-    return res.status(400).json({ error: "Enter 1–5 valid email addresses" });
+  if (recipients.length < 1 || recipients.length > 8 || recipients.some((e) => e.length > 200 || !isValidEmail(e))) {
+    return res.status(400).json({ error: "Enter 1–8 valid email addresses" });
   }
 
   const items = parseItems(body.items);
