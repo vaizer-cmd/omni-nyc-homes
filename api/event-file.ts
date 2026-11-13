@@ -18,7 +18,10 @@ const ALLOWED_ORIGINS = [
   "https://omni-management-81ded.firebaseapp.com",
 ];
 const MAX_SOURCE_BYTES = 30 * 1024 * 1024;
-const MAX_PDF_BYTES = 4.2 * 1024 * 1024; // Vercel functions can return at most ~4.5 MB
+const MAX_PDF_BYTES = 4.2 * 1024 * 1024; // Vercel functions can return at most ~4.5 MB per response
+// Bigger PDFs are sent in pieces: the app asks for `offset` 0, 3.5 MB, 7 MB… and joins them (each piece stays under the limit)
+const CHUNK_BYTES = 3.5 * 1024 * 1024;
+const MAX_PDF_TOTAL = 25 * 1024 * 1024;
 
 // 120 files per 10 minutes per user (in-memory, per warm instance)
 const rateLimitMap = new Map<string, number[]>();
@@ -44,17 +47,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.setHeader("Vary", "Origin");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Expose-Headers", "X-File-Size");
   }
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   if (!ALLOWED_ORIGINS.includes(origin)) return res.status(403).json({ error: "Forbidden" });
 
   const body = req.body && typeof req.body === "object" ? req.body : {};
-  const { idToken, eventId, index } = body as Record<string, unknown>;
+  const { idToken, eventId, index, offset } = body as Record<string, unknown>;
 
   if (typeof idToken !== "string" || idToken.length > 4000) return res.status(401).json({ error: "Not signed in" });
   if (typeof eventId !== "string" || !/^[A-Za-z0-9]{10,40}$/.test(eventId)) return res.status(400).json({ error: "Invalid event" });
   if (typeof index !== "number" || !Number.isInteger(index) || index < 0 || index > 49) return res.status(400).json({ error: "Invalid file index" });
+  if (offset !== undefined && (typeof offset !== "number" || !Number.isInteger(offset) || offset < 0 || offset > MAX_PDF_TOTAL)) {
+    return res.status(400).json({ error: "Invalid offset" });
+  }
 
   let uid: string | undefined;
   try {
@@ -84,6 +91,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const isImage = /\.(png|jpe?g|gif|webp)$/i.test(name);
     const isPdf = /\.pdf$/i.test(name);
     if (!isImage && !isPdf) return res.status(415).json({ error: "Only images and PDFs can be included" });
+
+    // PDF in pieces (new app versions send `offset`): read just this slice from Storage and tell the app the full size
+    if (isPdf && typeof offset === "number") {
+      const rangeRes = await fetch(url, {
+        headers: { Range: `bytes=${offset}-${offset + CHUNK_BYTES - 1}` },
+        signal: AbortSignal.timeout(25000),
+      });
+      if (rangeRes.status === 416) return res.status(400).json({ error: "Invalid offset" });
+      if (!rangeRes.ok) throw new Error(`Storage fetch failed (${rangeRes.status})`);
+      const got = Buffer.from(await rangeRes.arrayBuffer());
+      let total: number;
+      let chunk: Buffer;
+      if (rangeRes.status === 206) {
+        const m = /\/(\d+)\s*$/.exec(rangeRes.headers.get("content-range") || "");
+        if (!m) throw new Error("Storage did not report the file size");
+        total = Number(m[1]);
+        chunk = got;
+      } else {
+        // Storage ignored the Range header and sent the whole file — cut the slice ourselves
+        total = got.length;
+        chunk = got.subarray(offset, offset + CHUNK_BYTES);
+      }
+      if (total > MAX_PDF_TOTAL) return res.status(413).json({ error: "PDF is over 25 MB — too large to include" });
+      if (offset >= total || chunk.length === 0) return res.status(400).json({ error: "Invalid offset" });
+      if (offset === 0 && chunk.subarray(0, 5).toString("latin1") !== "%PDF-") return res.status(415).json({ error: "Not a valid PDF" });
+      res.setHeader("Cache-Control", "private, no-store");
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("X-File-Size", String(total));
+      return res.status(200).send(chunk);
+    }
 
     const fileRes = await fetch(url, { signal: AbortSignal.timeout(25000) });
     if (!fileRes.ok) throw new Error(`Storage fetch failed (${fileRes.status})`);

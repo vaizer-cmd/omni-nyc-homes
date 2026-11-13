@@ -317,6 +317,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const propertyName = str(property, 100) || "2443 Poplar St.";
   // Heading / subject word: "Work Schedule" (default) or e.g. "Work Order"
   const docTitle = str(body.docTitle, 40) || "Work Schedule";
+  // Subject line built by the app (one line, max 150 chars); falls back to the original format if absent
+  const subjectIn = str(body.subject, 150).replace(/[\u0000-\u001f\u007f]+/g, " ").trim();
 
   // Optional ready-made PDF (the app's work-order PDF) attached to the email — admin-only like the rest of this endpoint
   let pdfAtt: EmailAtt | null = null;
@@ -360,7 +362,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           message: {
-            subject: `${docTitle} — ${propertyName} — ${periodTitle}`,
+            subject: subjectIn || `${docTitle} — ${propertyName} — ${periodTitle}`,
             body: { contentType: "HTML", content: buildHtml(periodTitle, propertyName, items, attachmentsHtml(atts, skipped), docTitle) },
             toRecipients: recipients.map((address) => ({ emailAddress: { address } })),
             ...(allAtts.length
